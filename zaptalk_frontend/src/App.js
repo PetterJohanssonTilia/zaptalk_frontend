@@ -6,7 +6,7 @@ import MoviesPage from './components/MoviesPage';
 import ProfilePage from './components/ProfilePage';
 import FeedPage from './components/FeedPage';
 import LoginPage from './components/LoginPage';
-import NavBar from './components/NavBar';
+import NavBar from './components/Navbar/NavBar';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
