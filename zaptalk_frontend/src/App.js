@@ -16,13 +16,9 @@ function App() {
     <Router>
       <div>
         <NavBar />
-
-        <h1>My Movie List</h1>
-        <MovieList />
-        
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/movies" element={<MoviesPage />} />
+          <Route path="/movies" element={<MovieList />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/login" element={<LoginPage />} />

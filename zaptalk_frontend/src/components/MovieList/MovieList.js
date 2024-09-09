@@ -14,12 +14,12 @@ function MovieList() {
     try {
       console.log(`Frontend: Fetching movies for page ${page}...`);
       const response = await api.get('movies/', {
-        params: { page: page, limit: 24 }
+        params: { page: page }
       });
       console.log('Frontend: Response:', response.data);
-      const newMovies = response.data;
+      const newMovies = response.data.results; // Access the 'results' array
       setMovies(prevMovies => [...prevMovies, ...newMovies]);
-      setHasMore(newMovies.length > 0);
+      setHasMore(response.data.next !== null); // Check if there's a next page
     } catch (error) {
       console.error('Frontend: Error fetching movies:', error.response || error);
     }
@@ -42,19 +42,23 @@ function MovieList() {
   }, [page]);
 
   return (
-    <div className="movie-grid">
-      {movies.map((movie, index) => (
-        <div 
-          key={movie.id} 
-          ref={index === movies.length - 1 ? lastMovieElementRef : null}
-          className="movie-card"
-        >
-          <img src={movie.thumbnail} alt={movie.title} />
-          <h3>{movie.title}</h3>
-          {/* Add more movie info here */}
-        </div>
-      ))}
+    <div>
+      <h1>Movies (Page: {page}, Total: {movies.length})</h1>
+      <div className="movie-grid">
+        {movies.map((movie, index) => (
+          <div 
+            key={movie.id} 
+            ref={index === movies.length - 1 ? lastMovieElementRef : null}
+            className="movie-card"
+          >
+            <img src={movie.thumbnail} alt={movie.title} />
+            <h3>{movie.title}</h3>
+            {/* Add more movie info here */}
+          </div>
+        ))}
+      </div>
       {loading && <p>Loading...</p>}
+      {!hasMore && <p>No more movies to load.</p>}
     </div>
   );
 }
