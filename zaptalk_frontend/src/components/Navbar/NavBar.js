@@ -9,7 +9,7 @@ function NavBar() {
   return (
     <Navbar expand="lg" className="custom-navbar">
       <Container>
-        <Navbar.Brand href="#home">Logo</Navbar.Brand>
+      <Link to="/home" className="nav-link">Logo</Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">

@@ -7,6 +7,7 @@ import ProfilePage from './components/ProfilePage';
 import FeedPage from './components/FeedPage';
 import LoginPage from './components/LoginPage';
 import NavBar from './components/Navbar/NavBar';
+import MovieList from './components/MovieList/MovieList';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -16,7 +17,9 @@ function App() {
       <div>
         <NavBar />
 
-
+        <h1>My Movie List</h1>
+        <MovieList />
+        
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MoviesPage />} />
