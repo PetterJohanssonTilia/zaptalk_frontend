@@ -1,7 +1,7 @@
 import React from 'react';
 
 function ProfilePage() {
-  return <h1>ProfileP age</h1>;
+  return <h1>Profile Page</h1>;
 }
 
 export default ProfilePage;

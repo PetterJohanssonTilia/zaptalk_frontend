@@ -15,7 +15,7 @@ function LoginPage() {
       // Store the token in localStorage
       localStorage.setItem('token', response.data.access);
       // Redirect to new page
-      window.location.href = '/movies';
+      window.location.href = '/home';
     } catch (error) {
       console.error('Login failed:', error);
       if (error.response) {
