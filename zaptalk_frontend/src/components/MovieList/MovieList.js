@@ -63,7 +63,7 @@ function MovieList() {
       <div className="movie-grid">
         {movies.map((movie, index) => (
           <div 
-            key={movie.id} 
+            key={`${movie.id}-${index}`}
             ref={index === movies.length - 1 ? lastMovieElementRef : null}
             className="movie-card"
           >
