@@ -8,6 +8,7 @@ import FeedPage from './components/FeedPage';
 import LoginPage from './components/LoginPage';
 import NavBar from './components/Navbar/NavBar';
 import MovieList from './components/MovieList/MovieList';
+import MovieDetail from './components/MovieDetail/MovieDetail';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/movies" element={<MovieList />} />
+          <Route path="/movie/:id" element={<MovieDetail />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/login" element={<LoginPage />} />

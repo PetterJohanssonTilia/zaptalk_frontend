@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../api/axios';
 import './MovieList.css';
 
@@ -17,13 +18,28 @@ function MovieList() {
         params: { page: page }
       });
       console.log('Frontend: Response:', response.data);
-      const newMovies = response.data.results; // Access the 'results' array
+      const newMovies = response.data.results;
       setMovies(prevMovies => [...prevMovies, ...newMovies]);
-      setHasMore(response.data.next !== null); // Check if there's a next page
+      setHasMore(response.data.next !== null);
     } catch (error) {
       console.error('Frontend: Error fetching movies:', error.response || error);
     }
     setLoading(false);
+  };
+
+  const handleLike = async (movieId) => {
+    try {
+      const response = await api.post(`movies/${movieId}/like/`);
+      setMovies(prevMovies =>
+        prevMovies.map(movie =>
+          movie.id === movieId
+            ? { ...movie, likes_count: response.data.likes_count }
+            : movie
+        )
+      );
+    } catch (error) {
+      console.error('Error liking movie:', error);
+    }
   };
 
   const lastMovieElementRef = useCallback(node => {
@@ -51,9 +67,12 @@ function MovieList() {
             ref={index === movies.length - 1 ? lastMovieElementRef : null}
             className="movie-card"
           >
-            <img src={movie.thumbnail} alt={movie.title} />
-            <h3>{movie.title}</h3>
-            {/* Add more movie info here */}
+            <Link to={`/movie/${movie.id}`}>
+              <img src={movie.thumbnail} alt={movie.title} />
+              <h3>{movie.title}</h3>
+            </Link>
+            <p>Likes: {movie.likes_count}</p>
+            <button onClick={() => handleLike(movie.id)}>Like</button>
           </div>
         ))}
       </div>
