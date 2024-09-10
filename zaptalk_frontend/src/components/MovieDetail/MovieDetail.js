@@ -23,18 +23,14 @@ function MovieDetail() {
 
   const handleLike = async () => {
     try {
-      const response = await api.post(`likes/toggle_like/`, { movie_id: id });
-      if (response.data.is_like) {
-        setMovie(prevMovie => ({
-          ...prevMovie,
-          likes_count: (prevMovie.likes_count || 0) + 1
-        }));
-      } else {
-        setMovie(prevMovie => ({
-          ...prevMovie,
-          likes_count: Math.max((prevMovie.likes_count || 0) - 1, 0)
-        }));
-      }
+      const response = await api.post(`likes/toggle_like/`, {
+        content_type: 'movie',
+        object_id: id
+      });
+      setMovie(prevMovie => ({
+        ...prevMovie,
+        likes_count: response.data.likes_count
+      }));
     } catch (error) {
       console.error('Error liking movie:', error);
       setError('Failed to like the movie. Please try again.');
@@ -50,7 +46,7 @@ function MovieDetail() {
       <img src={movie.thumbnail} alt={movie.title} />
       <p>Year: {movie.year}</p>
       <p>Genres: {movie.genres.join(', ')}</p>
-      <p>Likes: {movie.likes_count || 0}</p>
+      <p>Likes: {movie.likes_count}</p>
       <button onClick={handleLike}>Like</button>
       <p>{movie.extract}</p>
     </div>
