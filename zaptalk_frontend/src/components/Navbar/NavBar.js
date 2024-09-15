@@ -23,7 +23,7 @@ function NavBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Link to="/movies" className="nav-link">Movies</Link>
-            <Link to="/profile" className="nav-link">Profiles</Link>
+            <Link to="/profiles" className="nav-link">Profiles</Link>
             <Link to="/feed" className="nav-link">Feed</Link>
             {isLoggedIn ? (
               <Nav.Link onClick={handleLogout}>Logout</Nav.Link>

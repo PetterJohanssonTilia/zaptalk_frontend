@@ -3,7 +3,9 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import { AuthProvider } from '../src/components/AuthContext/AuthContext';
+import Registration from './components/UserRegistration/UserRegistration';
 import ProfilePage from './components/ProfilePage';
+import ProfileList from './components/ProfileList/ProfileList'
 import FeedPage from './components/FeedPage';
 import LoginPage from './components/LoginPage';
 import NavBar from './components/Navbar/NavBar';
@@ -22,7 +24,9 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/movies" element={<MovieList />} />
               <Route path="/movie/:id" element={<MovieDetail />} />
-              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/register" element={<Registration />} />
+              <Route path="/profiles" element={<ProfileList />} />
+              <Route path="/profile/:username" element={<ProfilePage />} />
               <Route path="/feed" element={<FeedPage />} />
               <Route path="/login" element={<LoginPage />} />
             </Routes>
