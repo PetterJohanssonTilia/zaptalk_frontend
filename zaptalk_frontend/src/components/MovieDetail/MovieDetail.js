@@ -171,6 +171,36 @@ function MovieDetail() {
     }
   };
 
+  const handleLikeComment = async (commentId) => {
+    try {
+      const response = await api.post('likes/toggle_like/', {
+        content_type: 'comment',
+        object_id: commentId
+      }, {
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        }
+      });
+
+      if (response.status === 200) {
+        setComments(prevComments =>
+          prevComments.map(comment =>
+            comment.id === commentId
+              ? {
+                  ...comment,
+                  likes_count: response.data.likes_count,
+                  is_liked_by_user: response.data.is_liked
+                }
+              : comment
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error toggling like:', error);
+      setError('Failed to like/unlike comment. Please try again.');
+    }
+  };
+
   if (isLoading) return <div>Loading...</div>;
   if (!movie) return <div>Movie not found</div>;
 
@@ -205,6 +235,14 @@ function MovieDetail() {
                     <>
                       <p><strong>{comment.user.username}</strong>: {comment.content}</p>
                       <small>Posted on: {new Date(comment.created_at).toLocaleString()}</small>
+                      <div>
+                        {currentUserProfile && currentUserProfile.username !== comment.user.username && (
+                          <button onClick={() => handleLikeComment(comment.id)}>
+                            {comment.is_liked_by_user ? 'Unlike' : 'Like'}
+                          </button>
+                        )}
+                        <span> {comment.likes_count} likes</span>
+                      </div>
                       {/* NEW: Add edit and delete buttons for user's own comments */}
                       {console.log('Rendering comment:', comment)}
                       {console.log('Current user profile in render:', currentUserProfile)}
