@@ -6,6 +6,7 @@ import { AuthProvider } from '../src/components/AuthContext/AuthContext';
 import Registration from './components/UserRegistration/UserRegistration';
 import ProfilePage from './components/ProfilePage';
 import ProfileList from './components/ProfileList/ProfileList'
+import EditProfile from './components/EditProfile/EditProfile';
 import FeedPage from './components/FeedPage';
 import LoginPage from './components/LoginPage';
 import NavBar from './components/Navbar/NavBar';
@@ -27,6 +28,7 @@ function App() {
               <Route path="/register" element={<Registration />} />
               <Route path="/profiles" element={<ProfileList />} />
               <Route path="/profile/:username" element={<ProfilePage />} />
+              <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/feed" element={<FeedPage />} />
               <Route path="/login" element={<LoginPage />} />
             </Routes>

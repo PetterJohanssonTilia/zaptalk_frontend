@@ -28,11 +28,6 @@ function ProfilePage() {
     fetchProfile();
   }, [username]);
 
-  const getAvatarUrl = (publicId) => {
-    if (!publicId) return DEFAULT_AVATAR;
-    return `https://res.cloudinary.com/dumvsoykz/image/upload/c_thumb,g_face,h_200,w_200/${publicId}`;
-  };
-
   const handleFollowToggle = async () => {
     try {
       if (isFollowing) {
@@ -60,7 +55,7 @@ function ProfilePage() {
         <div className="p-4 sm:p-6 md:p-8">
           <div className="flex items-center mb-6">
             <img
-              src={getAvatarUrl(profile.avatar)}
+              src={profile.avatar || DEFAULT_AVATAR}
               alt={`${profile.username}'s avatar`}
               className="w-24 h-24 rounded-full object-cover mr-6"
             />

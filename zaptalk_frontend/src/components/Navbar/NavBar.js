@@ -1,14 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext/AuthContext';
+import api from '../../api/axios';
 import './NavBar.css';
 
 function NavBar() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+  const [userProfile, setUserProfile] = useState(null);
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetchUserProfile();
+    }
+  }, [isLoggedIn]);
+
+  const fetchUserProfile = async () => {
+    try {
+      const response = await api.get('profiles/me/', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      setUserProfile(response.data);
+    } catch (error) {
+      console.error('Error fetching user profile:', error);
+    }
+  };
 
   const handleLogout = () => {
     logout();
@@ -26,7 +45,17 @@ function NavBar() {
             <Link to="/profiles" className="nav-link">Profiles</Link>
             <Link to="/feed" className="nav-link">Feed</Link>
             {isLoggedIn ? (
-              <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              <>
+                <Link to="/edit-profile" className="nav-link">
+                  <img 
+                    src={userProfile?.avatar || '/path/to/default/avatar.png'} 
+                    alt="User Avatar" 
+                    style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
+                  />
+                  Edit Profile
+                </Link>
+                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
+              </>
             ) : (
               <Link to="/login" className="nav-link">Login</Link>
             )}
