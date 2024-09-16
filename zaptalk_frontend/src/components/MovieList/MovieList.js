@@ -15,7 +15,8 @@ function MovieList() {
     try {
       console.log(`Frontend: Fetching movies for page ${page}...`);
       const response = await api.get('movies/', {
-        params: { page: page }
+        params: { page: page },
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
       console.log('Frontend: Response:', response.data);
       const newMovies = response.data.results;
@@ -29,16 +30,26 @@ function MovieList() {
 
   const handleLike = async (movieId) => {
     try {
-      const response = await api.post(`movies/${movieId}/like/`);
+      const response = await api.post('likes/toggle_like/', {
+        content_type: 'movie',
+        object_id: movieId
+      }, {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+
       setMovies(prevMovies =>
         prevMovies.map(movie =>
           movie.id === movieId
-            ? { ...movie, likes_count: response.data.likes_count }
+            ? { 
+                ...movie, 
+                likes_count: response.data.likes_count,
+                is_liked_by_user: response.data.is_liked
+              }
             : movie
         )
       );
     } catch (error) {
-      console.error('Error liking movie:', error);
+      console.error('Error toggling like for movie:', error);
     }
   };
 
@@ -72,7 +83,9 @@ function MovieList() {
               <h3>{movie.title}</h3>
             </Link>
             <p>Likes: {movie.likes_count}</p>
-            <button onClick={() => handleLike(movie.id)}>Like</button>
+            <button onClick={() => handleLike(movie.id)}>
+              {movie.is_liked_by_user ? 'Unlike' : 'Like'}
+            </button>
           </div>
         ))}
       </div>
