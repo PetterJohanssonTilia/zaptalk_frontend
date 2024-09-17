@@ -31,19 +31,19 @@ function ProfilePage() {
   }, [username]);
 
   const handleFollowToggle = async () => {
+    if (!profile) return;
+
     try {
-      if (isFollowing) {
-        await api.post(`profiles/${username}/unfollow/`);
-        setIsFollowing(false);
-        setProfile(prev => ({ ...prev, followers_count: prev.followers_count - 1 }));
-      } else {
-        await api.post(`profiles/${username}/follow/`);
-        setIsFollowing(true);
-        setProfile(prev => ({ ...prev, followers_count: prev.followers_count + 1 }));
-      }
+      const response = await api.post(`profiles/${profile.id}/follow/`);
+      setIsFollowing(!isFollowing);
+      setProfile(prev => ({
+        ...prev,
+        followers_count: isFollowing ? prev.followers_count - 1 : prev.followers_count + 1,
+        is_following: !isFollowing
+      }));
     } catch (err) {
       console.error('Error toggling follow status:', err);
-      // You might want to show an error message to the user here
+      setError('Failed to update follow status: ' + (err.response?.data?.detail || err.message));
     }
   };
 
