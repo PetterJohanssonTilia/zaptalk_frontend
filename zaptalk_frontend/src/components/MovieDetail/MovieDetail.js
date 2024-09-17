@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import api from '../../api/axios';
 
 const DEFAULT_AVATAR = 'https://res.cloudinary.com/dumvsoykz/image/upload/v1724754182/default_profile_yvdjcm.jpg';
@@ -235,15 +235,17 @@ function MovieDetail() {
                     </div>
                   ) : (
                     <>
-                      <img 
-                        src={comment.user.avatar || DEFAULT_AVATAR}  // Check if avatar exists
-                        alt={`${comment.user.username}'s avatar`} 
-                        className="w-12 h-12 rounded-full object-cover comment-avatar"
-                        onError={(e) => {
-                          console.error(`Error loading avatar for ${comment.user?.username}:`, e);
-                          e.target.src = DEFAULT_AVATAR;  // Fallback to default if image fails to load
-                        }}
-                      />
+                      <Link to={`/profile/${comment.user.username}`}>
+                        <img 
+                          src={comment.user.avatar || DEFAULT_AVATAR}  // Check if avatar exists
+                          alt={`${comment.user.username}'s avatar`} 
+                          className="w-12 h-12 rounded-full object-cover comment-avatar"
+                          onError={(e) => {
+                            console.error(`Error loading avatar for ${comment.user?.username}:`, e);
+                            e.target.src = DEFAULT_AVATAR;  // Fallback to default if image fails to load
+                          }}
+                        />
+                      </Link>
                       <p><strong>{comment.user.username}</strong>: {comment.content}</p>
                       <small>Posted on: {new Date(comment.created_at).toLocaleString()}</small>
                       <div>

@@ -13,18 +13,20 @@ function ProfilePage() {
 
   useEffect(() => {
     const fetchProfile = async () => {
+      setLoading(true);
+      setError(null);
       try {
         const response = await api.get(`profiles/${username}/`);
         setProfile(response.data);
         setIsFollowing(response.data.is_following);
-        setLoading(false);
       } catch (err) {
-        console.error('Error details:', err.response || err);
+        console.error('Error fetching profile:', err);
         setError('Failed to fetch profile: ' + (err.response?.data?.detail || err.message));
+      } finally {
         setLoading(false);
       }
     };
-  
+
     fetchProfile();
   }, [username]);
 

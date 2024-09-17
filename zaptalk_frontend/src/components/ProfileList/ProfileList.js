@@ -50,7 +50,7 @@ function ProfileList() {
             </div>
             <div className="profile-info">
               <Link 
-                to={`/profile/${profile.id}`}
+                to={`/profile/${profile.username}`}
                 className="text-lg font-semibold text-blue-600 hover:underline profile-username"
               >
                 {profile.username}
