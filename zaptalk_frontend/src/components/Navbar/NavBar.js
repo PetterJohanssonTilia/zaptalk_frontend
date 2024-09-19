@@ -23,7 +23,11 @@ function NavBar() {
       const response = await api.get('profiles/me/', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
       });
-      setUserProfile(response.data);
+      setUserProfile({
+        ...response.data,
+        is_superuser: response.data.is_superuser,
+        is_banned: response.data.is_banned
+      });
     } catch (error) {
       console.error('Error fetching user profile:', error);
     }
@@ -46,14 +50,21 @@ function NavBar() {
             <Link to="/feed" className="nav-link">Feed</Link>
             {isLoggedIn ? (
               <>
-                <Link to="/edit-profile" className="nav-link">
-                  <img 
-                    src={userProfile?.avatar || '/path/to/default/avatar.png'} 
-                    alt="User Avatar" 
-                    style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
-                  />
-                  Edit Profile
-                </Link>
+                {userProfile?.is_superuser && (
+                  <Link to="/bans" className="nav-link">Bans</Link>
+                )}
+                {userProfile?.is_banned ? (
+                  <Link to="/ban-appeal" className="nav-link">Ban Appeal</Link>
+                ) : (
+                  <Link to="/edit-profile" className="nav-link">
+                    <img 
+                      src={userProfile?.avatar || '/path/to/default/avatar.png'} 
+                      alt="User Avatar" 
+                      style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
+                    />
+                    Edit Profile
+                  </Link>
+                )}
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
               </>
             ) : (

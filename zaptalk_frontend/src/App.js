@@ -12,6 +12,7 @@ import LoginPage from './components/LoginPage';
 import NavBar from './components/Navbar/NavBar';
 import MovieList from './components/MovieList/MovieList';
 import MovieDetail from './components/MovieDetail/MovieDetail';
+import BansPage from './components/BansPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -31,6 +32,7 @@ function App() {
               <Route path="/edit-profile" element={<EditProfile />} />
               <Route path="/feed" element={<FeedPage />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/bans" element={<BansPage />} /> 
             </Routes>
         </Router>
       </AuthProvider>
