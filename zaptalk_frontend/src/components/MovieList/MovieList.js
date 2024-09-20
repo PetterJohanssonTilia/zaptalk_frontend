@@ -14,18 +14,24 @@ function MovieList() {
     setLoading(true);
     try {
       console.log(`Frontend: Fetching movies for page ${page}...`);
-      const response = await api.get('movies/', {
+      const response = await api.get('movies/', { 
         params: { page: page },
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { 'Authorization': undefined }  // Explicitly remove Authorization header
       });
       console.log('Frontend: Response:', response.data);
       const newMovies = response.data.results;
       setMovies(prevMovies => [...prevMovies, ...newMovies]);
       setHasMore(response.data.next !== null);
     } catch (error) {
-      console.error('Frontend: Error fetching movies:', error.response || error);
+      console.error('Frontend: Error fetching movies:', error);
+      if (error.response) {
+        console.error('Response data:', error.response.data);
+        console.error('Response status:', error.response.status);
+        console.error('Response headers:', error.response.headers);
+      }
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const handleLike = async (movieId) => {
