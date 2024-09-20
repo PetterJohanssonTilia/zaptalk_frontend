@@ -13,6 +13,7 @@ import NavBar from './components/Navbar/NavBar';
 import MovieList from './components/MovieList/MovieList';
 import MovieDetail from './components/MovieDetail/MovieDetail';
 import BansPage from './components/BansPage';
+import BanAppealPage from './components/BanAppealPage';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -33,6 +34,7 @@ function App() {
               <Route path="/feed" element={<FeedPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/bans" element={<BansPage />} /> 
+              <Route path="/ban-appeal" element={<BanAppealPage />} />
             </Routes>
         </Router>
       </AuthProvider>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext/AuthContext';
 
 function LoginPage() {
@@ -78,6 +78,9 @@ function LoginPage() {
         </div>
         <button type="submit">Login</button>
       </form>
+      <p>
+        Has your account been banned? <Link to="/ban-appeal">Click here to submit a ban appeal</Link>
+      </p>
     </div>
   );
 }

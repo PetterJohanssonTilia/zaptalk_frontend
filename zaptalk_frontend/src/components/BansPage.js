@@ -8,9 +8,11 @@ const BanPage = () => {
   const [reason, setReason] = useState('');
   const [message, setMessage] = useState('');
   const [bans, setBans] = useState([]);
+  const [appeals, setAppeals] = useState([]);
 
-  useEffect(() => {
+ useEffect(() => {
     fetchActiveBans();
+    fetchBanAppeals();
   }, []);
 
   const fetchActiveBans = async () => {
@@ -20,6 +22,16 @@ const BanPage = () => {
     } catch (error) {
       console.error('Error fetching active bans:', error.response?.data || error.message);
       setMessage('Failed to fetch active bans. Please try again.');
+    }
+  };
+
+  const fetchBanAppeals = async () => {
+    try {
+      const response = await api.get('ban-appeals/');
+      setAppeals(response.data);
+    } catch (error) {
+      console.error('Error fetching ban appeals:', error.response?.data || error.message);
+      setMessage('Failed to fetch ban appeals. Please try again.');
     }
   };
 
@@ -44,6 +56,18 @@ const BanPage = () => {
         console.error('Error message:', error.message);
         setMessage('An unexpected error occurred. Please try again.');
       }
+    }
+  };
+
+  const handleUnban = async (username) => {
+    try {
+      const response = await api.post('bans/unban_user/', { username });
+      setMessage(response.data.message);
+      fetchActiveBans();
+      fetchBanAppeals();
+    } catch (error) {
+      console.error('Error unbanning user:', error);
+      setMessage('Failed to unban user. Please try again.');
     }
   };
 
@@ -82,6 +106,18 @@ const BanPage = () => {
             <p>Reason: {ban.reason}</p>
             <p>Banned by: {ban.banned_by_username}</p>
             <p>Banned at: {new Date(ban.banned_at).toLocaleString()}</p>
+          </li>
+        ))}
+      </ul>
+
+      <h2>Ban Appeals</h2>
+      <ul>
+        {appeals.map((appeal) => (
+          <li key={appeal.id}>
+            <p>User: {appeal.user_username}</p>
+            <p>Email: {appeal.email}</p>
+            <p>Message: {appeal.content}</p>
+            <button onClick={() => handleUnban(appeal.user_username)}>Unban User</button>
           </li>
         ))}
       </ul>
