@@ -11,26 +11,8 @@ function FeedPage() {
   useEffect(() => {
     const fetchFeedItems = async () => {
       try {
-        const [commentsResponse, likesResponse] = await Promise.all([
-          api.get('comments/'),
-          api.get('likes/')
-        ]);
-
-        const comments = commentsResponse.data.map(comment => ({
-          ...comment,
-          type: 'comment'
-        }));
-
-        const likes = likesResponse.data.map(like => ({
-          ...like,
-          type: 'like'
-        }));
-
-        const combinedFeed = [...comments, ...likes].sort((a, b) => 
-          new Date(b.created_at) - new Date(a.created_at)
-        );
-
-        setFeedItems(combinedFeed);
+        const response = await api.get('profiles/feed/');
+        setFeedItems(response.data);
         setLoading(false);
       } catch (err) {
         console.error('Error details:', err.response || err);
