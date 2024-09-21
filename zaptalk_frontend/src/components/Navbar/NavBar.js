@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import Dropdown from 'react-bootstrap/Dropdown';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext/AuthContext';
 import api from '../../api/axios';
 import './NavBar.css';
+import zaptalklogo from '../../assets/zaptalklogo.webp';
 
 function NavBar() {
   const { isLoggedIn, logout } = useAuth();
@@ -41,36 +43,47 @@ function NavBar() {
   return (
     <Navbar expand="lg" className="custom-navbar">
       <Container>
-        <Link to="/home" className="nav-link">Logo</Link>
+        <Link to="/home" className="nav-link">
+          <img 
+            src={zaptalklogo} 
+            alt="Zaptalk Logo" 
+            className="logo" 
+            style={{ width: '100px', height: 'auto' }} 
+          />
+        </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Link to="/movies" className="nav-link">Movies</Link>
             <Link to="/profiles" className="nav-link">Profiles</Link>
             <Link to="/feed" className="nav-link">Feed</Link>
-            {isLoggedIn ? (
-              <>
-                {userProfile?.is_superuser && (
-                  <Link to="/bans" className="nav-link">Bans</Link>
-                )}
-                {userProfile?.is_banned ? (
-                  <Link to="/ban-appeal" className="nav-link">Ban Appeal</Link>
-                ) : (
-                  <Link to="/edit-profile" className="nav-link">
-                    <img 
-                      src={userProfile?.avatar || '/path/to/default/avatar.png'} 
-                      alt="User Avatar" 
-                      style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
-                    />
-                    Edit Profile
-                  </Link>
-                )}
-                <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-              </>
-            ) : (
-              <Link to="/login" className="nav-link">Login</Link>
-            )}
           </Nav>
+          {isLoggedIn && (
+            <Nav className="ms-auto">
+              <Dropdown align="end">
+                <Dropdown.Toggle as="a" className="nav-link" id="profile-dropdown">
+                  <img 
+                    src={userProfile?.avatar || '/path/to/default/avatar.png'} 
+                    alt="User Avatar" 
+                    style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
+                  />
+                  Profile
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to="/edit-profile">Profile</Dropdown.Item>
+                  {userProfile?.is_superuser && (
+                    <Dropdown.Item as={Link} to="/bans">Bans</Dropdown.Item>
+                  )}
+                  <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav>
+          )}
+          {!isLoggedIn && (
+            <Nav className="ms-auto">
+              <Link to="/login" className="nav-link">Login</Link>
+            </Nav>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

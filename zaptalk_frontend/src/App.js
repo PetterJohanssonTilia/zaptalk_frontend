@@ -1,4 +1,5 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import HomePage from './components/HomePage';
@@ -15,7 +16,6 @@ import MovieDetail from './components/MovieDetail/MovieDetail';
 import BansPage from './components/BansPage';
 import BanAppealPage from './components/BanAppealPage';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
