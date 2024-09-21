@@ -1,58 +1,66 @@
-/* profileList.css */
+
+body {
+  background-color: #181818;
+  color: #fff;
+}
 
 .profile-list {
-    padding: 1rem;
-  }
-  
-  .profile-list h1 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-  }
-  
-  .profile-list ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  .profile-list li {
-    background-color: white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    border-radius: 0.5rem;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-  }
-  
-  .profile-avatar {
-    width: 110px;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 0.25rem;
-    margin-right: 1rem;
-  }
-  
-  .profile-info {
-    flex-grow: 1;
-  }
-  
-  .profile-username {
-    font-size: 1.125rem;
-    font-weight: 600;
-    color: #3182ce;
-    text-decoration: none;
-  }
-  
-  .profile-username:hover {
-    text-decoration: underline;
-  }
-  
-  .profile-stats {
-    font-size: 0.875rem;
-    color: #4a5568;
-  }
-  
-  .profile-stats span {
-    margin-right: 1rem;
-  }
+  padding: 20px;
+}
+
+.profile-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.profile-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.1);
+}
+
+.avatar-container {
+  width: 106px;
+  height: 106px;
+  margin: 0 auto;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+}
+
+.profile-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.profile-username {
+  color: #fff !important;
+  font-size: 1.2rem !important;
+  font-weight: bold !important;
+  text-decoration: none;
+}
+
+.profile-username:hover {
+  text-decoration: underline;
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+/* Custom styles for dark theme */
+.bg-dark {
+  background-color: #343a40 !important;
+}
+
+.text-primary {
+  color: #fff !important;
+}
+
+.text-primary:hover {
+  color: #f8f9fa !important;
+}
