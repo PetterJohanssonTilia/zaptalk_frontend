@@ -44,7 +44,7 @@ function HomePage() {
           Discover the Golden Age of Cinema!
         </h1>
         <p className="lead text-white">
-          We got it all!
+          We have it all!
         </p>
       </div>
 

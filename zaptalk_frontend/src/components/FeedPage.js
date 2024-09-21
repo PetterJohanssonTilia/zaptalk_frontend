@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../api/axios';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
+import './FeedPage.css';
+import { ThumbsUp, MessageCircle } from 'lucide-react';
 
 function FeedPage() {
   const [feedItems, setFeedItems] = useState([]);
@@ -24,80 +26,63 @@ function FeedPage() {
     fetchFeedItems();
   }, []);
 
-  const MovieThumbnail = ({ src, alt }) => {
-    const [imageError, setImageError] = useState(false);
-
-    if (!src || imageError) {
-      return null;
-    }
-
-    return (
-      <img 
-        src={src}
-        alt={alt}
-        className="w-16 h-16 object-cover rounded mr-2"
-        onError={() => setImageError(true)}
-      />
-    );
-  };
-
   const renderFeedItem = (item) => {
-    let movieDetails = item.movie_details;
-    let movieTitle = item.type === 'like' ? item.movie_title : (movieDetails ? movieDetails.title : null);
-    
+    const formattedDate = format(parseISO(item.created_at), "MMM d, yyyy 'at' h:mm a");
+
     return (
-      <div key={`${item.type}-${item.id}`} className="bg-white p-4 mb-4 rounded-lg shadow flex">
-        <div className="flex-shrink-0 mr-4">
+      <li key={`${item.type}-${item.id}`} className="list-group-item d-flex align-items-center py-3">
+        <div className="d-flex flex-column align-items-center me-3 user-column">
           <img 
             src={item.user.avatar || '/default-avatar.png'} 
             alt={`${item.user.username}'s avatar`} 
-            className="w-12 h-12 rounded-full object-cover"
+            className="rounded-circle avatar"
           />
+          <Link to={`/profile/${item.user.username}`} className="text-decoration-none mt-2">
+            <span className="username">{item.user.username}</span>
+          </Link>
+          <small className="text-muted mt-1">{formattedDate}</small>
         </div>
-        <div className="flex-grow">
-          <div className="flex items-center mb-2">
-            <Link to={`/profile/${item.user.username}`} className="font-bold text-blue-600 hover:underline mr-2">
-              {item.user.username}
-            </Link>
-            <span className="text-gray-500">
-              {item.type === 'comment' ? 'commented on' : 'liked'}
-            </span>
-          </div>
-          {movieDetails && (
-            <div className="flex items-center mb-2">
-              <MovieThumbnail 
-                src={movieDetails.thumbnail}
-                alt={`${movieTitle} thumbnail`}
-              />
-              <Link to={`/movie/${movieDetails.id}`} className="font-bold text-blue-600 hover:underline">
-                {movieTitle}
-              </Link>
-            </div>
+        <div className="d-flex flex-column align-items-center justify-content-center action-column">
+          {item.type === 'comment' ? (
+            <>
+              <i className="bi bi-chat-square"></i>
+              <span><MessageCircle size={25} className="me-1" /></span>
+              <span className="action-text">Commented on</span>              
+            </>
+          ) : (
+            <>
+              <i className="bi bi-hand-thumbs-up"></i>
+              <span><span><ThumbsUp size={25} className="me-1" /></span></span>
+              <span className="action-text">Liked</span>              
+            </>
           )}
-          {item.type === 'comment' && (
-            <p className="mt-2">{item.content}</p>
-          )}
-          {item.type === 'like' && item.content_type === 'comment' && (
-            <p className="mt-2">Liked a comment: "{item.content_object.content}"</p>
-          )}
-          <p className="text-sm text-gray-500 mt-2">
-            {format(new Date(item.created_at), 'PPpp')}
-          </p>
         </div>
-      </div>
+        <div className="d-flex flex-column align-items-center ms-3 movie-column">
+          <img 
+            src={item.movie_details?.thumbnail || '/default-movie-thumbnail.png'} 
+            alt={`${item.movie_details?.title} thumbnail`}
+            className="rounded movie-thumbnail"
+          />
+          <Link to={`/movie/${item.movie_details?.id}`} className="text-decoration-none mt-2 text-center">
+            <span className="movie-title">{item.movie_details?.title}</span>
+          </Link>
+        </div>
+      </li>
     );
   };
 
   if (loading) return <div className="text-center p-4">Loading...</div>;
-  if (error) return <div className="text-center p-4 text-red-500">{error}</div>;
+  if (error) return <div className="text-center p-4 text-danger">{error}</div>;
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Feed</h1>
+    <div className="container py-4 feed-container">
+      <h1 className="mb-4">Feed</h1>
       {feedItems.length === 0 ? (
         <p>No feed items to display.</p>
       ) : (
-        feedItems.map(renderFeedItem)
+        <ul className="list-group">
+          {feedItems.map(renderFeedItem)}
+        </ul>
       )}
     </div>
   );
