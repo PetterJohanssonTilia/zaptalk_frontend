@@ -45,7 +45,7 @@ function MovieList() {
       const response = await api.get(url);
       console.log('Movies response:', response.data);
       const newMovies = response.data.results;
-      console.log('Number of movies:', newMovies.length);
+      console.log('Number of new movies:', newMovies.length);
       
       if (showFollowedLikes) {
         setFollowedLikesMovies(prevMovies => resetMovies ? newMovies : [...prevMovies, ...newMovies]);
@@ -61,11 +61,14 @@ function MovieList() {
     } finally {
       setLoading(false);
     }
-  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes, ]);
+  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes]);
 
   useEffect(() => {
+    setPage(1);
+    setMovies([]);
+    setFollowedLikesMovies([]);
     fetchMovies(true);
-  }, [selectedGenres, searchTerm, sortBy, showFollowedLikes, fetchMovies]);
+  }, [selectedGenres, searchTerm, sortBy, showFollowedLikes]);
   
   useEffect(() => {
     if (page > 1) {
@@ -85,20 +88,16 @@ function MovieList() {
     fetchGenres();
   }, []);
 
-
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    setPage(1);
   };
 
+  const handleGenreChange = (event) => {
+    setSelectedGenres(event.target.value ? [event.target.value] : []);
+  };
 
   const toggleFollowedLikes = () => {
     setShowFollowedLikes(prev => !prev);
-    setPage(1);
-    if (!showFollowedLikes) {
-      setFollowedLikesMovies([]); // Clear existing followed likes movies
-      fetchMovies(true); // Fetch followed likes movies
-    }
   };
 
   const handleMovieClick = (movieId) => {
@@ -106,9 +105,9 @@ function MovieList() {
   };
 
   return (
-    <div className="container movie-list-container">
+    <div className="container-fluid movie-list-container">
       <h1 className="text-center mb-4">Movies</h1>
-      <div className="row justify-content-center">
+      <div className="row justify-content-center mb-4">
         <div className="col-12 col-md-8 col-lg-6">
           <input 
             type="text" 
@@ -120,25 +119,25 @@ function MovieList() {
           <div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
             <button 
               onClick={() => setSortBy('most_liked')} 
-              className={`btn btn-outline-primary ${sortBy === 'most_liked' ? 'active' : ''}`}
+              className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'active' : ''}`}
             >
               Most Liked
             </button>
             <button 
               onClick={() => setSortBy('most_commented')} 
-              className={`btn btn-outline-primary ${sortBy === 'most_commented' ? 'active' : ''}`}
+              className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'active' : ''}`}
             >
               Most Commented
             </button>
             <button 
               onClick={toggleFollowedLikes} 
-              className={`btn btn-outline-primary ${showFollowedLikes ? 'active' : ''}`}
+              className={`btn btn-outline-light ${showFollowedLikes ? 'active' : ''}`}
             >
-              Your Friends' Favorite Movies
+              Friends favorites
             </button>
             <select 
-              onChange={(e) => setSelectedGenres(e.target.value ? [e.target.value] : [])}
-              className="form-select"
+              onChange={handleGenreChange}
+              className="form-select bg-dark text-white"
             >
               <option value="">Genres</option>
               {genres.map(genre => (
@@ -151,17 +150,17 @@ function MovieList() {
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+      <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
         {(showFollowedLikes ? followedLikesMovies : movies).map((movie, index) => (
           <div key={movie.id} className="col">
             <div 
-              className="card h-100" 
+              className="card h-100 bg-dark text-white movie-card" 
               onClick={() => handleMovieClick(movie.id)}
               ref={index === (showFollowedLikes ? followedLikesMovies.length : movies.length) - 1 ? lastMovieElementRef : null}
             >
               <img src={movie.thumbnail} className="card-img-top" alt={movie.title} style={{height: '200px', objectFit: 'cover'}} />
               <div className="card-body">
-                <h5 className="card-title text-center">{movie.title}</h5>
+                <h5 className="card-title text-center movie-title">{movie.title}</h5>
                 <div className="d-flex justify-content-center gap-3">
                   <span className="d-flex align-items-center">
                     <ThumbsUp size={16} className="me-1" />
