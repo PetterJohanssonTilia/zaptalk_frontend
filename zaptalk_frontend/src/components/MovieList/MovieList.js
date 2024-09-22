@@ -116,7 +116,16 @@ function MovieList() {
             onChange={handleSearchChange}
             className="form-control mb-3"
           />
-          <div className="d-flex flex-wrap justify-content-center gap-2 mb-3">
+          <select 
+            onChange={handleGenreChange}
+            className="form-select bg-dark text-white"
+          >
+            <option value="">Genres</option>
+            {genres.map(genre => (
+              <option key={genre} value={genre}>{genre}</option>
+            ))}
+          </select>
+          <div className="d-flex flex-wrap justify-content-center gap-5 mb-3 mt-3">
             <button 
               onClick={() => setSortBy('most_liked')} 
               className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'active' : ''}`}
@@ -135,15 +144,6 @@ function MovieList() {
             >
               Friends favorites
             </button>
-            <select 
-              onChange={handleGenreChange}
-              className="form-select bg-dark text-white"
-            >
-              <option value="">Genres</option>
-              {genres.map(genre => (
-                <option key={genre} value={genre}>{genre}</option>
-              ))}
-            </select>
           </div>
         </div>
       </div>
