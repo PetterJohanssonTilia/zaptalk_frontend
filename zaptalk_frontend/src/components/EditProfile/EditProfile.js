@@ -14,6 +14,7 @@ function EditProfile() {
   const [avatar, setAvatar] = useState(null);
   const [following, setFollowing] = useState([]);
   const [error, setError] = useState('');
+  const [updateSuccess, setUpdateSuccess] = useState(false);
   const navigate = useNavigate();
   const { logout, user } = useAuth();
   const { username: profileUsername } = useParams();
@@ -36,6 +37,10 @@ function EditProfile() {
 
     loadProfileAndFollowing();
   }, [profileUsername]);
+
+  useEffect(() => {
+    setUpdateSuccess(false);
+  }, []);
 
   const fetchFollowing = async (username) => {
     try {
@@ -62,9 +67,10 @@ function EditProfile() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      navigate('/edit-profile');
+      setUpdateSuccess(true);
     } catch (error) {
       console.error('Error updating profile:', error.response?.data || error);
+      setError('Failed to update profile. Please try again.');
     }
   };
 
@@ -94,7 +100,6 @@ function EditProfile() {
   return (
     <div className="container mx-auto p-4">
       <div className="row">
-        {/* Edit Profile Form */}
         <div className="col-md-4 shadow-lg rounded-lg p-6">
           <h1 className="text-2xl font-bold mb-4">{isOwnProfile ? 'Edit Profile' : `${profile.username}'s Profile`}</h1>
           {error && <div className="text-red-500 mb-4">{error}</div>}
@@ -145,6 +150,11 @@ function EditProfile() {
                 />
               </div>
               <br></br>
+              {updateSuccess && (
+                <div style={{ color: 'green', fontSize: '1.2rem', marginBottom: '1rem' }}>
+                  Profile updated, please wait
+                </div>
+              )}
               <div className="mb-4">
                 <button type="submit" className="rounded mb-4 custom-button">Update Profile</button>
                 <br></br>
@@ -161,7 +171,6 @@ function EditProfile() {
           )}
         </div>
   
-        {/* Middle Column for Profile */}
         <div className="col-md-4 shadow-lg rounded-lg p-6 d-flex flex-column align-items-center">
           <h2 className="text-xl font-semibold mb-4">{profile?.username}</h2>
           <img
@@ -171,7 +180,6 @@ function EditProfile() {
           />
         </div>
   
-        {/* Following List */}
         <div className="col-md-4 shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4">Following</h2>
           {following.length > 0 ? (
@@ -204,7 +212,6 @@ function EditProfile() {
       </div>
     </div>
   );
-  
 }
 
 export default EditProfile;
