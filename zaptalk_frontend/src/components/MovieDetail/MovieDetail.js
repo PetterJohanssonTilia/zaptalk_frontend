@@ -16,6 +16,7 @@ function MovieDetail() {
   const [editingComment, setEditingComment] = useState(null);
   const [editedContent, setEditedContent] = useState('');
   const [currentUserProfile, setCurrentUserProfile] = useState(null);
+  const [isSuperuser, setIsSuperuser] = useState(false);
   const { id } = useParams();
 
   useEffect(() => {
@@ -36,17 +37,12 @@ function MovieDetail() {
           setComments(commentsResponse.data);
           console.log('Comments:', commentsResponse.data);
 
-          const profilesResponse = await api.get('profiles/', {
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-          console.log('Profiles response:', profilesResponse.data);
-          setCurrentUserProfile(profilesResponse.data[0]);
-          
           const currentUserResponse = await api.get('profiles/me/', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           console.log('Current user profile:', currentUserResponse.data);
           setCurrentUserProfile(currentUserResponse.data);
+          setIsSuperuser(currentUserResponse.data.is_superuser);
         }
       } catch (error) {
         console.error('Error fetching movie details and comments:', error.response || error);
@@ -299,12 +295,14 @@ function MovieDetail() {
                               {comment.likes_count}
                             </span>
                           </div>
-                          {currentUserProfile && currentUserProfile.username === comment.user.username && (
+                          {(currentUserProfile && currentUserProfile.username === comment.user.username) || isSuperuser ? (
                             <div>
-                              <button onClick={() => handleEditComment(comment)} className="btn btn-link btn-sm p-0 me-2">Edit</button>
+                              {currentUserProfile.username === comment.user.username && (
+                                <button onClick={() => handleEditComment(comment)} className="btn btn-link btn-sm p-0 me-2">Edit</button>
+                              )}
                               <button onClick={() => handleDeleteComment(comment.id)} className="btn btn-link btn-sm p-0 text-danger">Delete</button>
                             </div>
-                          )}
+                          ) : null}
                         </div>
                       </div>
                     </div>
