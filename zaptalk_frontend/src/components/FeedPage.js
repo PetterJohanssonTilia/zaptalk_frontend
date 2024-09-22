@@ -31,47 +31,41 @@ function FeedPage() {
     const formattedDate = format(parseISO(item.created_at), "MMM d, yyyy 'at' h:mm a");
 
     return (
-      <li key={`${item.type}-${item.id}`} className="list-group-item d-flex align-items-center py-3">
-        <div className="d-flex flex-column align-items-center me-3 user-column">
-          <Link to={`/profile/${item.user.username}`} className="text-decoration-none mt-2">
-            <img 
-              src={item.user.avatar || defaultAvatar} 
-              
-              alt={`${item.user.username}'s avatar`} 
-              className="rounded-circle avatar"
-            />
+      <div key={`${item.type}-${item.id}`} className="col-12 col-md-4 mb-4">
+        <div className="feed-item">
+          <Link to={`/movie/${item.movie_details?.id}`} className="movie-link">
+            <div className="movie-thumbnail-container">
+              <img 
+                src={item.movie_details?.thumbnail || '/default-movie-thumbnail.png'} 
+                alt={`${item.movie_details?.title} thumbnail`}
+                className="movie-thumbnail"
+              />
+            </div>
+            <h5 className="movie-title mt-3 mb-5 text-center">{item.movie_details?.title}</h5>
           </Link>
-          <Link to={`/profile/${item.user.username}`} className="text-decoration-none mt-2">
-            <span className="username">{item.user.username}</span>
-          </Link>
-          <small className="text-muted mt-1">{formattedDate}</small>
+          <div className="d-flex justify-content-evenly mt-2">
+            <div className="user-info">
+              <Link to={`/profile/${item.user.username}`} className="text-decoration-none">
+                <img 
+                  src={item.user.avatar || defaultAvatar} 
+                  alt={`${item.user.username}'s avatar`} 
+                  className="avatar"
+                />
+                <p className="username mt-1 mb-0">{item.user.username}</p>
+              </Link>
+            </div>
+            <div className="action-info text-end">
+              {item.type === 'comment' ? (
+                <MessageCircle size={25} className="mb-1" />
+              ) : (
+                <ThumbsUp size={25} className="mb-1" />
+              )}
+              <p className="action-text mb-1">{item.type === 'comment' ? 'Commented on' : 'Liked'}</p>
+              <small className="text-muted">{formattedDate}</small>
+            </div>
+          </div>
         </div>
-        <div className="d-flex flex-column align-items-center justify-content-center action-column">
-          {item.type === 'comment' ? (
-            <>
-              <i className="bi bi-chat-square"></i>
-              <span><MessageCircle size={25} className="me-1" /></span>
-              <span className="action-text">Commented on</span>              
-            </>
-          ) : (
-            <>
-              <i className="bi bi-hand-thumbs-up"></i>
-              <span><span><ThumbsUp size={25} className="me-1" /></span></span>
-              <span className="action-text">Liked</span>              
-            </>
-          )}
-        </div>
-        <div className="d-flex flex-column align-items-center ms-3 movie-column">
-          <img 
-            src={item.movie_details?.thumbnail || '/default-movie-thumbnail.png'} 
-            alt={`${item.movie_details?.title} thumbnail`}
-            className="rounded movie-thumbnail"
-          />
-          <Link to={`/movie/${item.movie_details?.id}`} className="text-decoration-none mt-2 text-center">
-            <span className="movie-title">{item.movie_details?.title}</span>
-          </Link>
-        </div>
-      </li>
+      </div>
     );
   };
 
@@ -84,9 +78,9 @@ function FeedPage() {
       {feedItems.length === 0 ? (
         <p>No feed items to display.</p>
       ) : (
-        <ul className="list-group">
+        <div className="row">
           {feedItems.map(renderFeedItem)}
-        </ul>
+        </div>
       )}
     </div>
   );

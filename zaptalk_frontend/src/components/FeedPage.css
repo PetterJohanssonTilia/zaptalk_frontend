@@ -4,14 +4,18 @@
   min-height: 100vh;
 }
 
-.feed-container .list-group-item {
+.feed-item {
   background-color: #232323;
-  border-color: #3a3a3a;
-  color: #fff;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  border: 1px solid #3a3a3a;
+  border-radius: 0.25rem;
   padding: 1rem;
+  height: 100%;
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.feed-item:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 .feed-container a {
@@ -24,50 +28,63 @@
   text-decoration: underline;
 }
 
-.feed-container .user-column,
-.feed-container .movie-column {
-  flex: 0 0 40%;
-  max-width: 40%;
+.movie-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
-.feed-container .action-column {
-  flex: 0 0 20%;
-  max-width: 20%;
-  text-align: center;
+.movie-link:hover {
+  text-decoration: none;
+  color: inherit;
 }
 
-.feed-container .avatar {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 50%;
+.movie-link:hover .movie-title {
+  text-decoration: underline;
 }
 
-.feed-container .movie-thumbnail {
-  width: 120px;
-  height: 68px; /* 16:9 aspect ratio */
+.movie-thumbnail-container {
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.movie-thumbnail {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   object-position: center;
 }
 
-.feed-container .username,
-.feed-container .movie-title {
-  font-size: 0.9rem;
+.movie-title {
+  font-size: 1rem;
   margin-top: 0.5rem;
-  text-align: center;
   word-break: break-word;
 }
 
-.feed-container .action-text {
+.avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.username {
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.action-text {
   font-size: 0.8rem;
-  margin-top: 0.25rem;
 }
 
-.feed-container .bi {
-  font-size: 1.2rem;
-}
-
-.feed-container .text-muted {
+.text-muted {
   color: #a0a0a0 !important;
   font-size: 0.8rem;
+}
+
+@media (max-width: 767.98px) {
+  .col-12 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
 }
