@@ -85,8 +85,8 @@ function ProfileList() {
                   {profile.username}
                 </Link>
                 <p className="card-text small mt-2">
-                  <span className="d-block">{profile.followers_count || 0} followers</span>
-                  <span className="d-block">{profile.total_likes_received || 0} likes</span>
+                  <span className="d-block">{profile.followers_count || 0} Followers</span>
+                  <span className="d-block">{profile.total_likes_received || 0} Karma</span>
                 </p>
               </div>
             </div>
