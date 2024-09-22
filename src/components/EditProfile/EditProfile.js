@@ -152,7 +152,7 @@ function EditProfile() {
               <br></br>
               {updateSuccess && (
                 <div style={{ color: 'green', fontSize: '1.2rem', marginBottom: '1rem' }}>
-                  Profile updated, please wait
+                  Profile updated, please refresh the page.
                 </div>
               )}
               <div className="mb-4">
