@@ -61,15 +61,20 @@ function ProfileList() {
             <div className="card h-100 bg-dark text-white profile-card">
               <div className="text-center mt-3">
                 <div className="avatar-container">
-                  <img 
-                    src={profile.avatar || DEFAULT_AVATAR}
-                    alt={`${profile.username}'s avatar`} 
-                    className="rounded-circle profile-avatar"
-                    onError={(e) => {
-                      console.error(`Error loading avatar for ${profile.username}:`, e);
-                      e.target.src = DEFAULT_AVATAR;
-                    }}
-                  />
+                  <Link 
+                    to={`/profile/${profile.username}`}
+                    className="card-title h5 mb-0 d-block profile-username"
+                  >
+                    <img 
+                      src={profile.avatar || DEFAULT_AVATAR}
+                      alt={`${profile.username}'s avatar`} 
+                      className="rounded-circle profile-avatar"
+                      onError={(e) => {
+                        console.error(`Error loading avatar for ${profile.username}:`, e);
+                        e.target.src = DEFAULT_AVATAR;
+                      }}
+                    />
+                  </Link>
                 </div>
               </div>
               <div className="card-body text-center">
