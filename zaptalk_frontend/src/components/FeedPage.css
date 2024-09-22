@@ -1,63 +1,73 @@
 .feed-container {
-    background-color: #181818;
-    color: #fff;
-    min-height: 100vh;
-  }
-  
-  .list-group-item {
-    background-color: #232323;
-    border-color: #3a3a3a;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem;
-  }
-  
-  a {
-    color: #fff;
-    text-decoration: none;
-  }
-  
-  a:hover {
-    color: #ffffff;
-    text-decoration: underline;
-  }
-  
-  .user-column, .movie-column {
-    flex: 0 0 40%;
-    max-width: 40%;
-  }
-  
-  .action-column {
-    flex: 0 0 20%;
-    max-width: 20%;
-    text-align: center;
-  }
-  
-  .avatar, .movie-thumbnail {
-    width: 120px;
-    height: 120px;
-    object-fit: cover;
-  }
-  
-  .username, .movie-title {
-    font-size: 1rem;
-    margin-top: 0.5rem;
-    text-align: center;
-    word-break: break-word;
-  }
-  
-  .action-text {
-    font-size: 0.8rem;
-    margin-top: 0.25rem;
-  }
-  
-  .bi {
-    font-size: 1.2rem;
-  }
-  
-  .text-muted {
-    color: #a0a0a0 !important;
-    font-size: 0.8rem;
-  }
+  background-color: #181818;
+  color: #fff;
+  min-height: 100vh;
+}
+
+.feed-container .list-group-item {
+  background-color: #232323;
+  border-color: #3a3a3a;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+}
+
+.feed-container a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.feed-container a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.feed-container .user-column,
+.feed-container .movie-column {
+  flex: 0 0 40%;
+  max-width: 40%;
+}
+
+.feed-container .action-column {
+  flex: 0 0 20%;
+  max-width: 20%;
+  text-align: center;
+}
+
+.feed-container .avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.feed-container .movie-thumbnail {
+  width: 120px;
+  height: 68px; /* 16:9 aspect ratio */
+  object-fit: cover;
+  object-position: center;
+}
+
+.feed-container .username,
+.feed-container .movie-title {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  word-break: break-word;
+}
+
+.feed-container .action-text {
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.feed-container .bi {
+  font-size: 1.2rem;
+}
+
+.feed-container .text-muted {
+  color: #a0a0a0 !important;
+  font-size: 0.8rem;
+}

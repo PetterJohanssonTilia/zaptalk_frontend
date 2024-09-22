@@ -32,11 +32,14 @@ function FeedPage() {
     return (
       <li key={`${item.type}-${item.id}`} className="list-group-item d-flex align-items-center py-3">
         <div className="d-flex flex-column align-items-center me-3 user-column">
-          <img 
-            src={item.user.avatar || '/default-avatar.png'} 
-            alt={`${item.user.username}'s avatar`} 
-            className="rounded-circle avatar"
-          />
+          <Link to={`/profile/${item.user.username}`} className="text-decoration-none mt-2">
+            <img 
+              src={item.user.avatar || '/default-avatar.png'} 
+              
+              alt={`${item.user.username}'s avatar`} 
+              className="rounded-circle avatar"
+            />
+          </Link>
           <Link to={`/profile/${item.user.username}`} className="text-decoration-none mt-2">
             <span className="username">{item.user.username}</span>
           </Link>
