@@ -7,9 +7,12 @@ body {
   padding: 20px;
 }
 
+
 .movie-card {
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   cursor: pointer;
+  background-color: #232323;
+  border: 1px solid #3a3a3a;
 }
 
 .movie-card:hover {

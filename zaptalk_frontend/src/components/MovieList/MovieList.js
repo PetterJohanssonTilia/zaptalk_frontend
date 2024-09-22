@@ -154,9 +154,10 @@ function MovieList() {
         {(showFollowedLikes ? followedLikesMovies : movies).map((movie, index) => (
           <div key={movie.id} className="col">
             <div 
-              className="card h-100 bg-dark text-white movie-card" 
+              className="card h-100 text-white movie-card" 
               onClick={() => handleMovieClick(movie.id)}
               ref={index === (showFollowedLikes ? followedLikesMovies.length : movies.length) - 1 ? lastMovieElementRef : null}
+              style={{backgroundColor: '#232323'}}
             >
               <img src={movie.thumbnail} className="card-img-top" alt={movie.title} style={{height: '200px', objectFit: 'cover'}} />
               <div className="card-body">
