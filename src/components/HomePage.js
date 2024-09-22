@@ -35,11 +35,10 @@ function HomePage() {
   return (
     <div>
       {/* Jumbotron Section */}
-      <div className="jumbotron text-center" style={{
-        position: 'relative',
-        padding: '150px 0',
-        background: `url(${jumbotron}) no-repeat center center / cover`
-      }}>
+      <div className="jumbotron text-center jumbotron-text" 
+        style={{
+          background: `url(${jumbotron}) no-repeat center center / cover`
+        }}>
         <h1 className="display-4 font-weight-bold text-white">
           Discover the Golden Age of Cinema!
         </h1>
@@ -59,8 +58,8 @@ function HomePage() {
       </div>
 
       {/* Trending Now Section */}
-      <div className="trending-section" style={{ marginTop: '60px' }}>
-        <h2 className="text-center">Trending Now</h2>
+      <div className="trending-section">
+        <h2 className="text-center trending-now-text">Trending Now</h2>
         {loading && <div className="text-center">Loading...</div>}
         {error && <div className="text-center alert alert-danger">{error}</div>}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">

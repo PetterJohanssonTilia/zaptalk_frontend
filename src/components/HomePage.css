@@ -5,7 +5,20 @@ body {
   
   .trending-section {
     padding: 0 20px; /* Add padding to the sides of the trending section */
+    margin-top: 0px;
   }
+
+  .trending-now-text {
+    margin-bottom:3rem;
+  }
+
+  .jumbotron-text {
+    position: relative;
+    padding: 150px 0;
+    font-family:Merriweather;
+    font-weight: 700;
+  }
+
   
   .card {
 

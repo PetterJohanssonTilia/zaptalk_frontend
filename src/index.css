@@ -9,6 +9,9 @@ body {
   background-color: #181818;
   color: #fff;
 }
+h1{
+  font-family:Merriweather;
+}
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

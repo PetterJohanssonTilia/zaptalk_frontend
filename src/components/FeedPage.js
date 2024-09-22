@@ -41,9 +41,9 @@ function FeedPage() {
                 className="movie-thumbnail"
               />
             </div>
-            <h5 className="movie-title mt-3 mb-5 text-center">{item.movie_details?.title}</h5>
+            <h5 className="movie-title mt-3 mb-4 text-center">{item.movie_details?.title}</h5>
           </Link>
-          <div className="d-flex justify-content-evenly mt-2">
+          <div className="d-flex justify-content-evenly">
             <div className="user-info">
               <Link to={`/profile/${item.user.username}`} className="text-decoration-none">
                 <img 
@@ -74,7 +74,7 @@ function FeedPage() {
 
   return (
     <div className="container py-4 feed-container">
-      <h1 className="mb-4">Feed</h1>
+      <h1 className="mb-4 text-center">Feed</h1>
       {feedItems.length === 0 ? (
         <p>No feed items to display.</p>
       ) : (
