@@ -108,7 +108,7 @@ function MovieList() {
     <div className="container-fluid movie-list-container">
       <h1 className="text-center mb-4">Movies</h1>
       <div className="row justify-content-center mb-4">
-        <div className="col-12 col-md-8 col-lg-6">
+        <div className="col-6 col-md-6 col-lg-4">
           <input 
             type="text" 
             placeholder="Search movies..." 
