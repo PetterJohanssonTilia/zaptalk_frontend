@@ -4,6 +4,7 @@ import api from '../api/axios';
 import { format, parseISO } from 'date-fns';
 import './FeedPage.css';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
+import defaultAvatar from '../assets/defaultavatar.jpg';
 
 function FeedPage() {
   const [feedItems, setFeedItems] = useState([]);
@@ -34,7 +35,7 @@ function FeedPage() {
         <div className="d-flex flex-column align-items-center me-3 user-column">
           <Link to={`/profile/${item.user.username}`} className="text-decoration-none mt-2">
             <img 
-              src={item.user.avatar || '/default-avatar.png'} 
+              src={item.user.avatar || defaultAvatar} 
               
               alt={`${item.user.username}'s avatar`} 
               className="rounded-circle avatar"
