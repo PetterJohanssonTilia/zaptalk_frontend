@@ -17,6 +17,10 @@ function MovieDetail() {
   const [editedContent, setEditedContent] = useState('');
   const [currentUserProfile, setCurrentUserProfile] = useState(null);
   const [isSuperuser, setIsSuperuser] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
+  const [isLikeAnimating, setIsLikeAnimating] = useState(false);
+  const [showCommentPosted, setShowCommentPosted] = useState(false);
+  const [thumbsUpColor, setThumbsUpColor] = useState('currentColor');
   const { id } = useParams();
 
   useEffect(() => {
@@ -28,6 +32,7 @@ function MovieDetail() {
       try {
         const movieResponse = await api.get(`movies/${id}/`);
         setMovie(movieResponse.data);
+        setIsLiked(movieResponse.data.is_liked_by_user);
 
         if (token) {
           const commentsResponse = await api.get('comments/', { 
@@ -61,6 +66,7 @@ function MovieDetail() {
       return;
     }
     try {
+      setIsLikeAnimating(true);
       const response = await api.post(`likes/toggle_like/`, {
         content_type: 'movie',
         object_id: id
@@ -71,6 +77,14 @@ function MovieDetail() {
         ...prevMovie,
         likes_count: response.data.likes_count
       }));
+      setIsLiked(response.data.is_liked);
+      setThumbsUpColor(response.data.is_liked ? 'green' : 'red');
+      setTimeout(() => {
+        setIsLikeAnimating(false);
+      }, 300);
+      
+      // Reset color after 5 seconds
+      setTimeout(() => setThumbsUpColor('currentColor'), 5000);
     } catch (error) {
       console.error('Error liking movie:', error);
       setError('Failed to like the movie. Please try again.');
@@ -100,6 +114,8 @@ function MovieDetail() {
         setComments(prevComments => [...prevComments, response.data]);
         setNewComment('');
         setError(null);
+        setShowCommentPosted(true);
+        setTimeout(() => setShowCommentPosted(false), 5000);
       } else {
         throw new Error('Unexpected response status');
       }
@@ -229,14 +245,26 @@ function MovieDetail() {
 
       <div className="d-flex justify-content-center align-items-center my-4">
         <p className="me-4 mb-0">
-          <ThumbsUp size={24} className="me-2" />
+          <ThumbsUp 
+            size={24} 
+            className={`me-2 ${isLikeAnimating ? 'like-animation' : ''}`} 
+            color={thumbsUpColor}
+          />
           {movie.likes_count}
         </p>
-        <button onClick={handleLike} className="btn btn-dark text-white">Like</button>
+        <button 
+          onClick={handleLike} 
+          className="btn btn-dark text-white"
+        >
+          {isLiked ? 'Unlike' : 'Like'}
+        </button>
       </div>
 
       <div className="comments-section mt-5">
         <h2 className="text-center mb-4">Comments</h2>
+        {showCommentPosted && (
+          <p className="text-success text-center mb-3 fade-out">Comment posted</p>
+        )}
         {isLoggedIn ? (
           <>
             <form onSubmit={handleCommentSubmit} className="mb-4 comment-form">
