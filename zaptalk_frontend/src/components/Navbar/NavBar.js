@@ -69,7 +69,7 @@ function NavBar() {
                   />
                   Profile
                 </Dropdown.Toggle>
-                <Dropdown.Menu>
+                <Dropdown.Menu className="bg-dark">
                   <Dropdown.Item as={Link} to="/edit-profile">Profile</Dropdown.Item>
                   {userProfile?.is_superuser && (
                     <Dropdown.Item as={Link} to="/bans">Bans</Dropdown.Item>

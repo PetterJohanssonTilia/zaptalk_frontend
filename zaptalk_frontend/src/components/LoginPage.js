@@ -81,6 +81,10 @@ function LoginPage() {
           />
           <button type="submit">Login</button>
         </form>
+        <div className="register-link">
+          <p>Don't have an account? </p>
+          <Link to="/register">Click here to register</Link>
+        </div>
         <div className="ban-appeal">
           <p>Has your account been banned?</p>
           <Link to="/ban-appeal">Click here to submit a ban appeal</Link>
