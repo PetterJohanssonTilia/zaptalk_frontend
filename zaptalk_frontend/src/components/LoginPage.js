@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../components/AuthContext/AuthContext';
+import './LoginPage.css';
 
 function LoginPage() {
   const [username, setUsername] = useState('');
@@ -46,41 +47,45 @@ function LoginPage() {
     navigate('/home');
   };
 
+
   if (isLoggedIn) {
     return (
-      <div>
-        <h2>You are logged in</h2>
-        <button onClick={handleLogout}>Logout</button>
+      <div className="login-page-container">
+        <div className="login-box">
+          <h2>You are logged in</h2>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
       </div>
     );
   }
 
   return (
-    <div>
-      <h2>Login</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
+    <div className="login-page-container">
+      <div className="login-box">
+        <h2>Login</h2>
+        {error && <p className="error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
+            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-        </div>
-        <div>
-          <label>Password:</label>
+          <label htmlFor="password">Password:</label>
           <input
             type="password"
+            id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          <button type="submit">Login</button>
+        </form>
+        <div className="ban-appeal">
+          <p>Has your account been banned?</p>
+          <Link to="/ban-appeal">Click here to submit a ban appeal</Link>
         </div>
-        <button type="submit">Login</button>
-      </form>
-      <p>
-        Has your account been banned? <Link to="/ban-appeal">Click here to submit a ban appeal</Link>
-      </p>
+      </div>
     </div>
   );
 }
