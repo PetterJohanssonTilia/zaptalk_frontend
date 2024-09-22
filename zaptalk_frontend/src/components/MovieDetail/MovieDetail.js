@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../api/axios';
+import { ThumbsUp, MessageCircle } from 'lucide-react';
+import './MovieDetail.css'
 
 const DEFAULT_AVATAR = 'https://res.cloudinary.com/dumvsoykz/image/upload/v1724754182/default_profile_yvdjcm.jpg';
 
@@ -203,92 +205,121 @@ function MovieDetail() {
     }
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (!movie) return <div>Movie not found</div>;
+  if (isLoading) return <div className="text-center mt-5">Loading...</div>;
+  if (!movie) return <div className="text-center mt-5">Movie not found</div>;
+
+  // Function to sort comments by date, newest first
+  const sortedComments = [...comments].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
 
   return (
-    <div className="movie-detail">
-      <h1>{movie.title}</h1>
-      <img src={movie.thumbnail} alt={movie.title} />
-      <p>Year: {movie.year}</p>
-      <p>Genres: {movie.genres.join(', ')}</p>
-      <p>Likes: {movie.likes_count}</p>
-      <button onClick={handleLike}>Like</button>
-      <p>{movie.extract}</p>
+    <div className="container-fluid p-0 movie-detail">
+      <div className="position-relative">
+        <img src={movie.thumbnail} alt={movie.title} className="img-fluid w-100 movie-thumbnail" />
+        <div className="movie-info-overlay position-absolute top-0 start-0 h-100 w-100 d-flex flex-column justify-content-center text-white p-4">
+          <h1 className="display-4 fw-bold">{movie.title}</h1>
+          <p className="fs-5">{movie.year}</p>
+          <p className="fs-6">{movie.genres.join(', ')}</p>
+          <p className="mt-3">{movie.extract}</p>
+        </div>
+      </div>
 
-      <div className="comments-section">
-        <h2>Comments</h2>
+      {/* Mobile view for movie info */}
+      <div className="d-md-none text-white bg-dark p-4">
+        <h1 className="h2 fw-bold">{movie.title}</h1>
+        <p>{movie.year}</p>
+        <p>{movie.genres.join(', ')}</p>
+        <p className="mt-3">{movie.extract}</p>
+      </div>
+
+      <div className="d-flex justify-content-center align-items-center my-4">
+        <p className="me-4 mb-0">
+          <ThumbsUp size={24} className="me-2" />
+          {movie.likes_count}
+        </p>
+        <button onClick={handleLike} className="btn btn-dark text-white">Like</button>
+      </div>
+
+      <div className="comments-section mt-5">
+        <h2 className="text-center mb-4">Comments</h2>
         {isLoggedIn ? (
           <>
-            {comments.length > 0 ? (
-              comments.map(comment => (
-                <div key={comment.id} className="comment">
-                  {/* NEW: Add edit functionality */}
-                  {editingComment && editingComment.id === comment.id ? (
-                    <div>
-                      <textarea
-                        value={editedContent}
-                        onChange={(e) => setEditedContent(e.target.value)}
-                      />
-                      <button onClick={handleUpdateComment}>Save</button>
-                      <button onClick={() => setEditingComment(null)}>Cancel</button>
-                    </div>
-                  ) : (
-                    <>
-                      <Link to={`/profile/${comment.user.username}`}>
-                        <img 
-                          src={comment.user.avatar || DEFAULT_AVATAR}  // Check if avatar exists
-                          alt={`${comment.user.username}'s avatar`} 
-                          className="w-12 h-12 rounded-full object-cover comment-avatar"
-                          onError={(e) => {
-                            console.error(`Error loading avatar for ${comment.user?.username}:`, e);
-                            e.target.src = DEFAULT_AVATAR;  // Fallback to default if image fails to load
-                          }}
-                        />
-                      </Link>
-                      <p><strong>{comment.user.username}</strong>: {comment.content}</p>
-                      <small>Posted on: {new Date(comment.created_at).toLocaleString()}</small>
-                      <div>
-                        {currentUserProfile && currentUserProfile.username !== comment.user.username && (
-                          <button onClick={() => handleLikeComment(comment.id)}>
-                            {comment.is_liked_by_user ? 'Unlike' : 'Like'}
-                          </button>
-                        )}
-                        <span> {comment.likes_count} likes</span>
-                      </div>
-                      {/* NEW: Add edit and delete buttons for user's own comments */}
-                      {console.log('Rendering comment:', comment)}
-                      {console.log('Current user profile in render:', currentUserProfile)}
-                      {console.log('Is current user the comment author?', currentUserProfile?.username === comment.user.username)}
-                      {currentUserProfile && currentUserProfile.username === comment.user.username && (
-                        <div>
-                          <button onClick={() => handleEditComment(comment)}>Edit</button>
-                          <button onClick={() => handleDeleteComment(comment.id)}>Delete</button>
-                        </div>
-                      )}
-                    </>
-                  )}
-                </div>
-              ))
-            ) : (
-              <p>No comments yet.</p>
-            )}
-
-            <form onSubmit={handleCommentSubmit}>
+            <form onSubmit={handleCommentSubmit} className="mb-4 comment-form">
               <textarea
                 value={newComment}
                 onChange={(e) => setNewComment(e.target.value)}
                 placeholder="Write a comment..."
                 required
+                className="form-control mb-2"
               />
-              <button type="submit">Post Comment</button>
+              <button type="submit" className="btn btn-dark text-white d-block ms-auto">Post Comment</button>
             </form>
+
+            {sortedComments.length > 0 ? (
+              sortedComments.map(comment => (
+                <div key={comment.id} className="comment mb-4">
+                  {editingComment && editingComment.id === comment.id ? (
+                    <div>
+                      <textarea
+                        value={editedContent}
+                        onChange={(e) => setEditedContent(e.target.value)}
+                        className="form-control mb-2"
+                      />
+                      <button onClick={handleUpdateComment} className="btn btn-dark text-white btn-sm me-2">Save</button>
+                      <button onClick={() => setEditingComment(null)} className="btn btn-secondary btn-sm">Cancel</button>
+                    </div>
+                  ) : (
+                    <div className="d-flex flex-column flex-md-row">
+                      <div className="me-md-4 mb-3 mb-md-0 text-center">
+                        <Link to={`/profile/${comment.user.username}`}>
+                          <img 
+                            src={comment.user.avatar || DEFAULT_AVATAR}
+                            alt={`${comment.user.username}'s avatar`} 
+                            className="rounded-circle mb-2 comment-avatar"
+                            onError={(e) => {
+                              console.error(`Error loading avatar for ${comment.user?.username}:`, e);
+                              e.target.src = DEFAULT_AVATAR;
+                            }}
+                          />
+                        </Link>
+                        <div className="fw-bold">{comment.user.username}</div>
+                        <div className="small">{new Date(comment.created_at).toLocaleDateString()}</div>
+                      </div>
+                      <div className="flex-grow-1">
+                        <p>{comment.content}</p>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div>
+                            {currentUserProfile && currentUserProfile.username !== comment.user.username && (
+                              <button onClick={() => handleLikeComment(comment.id)} className="btn btn-dark text-white btn-sm me-2">
+                                <ThumbsUp size={16} className="me-1" />
+                                {comment.is_liked_by_user ? 'Unlike' : 'Like'}
+                              </button>
+                            )}
+                            <span className="small">
+                              <ThumbsUp size={16} className="me-1" />
+                              {comment.likes_count}
+                            </span>
+                          </div>
+                          {currentUserProfile && currentUserProfile.username === comment.user.username && (
+                            <div>
+                              <button onClick={() => handleEditComment(comment)} className="btn btn-link btn-sm p-0 me-2">Edit</button>
+                              <button onClick={() => handleDeleteComment(comment.id)} className="btn btn-link btn-sm p-0 text-danger">Delete</button>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              ))
+            ) : (
+              <p className="text-center">No comments yet.</p>
+            )}
           </>
         ) : (
-          <p>Please log in to view and post comments.</p>
+          <p className="text-center">Please log in to view and post comments.</p>
         )}
       </div>
-      {error && <div className="error-message">{error}</div>}
+      {error && <div className="alert alert-danger mt-3">{error}</div>}
     </div>
   );
 }
