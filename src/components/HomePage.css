@@ -1,0 +1,28 @@
+body {
+    background-color: #181818; /* Set the body background color */
+    color: #ffffff; /* Set the default text color */
+  }
+  
+  .trending-section {
+    padding: 0 20px; /* Add padding to the sides of the trending section */
+  }
+  
+  .card {
+
+    background-color: inherit; /* Inherit background color from body */
+    color: inherit; /* Inherit text color from body */
+    max-width: 450px; /* Set a maximum width for the cards */
+    margin: 0 auto; /* Center the cards */
+  }
+  
+  .card-title {
+    color: inherit; /* Ensure the card title inherits the text color */
+  }
+  
+  /* Additional styles for responsiveness if needed */
+  @media (max-width: 576px) {
+    .card {
+      margin-bottom: 20px; /* Add margin at the bottom for small screens */
+    }
+  }
+  

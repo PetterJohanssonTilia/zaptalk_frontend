@@ -1,0 +1,86 @@
+.movie-detail {
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+.movie-detail .movie-thumbnail {
+  height: 600px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.movie-info-overlay {
+  background: linear-gradient(90deg, rgba(24,24,24,1) 0%, rgba(24,24,24,0.8) 50%, rgba(24,24,24,0) 100%);
+  padding-left: 10% !important;
+  width: 50% !important; 
+  max-width: 900px
+}
+
+.comments-section {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.comment-form {
+  width: 100%;
+}
+
+.comment {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1rem;
+}
+
+.comment:last-child {
+  border-bottom: none;
+}
+
+.comment-avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+}
+
+.btn-dark {
+  background-color: #343a40;
+  border-color: #343a40;
+}
+
+.btn-dark:hover {
+  background-color: #23272b;
+  border-color: #1d2124;
+}
+
+@media (max-width: 767px) {
+  .movie-thumbnail {
+    height: 300px;
+  }
+
+  .movie-info-overlay {
+    display: none !important;
+  }
+
+  .comment-avatar {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.like-animation {
+  animation: grow 0.3s ease-in-out;
+}
+
+@keyframes grow {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+.fade-out {
+  animation: fadeOut 5s forwards;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

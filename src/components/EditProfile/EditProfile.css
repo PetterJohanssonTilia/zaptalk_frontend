@@ -1,0 +1,20 @@
+.dark-input {
+    background-color: #181818;
+    color: white; 
+    border: 1px solid #444; 
+}
+
+.dark-input::placeholder {
+    color: #bbb; 
+}
+
+.custom-button {
+    background-color: #181818;
+    color: #fff;
+  }
+
+  .custom-button-delete {
+    background-color: #181818;
+    color: #fff;
+    border: 1px solid #c41010; 
+  }

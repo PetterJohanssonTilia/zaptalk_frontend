@@ -1,0 +1,60 @@
+body {
+  background-color: #181818;
+  color: #fff;
+}
+
+.movie-list-container {
+  padding: 20px;
+}
+
+
+.movie-card {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  cursor: pointer;
+  background-color: #232323;
+  border: 1px solid #3a3a3a;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.movie-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.form-control, .form-select {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #6c757d;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #343a40;
+  color: #fff;
+  border-color: #fff;
+  box-shadow: 0 0 0 0.2rem rgba(255, 255, 255, 0.25);
+}
+
+.btn-outline-light {
+  border-color: #fff;
+}
+
+.btn-outline-light:hover, .btn-outline-light:focus, .btn-outline-light.active {
+  background-color: #fff;
+  color: #343a40;
+}
+
+.alert-info {
+  background-color: #17a2b8;
+  color: #fff;
+  border-color: #148a9c;
+}
+
+.alert-danger {
+  background-color: #dc3545;
+  color: #fff;
+  border-color: #bd2130;
+}

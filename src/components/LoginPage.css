@@ -1,0 +1,120 @@
+/* LoginPage.css */
+.login-page-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - 56px); /* Adjust this value based on your navbar height */
+}
+
+.login-box {
+    background-color: #343a40; /* Bootstrap's bg-dark color */
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-box h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.login-box form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-box label {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.login-box input[type="text"],
+.login-box input[type="password"] {
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    background-color: #343a40;
+    color: white;
+}
+
+/* New styles to ensure consistent background color */
+.login-box input[type="text"]:-webkit-autofill,
+.login-box input[type="password"]:-webkit-autofill,
+.login-box input[type="text"]:-webkit-autofill:hover,
+.login-box input[type="password"]:-webkit-autofill:hover,
+.login-box input[type="text"]:-webkit-autofill:focus,
+.login-box input[type="password"]:-webkit-autofill:focus {
+    -webkit-text-fill-color: white;
+    -webkit-box-shadow: 0 0 0px 1000px #343a40 inset;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.login-box button {
+    padding: 0.75rem;
+    background-color: #495057; /* Dark grey color */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-box button:hover {
+    background-color: #343a40; /* Darker grey on hover */
+}
+
+.login-box .error {
+    color: #dc3545; /* Bootstrap's danger color */
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+
+.login-box .ban-appeal {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.login-box p{
+    margin-top: 3.5rem;
+    margin-bottom:0;
+}
+
+.login-box .ban-appeal a {
+    color: #a8d8ff;
+    text-decoration: none;
+}
+
+.login-box .ban-appeal register-link a:hover {
+    text-decoration: underline;
+}
+
+.register-link {
+    text-align: center;
+}
+
+.register-link p {
+    margin-bottom:0;
+    margin-top: 3.5rem;
+}
+
+.register-link a {
+    color: #a8d8ff;
+    text-decoration: none;
+}
+
+.register-link a:hover {
+    text-decoration: underline;
+}
+
+/* Style for the ban appeal link */
+.ban-appeal p {
+    margin-top: 3.5rem;
+}
