@@ -19,6 +19,7 @@ function MovieList() {
   const navigate = useNavigate();
   const observer = useRef();
   const loadingRef = useRef(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1024);
 
   const lastMovieElementRef = useCallback(node => {
     if (loadingRef.current) return;
@@ -95,6 +96,15 @@ function MovieList() {
     fetchGenres();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1024);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -119,7 +129,14 @@ function MovieList() {
 
   return (
     <div className="container-fluid movie-list-container">
-      <h1 className="text-center mb-4">Movies</h1>
+      <div className="row mb-4">
+        <div className="row mb-4">
+          <h1 className="text-left mb-2 movielist-title">Movies</h1>
+          <p className="text-left movielist-breadtext">
+            Movies take us to another era, delivering stories that remain unforgettable. So many classics, so much to experience.
+          </p>
+        </div>
+      </div>
       <div className="row justify-content-center mb-4">
         <div className="col-6 col-md-6 col-lg-4">
           <input 
@@ -138,20 +155,20 @@ function MovieList() {
               <option key={genre} value={genre}>{genre}</option>
             ))}
           </select>
-          <div className="d-flex flex-wrap justify-content-center gap-5 mb-3 mt-3">
+          <div className="button-group">
             <button 
               onClick={() => toggleSort('most_liked')} 
               className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'active' : ''}`}
               disabled={loadingRef.current}
             >
-              Most Liked
+              {isSmallScreen ? 'Liked' : 'Most Liked'}
             </button>
             <button 
               onClick={() => toggleSort('most_commented')} 
               className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'active' : ''}`}
               disabled={loadingRef.current}
             >
-              Most Commented
+              {isSmallScreen ? 'Commented' : 'Most Commented'}
             </button>
             <button 
               onClick={toggleFollowedLikes} 

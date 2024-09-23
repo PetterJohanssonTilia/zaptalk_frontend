@@ -3,8 +3,35 @@ body {
   color: #fff;
 }
 
+.movielist-title{
+  padding-left: 40px;
+  font-weight: 700;
+}
+
+.movielist-breadtext{
+  padding-left: 40px;
+  max-width: 700px;
+  margin-bottom: 100px;
+}
+
 .movie-list-container {
   padding: 20px;
+}
+
+.button-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.button-group .btn {
+  flex: 1 1 auto;
+  min-width: 100px;
+  max-width: 200px;
+  padding: 0.5rem 1rem;
 }
 
 .movie-card {
@@ -89,4 +116,11 @@ body {
   background-color: #343a40;
   color: #fff;
   border-color: #fff;
+}
+
+
+@media (min-width: 1025px) {
+  .button-group {
+    gap: 1rem;
+  }
 }
