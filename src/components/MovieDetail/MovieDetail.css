@@ -55,8 +55,10 @@
 }
 
 @media (max-width: 767px) {
-  .movie-thumbnail {
-    height: 300px;
+  .movie-detail .movie-thumbnail {
+    height: 50vh; /* Adjust this value as needed */
+    object-fit: contain;
+    background-color: #181818; /* Add a black background */
   }
 
   .movie-info-overlay {
