@@ -1,34 +1,52 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from '../api/axios';
+import { useAuth } from '../components/AuthContext/AuthContext';
 
 const DEFAULT_AVATAR = 'https://res.cloudinary.com/dumvsoykz/image/upload/v1724754182/default_profile_yvdjcm.jpg';
 
 function ProfilePage() {
   const [profile, setProfile] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
   const { username } = useParams();
+  const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await api.get(`profiles/${username}/`);
-        setProfile(response.data);
-        setIsFollowing(response.data.is_following);
+        const [profileResponse, currentUserResponse] = await Promise.all([
+          api.get(`profiles/${username}/`),
+          isLoggedIn ? api.get('profiles/me/', {
+            headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+          }) : Promise.resolve(null)
+        ]);
+
+        setProfile(profileResponse.data);
+        setIsFollowing(profileResponse.data.is_following);
+
+        if (currentUserResponse) {
+          setCurrentUser({
+            ...currentUserResponse.data,
+            is_superuser: currentUserResponse.data.is_superuser,
+            is_banned: currentUserResponse.data.is_banned
+          });
+        }
       } catch (err) {
-        console.error('Error fetching profile:', err);
-        setError('Failed to fetch profile: ' + (err.response?.data?.detail || err.message));
+        console.error('Error fetching data:', err);
+        setError('Failed to fetch data: ' + (err.response?.data?.detail || err.message));
       } finally {
         setLoading(false);
       }
     };
 
-    fetchProfile();
-  }, [username]);
+    fetchData();
+  }, [username, isLoggedIn]);
 
   const handleFollowToggle = async () => {
     if (!profile) return;
@@ -44,6 +62,19 @@ function ProfilePage() {
     } catch (err) {
       console.error('Error toggling follow status:', err);
       setError('Failed to update follow status: ' + (err.response?.data?.detail || err.message));
+    }
+  };
+
+  const handleDeleteUser = async () => {
+    if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+      try {
+        await api.delete(`profiles/${profile.id}/`);
+        alert('User deleted successfully');
+        navigate('/home');
+      } catch (err) {
+        console.error('Error deleting user:', err);
+        setError('Failed to delete user: ' + (err.response?.data?.detail || err.message));
+      }
     }
   };
 
@@ -71,6 +102,14 @@ function ProfilePage() {
         >
           {isFollowing ? 'Unfollow' : 'Follow'}
         </button>
+        {currentUser && currentUser.is_superuser && (
+          <button
+            onClick={handleDeleteUser}
+            className="btn btn-danger ms-2"
+          >
+            Delete User
+          </button>
+        )}
       </div>
 
       <div className="mb-4 text-center">
