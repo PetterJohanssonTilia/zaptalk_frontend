@@ -31,6 +31,7 @@ function MovieList() {
   }, [loading, hasMore]);
 
   const fetchMovies = useCallback(async (resetMovies = false) => {
+    if (loading) return;
     setLoading(true);
     const params = {
       page: resetMovies ? 1 : page,
@@ -58,15 +59,17 @@ function MovieList() {
     } catch (error) {
       console.error('Error fetching movies:', error);
       setError('An error occurred while fetching movies.');
+      setHasMore(false);
     } finally {
       setLoading(false);
     }
-  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes]);
+  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes, loading]);
 
   useEffect(() => {
     setPage(1);
     setMovies([]);
     setFollowedLikesMovies([]);
+    setHasMore(true);
     fetchMovies(true);
   }, [selectedGenres, searchTerm, sortBy, showFollowedLikes]);
   
@@ -103,6 +106,8 @@ function MovieList() {
   const handleMovieClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
+
+  const currentMovies = showFollowedLikes ? followedLikesMovies : movies;
 
   return (
     <div className="container-fluid movie-list-container">
@@ -151,12 +156,12 @@ function MovieList() {
       {error && <div className="alert alert-danger">{error}</div>}
 
       <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
-        {(showFollowedLikes ? followedLikesMovies : movies).map((movie, index) => (
+        {currentMovies.map((movie, index) => (
           <div key={movie.id} className="col">
             <div 
               className="card h-100 text-white movie-card" 
               onClick={() => handleMovieClick(movie.id)}
-              ref={index === (showFollowedLikes ? followedLikesMovies.length : movies.length) - 1 ? lastMovieElementRef : null}
+              ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
               style={{backgroundColor: '#232323'}}
             >
               <img src={movie.thumbnail} className="card-img-top" alt={movie.title} style={{height: '200px', objectFit: 'cover'}} />
@@ -179,7 +184,7 @@ function MovieList() {
       </div>
 
       {loading && <div className="text-center mt-4">Loading...</div>}
-      {!loading && movies.length === 0 && (
+      {!loading && currentMovies.length === 0 && (
         <div className="alert alert-info mt-4">
           {showFollowedLikes 
             ? "No movies liked by users you follow."
