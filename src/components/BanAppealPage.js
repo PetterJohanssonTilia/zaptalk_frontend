@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import api from '../api/axios';
+import { Link } from 'react-router-dom';
+import './BanAppealPage.css';  // Import the CSS file
 
-function BanAppealPage() {
+const BanAppealPage = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [content, setContent] = useState('');
@@ -31,41 +33,44 @@ function BanAppealPage() {
   };
 
   return (
-    <div>
-      <h2>Submit Ban Appeal</h2>
-      {message && <p style={{ color: 'green' }}>{message}</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
+    <div className="ban-appeal-page-container">
+      <div className="ban-appeal-box">
+        <h2>Submit Ban Appeal</h2>
+        {message && <p className="success">{message}</p>}
+        {error && <p className="error">{error}</p>}
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username:</label>
           <input
             type="text"
+            id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Email:</label>
+          <label htmlFor="email">Email:</label>
           <input
             type="email"
+            id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Why should your ban be lifted?</label>
+          <label htmlFor="content">Why should your ban be lifted?</label>
           <textarea
+            id="content"
             value={content}
             onChange={(e) => setContent(e.target.value)}
             required
           />
+          <button type="submit">Submit Appeal</button>
+        </form>
+        <div className="login-link">
+          <p>Want to try logging in?</p>
+          <Link to="/login">Click here to login</Link>
         </div>
-        <button type="submit">Submit Appeal</button>
-      </form>
+      </div>
     </div>
   );
-}
+};
 
 export default BanAppealPage;
