@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext/AuthContext';
 import api from '../../api/axios';
 import './NavBar.css';
@@ -12,6 +12,7 @@ import zaptalklogo from '../../assets/zaptalklogo.webp';
 function NavBar() {
   const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const [userProfile, setUserProfile] = useState(null);
 
   useEffect(() => {
@@ -47,6 +48,8 @@ function NavBar() {
     navigate('/home');
   };
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <Navbar expand="lg" className="custom-navbar navbar-dark">
       <Container>
@@ -61,9 +64,9 @@ function NavBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to="/movies" className="nav-link">Movies</Link>
-            <Link to="/profiles" className="nav-link">Profiles</Link>
-            <Link to="/feed" className="nav-link">Feed</Link>
+            <Link to="/movies" className={`nav-link ${isActive('/movies') ? 'active' : ''}`}>Movies</Link>
+            <Link to="/profiles" className={`nav-link ${isActive('/profiles') ? 'active' : ''}`}>Profiles</Link>
+            <Link to="/feed" className={`nav-link ${isActive('/feed') ? 'active' : ''}`}>Feed</Link>
           </Nav>
           {isLoggedIn && userProfile ? (
             <Nav className="ms-auto">
@@ -72,7 +75,7 @@ function NavBar() {
                   <img 
                     src={userProfile.avatar || '/path/to/default/avatar.png'} 
                     alt="User Avatar" 
-                    style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
+                    style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px', objectFit: 'cover' }} 
                   />
                   {userProfile.username || 'Profile'}
                 </Dropdown.Toggle>
@@ -87,7 +90,7 @@ function NavBar() {
             </Nav>
           ) : (
             <Nav className="ms-auto">
-              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/login" className={`nav-link ${isActive('/login') ? 'active' : ''}`}>Login</Link>
             </Nav>
           )}
         </Navbar.Collapse>
