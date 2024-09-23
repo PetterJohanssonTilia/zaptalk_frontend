@@ -13,24 +13,42 @@ function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchTrendingMovies = async () => {
       try {
         const response = await api.get('movies/?ids=25,80,150');
-        setTrendingMovies(response.data.results.slice(0, 3));
+        if (isMounted) {
+          setTrendingMovies(response.data.results.slice(0, 3));
+          setLoading(false);
+        }
       } catch (err) {
         console.error('Error fetching trending movies:', err);
-        setError('Failed to load trending movies.');
-      } finally {
-        setLoading(false);
+        if (isMounted) {
+          setError('Failed to load trending movies.');
+          setLoading(false);
+        }
       }
     };
 
     fetchTrendingMovies();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const handleMovieClick = (movieId) => {
     navigate(`/movie/${movieId}`);
   };
+
+  if (loading) {
+    return <div className="text-center">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center alert alert-danger">{error}</div>;
+  }
 
   return (
     <div>
@@ -60,8 +78,6 @@ function HomePage() {
       {/* Trending Now Section */}
       <div className="trending-section">
         <h2 className="text-center trending-now-text">Trending Now</h2>
-        {loading && <div className="text-center">Loading...</div>}
-        {error && <div className="text-center alert alert-danger">{error}</div>}
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
           {trendingMovies.map((movie) => (
             <div key={movie.id} className="col" style={{ padding: '0 15px' }}>
