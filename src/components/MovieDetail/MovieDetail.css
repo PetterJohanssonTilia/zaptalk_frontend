@@ -12,8 +12,11 @@
 .movie-info-overlay {
   background: linear-gradient(90deg, rgba(24,24,24,1) 0%, rgba(24,24,24,0.8) 50%, rgba(24,24,24,0) 100%);
   padding-left: 10% !important;
-  width: 50% !important; 
-  max-width: 900px
+  width: 90% !important; 
+}
+
+.movie-info-content {
+  max-width: 900px;
 }
 
 .comments-section {

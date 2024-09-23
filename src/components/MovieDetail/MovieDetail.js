@@ -228,13 +228,14 @@ function MovieDetail() {
       <div className="position-relative">
         <img src={movie.thumbnail} alt={movie.title} className="img-fluid w-100 movie-thumbnail" />
         <div className="movie-info-overlay position-absolute top-0 start-0 h-100 w-100 d-flex flex-column justify-content-center text-white p-4">
-          <h1 className="display-4 fw-bold">{movie.title}</h1>
-          <p className="fs-5">{movie.year}</p>
-          <p className="fs-6">{movie.genres.join(', ')}</p>
-          <p className="mt-3">{movie.extract}</p>
+          <div className="movie-info-content">
+            <h1 className="display-4 fw-bold">{movie.title}</h1>
+            <p className="fs-5">{movie.year}</p>
+            <p className="fs-6">{movie.genres.join(', ')}</p>
+            <p className="mt-3">{movie.extract}</p>
+          </div>
         </div>
       </div>
-
       {/* Mobile view for movie info */}
       <div className="d-md-none text-white bg-dark p-4">
         <h1 className="h2 fw-bold">{movie.title}</h1>
