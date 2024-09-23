@@ -18,9 +18,10 @@ function MovieList() {
   const [followedLikesMovies, setFollowedLikesMovies] = useState([]);
   const navigate = useNavigate();
   const observer = useRef();
+  const loadingRef = useRef(false);
 
   const lastMovieElementRef = useCallback(node => {
-    if (loading) return;
+    if (loadingRef.current) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver(entries => {
       if (entries[0].isIntersecting && hasMore) {
@@ -28,10 +29,11 @@ function MovieList() {
       }
     });
     if (node) observer.current.observe(node);
-  }, [loading, hasMore]);
+  }, [hasMore]);
 
   const fetchMovies = useCallback(async (resetMovies = false) => {
-    if (loading) return;
+    if (loadingRef.current) return;
+    loadingRef.current = true;
     setLoading(true);
     const params = {
       page: resetMovies ? 1 : page,
@@ -62,8 +64,9 @@ function MovieList() {
       setHasMore(false);
     } finally {
       setLoading(false);
+      loadingRef.current = false;
     }
-  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes, loading]);
+  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes]);
 
   useEffect(() => {
     setPage(1);
@@ -139,21 +142,21 @@ function MovieList() {
             <button 
               onClick={() => toggleSort('most_liked')} 
               className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'active' : ''}`}
-              disabled={loading}
+              disabled={loadingRef.current}
             >
               Most Liked
             </button>
             <button 
               onClick={() => toggleSort('most_commented')} 
               className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'active' : ''}`}
-              disabled={loading}
+              disabled={loadingRef.current}
             >
               Most Commented
             </button>
             <button 
               onClick={toggleFollowedLikes} 
               className={`btn btn-outline-light ${showFollowedLikes ? 'active' : ''}`}
-              disabled={loading}
+              disabled={loadingRef.current}
             >
               Friends favorites
             </button>
