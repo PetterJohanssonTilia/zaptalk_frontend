@@ -176,7 +176,7 @@ function EditProfile() {
           <img
             src={profile?.avatar || DEFAULT_AVATAR}
             alt={`${profile?.username}'s avatar`}
-            style={{ width: '300px', height: '300px'}}
+            style={{ width: '300px', height: '300px' , objectFit: 'cover'}}
           />
         </div>
   
@@ -190,7 +190,7 @@ function EditProfile() {
                     <img
                       src={followedUser.avatar || DEFAULT_AVATAR}
                       alt={`${followedUser.username}'s avatar`}
-                      style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '5px' }} 
+                      style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '5px', objectFit: 'cover' }} 
                     />
                     <span>{followedUser.username}</span>
                   </div>
