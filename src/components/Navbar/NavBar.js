@@ -48,7 +48,7 @@ function NavBar() {
   };
 
   return (
-    <Navbar expand="lg" className="custom-navbar">
+    <Navbar expand="lg" className="custom-navbar navbar-dark">
       <Container>
         <Link to="/home" className="nav-link">
           <img 
