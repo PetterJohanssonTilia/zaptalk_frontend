@@ -19,7 +19,7 @@ function FeedPage() {
         setLoading(false);
       } catch (err) {
         console.error('Error details:', err.response || err);
-        setError('Failed to fetch feed items: ' + (err.response?.data?.detail || err.message));
+        setError('You need to be logged in to see your feed.');
         setLoading(false);
       }
     };
