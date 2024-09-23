@@ -70,6 +70,7 @@ function MovieList() {
     setMovies([]);
     setFollowedLikesMovies([]);
     setHasMore(true);
+    setError(null);
     fetchMovies(true);
   }, [selectedGenres, searchTerm, sortBy, showFollowedLikes]);
   
@@ -97,6 +98,10 @@ function MovieList() {
 
   const handleGenreChange = (event) => {
     setSelectedGenres(event.target.value ? [event.target.value] : []);
+  };
+
+  const toggleSort = (sort) => {
+    setSortBy(prevSort => prevSort === sort ? '' : sort);
   };
 
   const toggleFollowedLikes = () => {
@@ -132,20 +137,23 @@ function MovieList() {
           </select>
           <div className="d-flex flex-wrap justify-content-center gap-5 mb-3 mt-3">
             <button 
-              onClick={() => setSortBy('most_liked')} 
+              onClick={() => toggleSort('most_liked')} 
               className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'active' : ''}`}
+              disabled={loading}
             >
               Most Liked
             </button>
             <button 
-              onClick={() => setSortBy('most_commented')} 
+              onClick={() => toggleSort('most_commented')} 
               className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'active' : ''}`}
+              disabled={loading}
             >
               Most Commented
             </button>
             <button 
               onClick={toggleFollowedLikes} 
               className={`btn btn-outline-light ${showFollowedLikes ? 'active' : ''}`}
+              disabled={loading}
             >
               Friends favorites
             </button>
@@ -184,7 +192,7 @@ function MovieList() {
       </div>
 
       {loading && <div className="text-center mt-4">Loading...</div>}
-      {!loading && currentMovies.length === 0 && (
+      {!loading && currentMovies.length === 0 && !error && (
         <div className="alert alert-info mt-4">
           {showFollowedLikes 
             ? "No movies liked by users you follow."
