@@ -17,6 +17,8 @@ function NavBar() {
   useEffect(() => {
     if (isLoggedIn) {
       fetchUserProfile();
+    } else {
+      setUserProfile(null);
     }
   }, [isLoggedIn]);
 
@@ -32,11 +34,16 @@ function NavBar() {
       });
     } catch (error) {
       console.error('Error fetching user profile:', error);
+      if (error.response && error.response.status === 401) {
+        // Token is invalid or expired
+        handleLogout();
+      }
     }
   };
 
   const handleLogout = () => {
     logout();
+    setUserProfile(null);
     navigate('/home');
   };
 
@@ -58,28 +65,27 @@ function NavBar() {
             <Link to="/profiles" className="nav-link">Profiles</Link>
             <Link to="/feed" className="nav-link">Feed</Link>
           </Nav>
-          {isLoggedIn && (
+          {isLoggedIn && userProfile ? (
             <Nav className="ms-auto">
               <Dropdown align="end">
                 <Dropdown.Toggle as="a" className="nav-link" id="profile-dropdown">
                   <img 
-                    src={userProfile?.avatar || '/path/to/default/avatar.png'} 
+                    src={userProfile.avatar || '/path/to/default/avatar.png'} 
                     alt="User Avatar" 
                     style={{ width: '30px', height: '30px', borderRadius: '50%', marginRight: '5px' }} 
                   />
-                  Profile
+                  {userProfile.username || 'Profile'}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="bg-dark">
                   <Dropdown.Item as={Link} to="/edit-profile">Profile</Dropdown.Item>
-                  {userProfile?.is_superuser && (
+                  {userProfile.is_superuser && (
                     <Dropdown.Item as={Link} to="/bans">Bans</Dropdown.Item>
                   )}
                   <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav>
-          )}
-          {!isLoggedIn && (
+          ) : (
             <Nav className="ms-auto">
               <Link to="/login" className="nav-link">Login</Link>
             </Nav>
