@@ -22,6 +22,7 @@ function MovieDetail() {
   const [showCommentPosted, setShowCommentPosted] = useState(false);
   const [thumbsUpColor, setThumbsUpColor] = useState('currentColor');
   const { id } = useParams();
+  const [commentError, setCommentError] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -98,7 +99,12 @@ function MovieDetail() {
       setError('You must be logged in to post a comment.');
       return;
     }
-    
+
+    if (!newComment.trim()) {
+      setCommentError("Can't write an empty comment");
+      return;
+    }
+
     try {
       const response = await api.post('comments/', {
         movie: id,
@@ -269,9 +275,17 @@ function MovieDetail() {
         {isLoggedIn ? (
           <>
             <form onSubmit={handleCommentSubmit} className="mb-4 comment-form">
+              {commentError && (
+                <p className="text-danger mb-2" style={{ marginBottom: '0.5rem' }}>{commentError}</p>
+              )}
               <textarea
                 value={newComment}
-                onChange={(e) => setNewComment(e.target.value)}
+                onChange={(e) => {
+                  setNewComment(e.target.value);
+                  if (e.target.value.trim()) {
+                    setCommentError(null);
+                  }
+                }}
                 placeholder="Write a comment..."
                 required
                 className="form-control mb-2"
