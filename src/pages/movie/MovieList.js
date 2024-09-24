@@ -188,7 +188,6 @@ function MovieList() {
               className="card h-100 text-white movie-card" 
               onClick={() => handleMovieClick(movie.id)}
               ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
-              style={{backgroundColor: '#232323'}}
             >
               <img src={movie.thumbnail} className="card-img-top" alt={movie.title} style={{height: '200px', objectFit: 'cover'}} />
               <div className="card-body">
