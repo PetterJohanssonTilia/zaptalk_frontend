@@ -34,7 +34,6 @@ function NavBar() {
         is_banned: response.data.is_banned
       });
     } catch (error) {
-      console.error('Error fetching user profile:', error);
       if (error.response && error.response.status === 401) {
         // Token is invalid or expired
         handleLogout();

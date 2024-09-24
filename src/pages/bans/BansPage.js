@@ -18,7 +18,6 @@ const BanPage = () => {
       const response = await api.get('bans/active_bans/');
       setBans(response.data);
     } catch (error) {
-      console.error('Error fetching active bans:', error.response?.data || error.message);
       setMessage('Failed to fetch active bans. Please try again.');
     }
   };
@@ -28,7 +27,6 @@ const BanPage = () => {
       const response = await api.get('ban-appeals/');
       setAppeals(response.data);
     } catch (error) {
-      console.error('Error fetching ban appeals:', error.response?.data || error.message);
       setMessage('Failed to fetch ban appeals. Please try again.');
     }
   };
@@ -42,7 +40,6 @@ const BanPage = () => {
       setReason('');
       fetchActiveBans();
     } catch (error) {
-      console.error('Error banning user:', error);
       setMessage('Failed to ban user. Please try again.');
     }
   };
@@ -54,7 +51,6 @@ const BanPage = () => {
       fetchActiveBans();
       fetchBanAppeals();
     } catch (error) {
-      console.error('Error unbanning user:', error);
       setMessage('Failed to unban user. Please try again.');
     }
   };

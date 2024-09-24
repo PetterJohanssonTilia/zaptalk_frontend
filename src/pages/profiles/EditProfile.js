@@ -30,7 +30,6 @@ function EditProfile() {
         setBio(profileData.bio || '');
         await fetchFollowing(profileData.username);
       } catch (error) {
-        console.error('Error loading profile and following:', error);
         setError('Failed to load profile and following list. Please try again.');
       }
     };
@@ -69,7 +68,6 @@ function EditProfile() {
       });
       setUpdateSuccess(true);
     } catch (error) {
-      console.error('Error updating profile:', error.response?.data || error);
       setError('Failed to update profile. Please try again.');
     }
   };

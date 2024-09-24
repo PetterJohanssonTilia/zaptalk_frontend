@@ -38,7 +38,6 @@ function ProfilePage() {
           });
         }
       } catch (err) {
-        console.error('Error fetching data:', err);
         setError('Failed to fetch data: ' + (err.response?.data?.detail || err.message));
       } finally {
         setLoading(false);
@@ -60,7 +59,6 @@ function ProfilePage() {
         is_following: !isFollowing
       }));
     } catch (err) {
-      console.error('Error toggling follow status:', err);
       setError('Failed to update follow status: ' + (err.response?.data?.detail || err.message));
     }
   };
@@ -72,7 +70,6 @@ function ProfilePage() {
         alert('User deleted successfully');
         navigate('/home');
       } catch (err) {
-        console.error('Error deleting user:', err);
         setError('Failed to delete user: ' + (err.response?.data?.detail || err.message));
       }
     }

@@ -18,7 +18,6 @@ function FeedPage() {
         setFeedItems(response.data);
         setLoading(false);
       } catch (err) {
-        console.error('Error details:', err.response || err);
         setError('You need to be logged in to see your feed.');
         setLoading(false);
       }

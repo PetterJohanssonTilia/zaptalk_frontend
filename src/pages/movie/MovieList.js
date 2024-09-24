@@ -60,7 +60,6 @@ function MovieList() {
       setHasMore(response.data.next !== null);
       setError(null);
     } catch (error) {
-      console.error('Error fetching movies:', error);
       setError('An error occurred while fetching movies.');
       setHasMore(false);
     } finally {
@@ -90,7 +89,6 @@ function MovieList() {
         const response = await api.get('genres/');
         setGenres(response.data);
       } catch (error) {
-        console.error('Error fetching genres:', error);
       }
     };
     fetchGenres();

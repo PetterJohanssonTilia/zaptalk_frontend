@@ -37,7 +37,6 @@ function LoginPage() {
         setError('Invalid response from server');
       }
     } catch (error) {
-      console.error('Login failed:', error);
       setError(`Login failed: ${error.response?.data?.detail || 'Unknown error'}`);
     }
   };

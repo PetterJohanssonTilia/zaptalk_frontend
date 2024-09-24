@@ -23,7 +23,6 @@ function HomePage() {
           setLoading(false);
         }
       } catch (err) {
-        console.error('Error fetching trending movies:', err);
         if (isMounted) {
           setError('Failed to load trending movies.');
           setLoading(false);

@@ -51,7 +51,6 @@ function MovieDetail() {
           setIsSuperuser(currentUserResponse.data.is_superuser);
         }
       } catch (error) {
-        console.error('Error fetching movie details and comments:', error.response || error);
         setError('Failed to fetch movie details');
       } finally {
         setIsLoading(false);
@@ -87,7 +86,6 @@ function MovieDetail() {
       // Reset color after 5 seconds
       setTimeout(() => setThumbsUpColor('currentColor'), 5000);
     } catch (error) {
-      console.error('Error liking movie:', error);
       setError('Failed to like the movie. Please try again.');
     }
   };
@@ -126,10 +124,7 @@ function MovieDetail() {
         throw new Error('Unexpected response status');
       }
     } catch (error) {
-      console.error('Error posting comment:', error);
       if (error.response) {
-        console.error('Response data:', error.response.data);
-        console.error('Response status:', error.response.status);
         setError(`Failed to post comment: ${error.response.data.message || 'Unknown error'}`);
       } else if (error.request) {
         setError('No response received from server. Please try again.');
@@ -168,7 +163,6 @@ function MovieDetail() {
         throw new Error('Unexpected response status');
       }
     } catch (error) {
-      console.error('Error updating comment:', error);
       setError('Failed to update comment. Please try again.');
     }
   };
@@ -188,7 +182,6 @@ function MovieDetail() {
         throw new Error('Unexpected response status');
       }
     } catch (error) {
-      console.error('Error deleting comment:', error);
       setError('Failed to delete comment. Please try again.');
     }
   };
@@ -218,7 +211,6 @@ function MovieDetail() {
         );
       }
     } catch (error) {
-      console.error('Error toggling like:', error);
       setError('Failed to like/unlike comment. Please try again.');
     }
   };
@@ -315,7 +307,6 @@ function MovieDetail() {
                             alt={`${comment.user.username}'s avatar`} 
                             className="rounded-circle mb-2 comment-avatar"
                             onError={(e) => {
-                              console.error(`Error loading avatar for ${comment.user?.username}:`, e);
                               e.target.src = DEFAULT_AVATAR;
                             }}
                           />

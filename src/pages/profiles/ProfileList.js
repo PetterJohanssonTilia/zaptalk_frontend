@@ -20,7 +20,6 @@ function ProfileList() {
         setFilteredProfiles(sortedProfiles);
         setLoading(false);
       } catch (err) {
-        console.error('Error details:', err.response || err);
         setError('Failed to fetch profiles: ' + (err.response?.data?.detail || err.message));
         setLoading(false);
       }
@@ -70,7 +69,6 @@ function ProfileList() {
                       alt={`${profile.username}'s avatar`} 
                       className="rounded-circle profile-avatar"
                       onError={(e) => {
-                        console.error(`Error loading avatar for ${profile.username}:`, e);
                         e.target.src = DEFAULT_AVATAR;
                       }}
                     />

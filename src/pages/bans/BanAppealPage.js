@@ -27,7 +27,6 @@ const BanAppealPage = () => {
       setEmail('');
       setContent('');
     } catch (error) {
-      console.error('Ban appeal submission failed:', error);
       setError(`Failed to submit ban appeal: ${error.response?.data?.detail || 'Unknown error'}`);
     }
   };
