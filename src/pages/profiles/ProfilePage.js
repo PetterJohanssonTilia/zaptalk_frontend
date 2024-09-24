@@ -85,8 +85,7 @@ function ProfilePage() {
         <img
           src={profile.avatar || DEFAULT_AVATAR}
           alt={`${profile.username}'s avatar`}
-          className="img-fluid mb-3"
-          className='profile.avatar'          
+          className='profilepage-avatar'          
         />
         <h1 className="display-4 mb-3">{profile.username}</h1>
         <div className="mb-3">
