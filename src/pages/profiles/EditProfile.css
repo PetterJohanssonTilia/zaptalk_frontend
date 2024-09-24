@@ -11,13 +11,24 @@
 .custom-button {
     background-color: #181818;
     color: #fff;
-  }
+    border: 1px solid #28a745;
+    transition: background-color 0.3s ease;
+}
 
-  .custom-button-delete {
+.custom-button:hover {
+    background-color: rgba(40, 167, 70, 0.479); /* Slight green background on hover */
+}
+
+.custom-button-delete {
     background-color: #181818;
     color: #fff;
     border: 1px solid #c41010; 
-  }
+    transition: background-color 0.3s ease;
+}
+
+.custom-button-delete:hover {
+  background-color: rgba(220, 53, 70, 0.432); /* Slight red background on hover */
+}
 
 .profileupdated{
   color:greenyellow;
