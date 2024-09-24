@@ -1,41 +1,104 @@
 body {
-    background-color: #181818; /* Set the body background color */
-    color: #ffffff; /* Set the default text color */
-  }
-  
-  .trending-section {
-    padding: 0 20px; /* Add padding to the sides of the trending section */
-    margin-top: 0px;
-  }
+  background-color: #181818;
+  color: #ffffff;
+}
 
-  .trending-now-text {
-    margin-bottom:3rem;
-  }
+.spacer-picture {
+  width: 80%;
+  height: auto;
+  max-height: 50px;
+}
 
-  .jumbotron-text {
-    position: relative;
-    padding: 150px 0;
-    font-family:Merriweather;
-    font-weight: 700;
-  }
+.trending-section {
+  padding: 0 20px;
+  margin-top: 0px;
+}
 
-  
-  .card {
+.trending-now-text {
+  margin-bottom: 3rem;
+}
 
-    background-color: inherit; /* Inherit background color from body */
-    color: inherit; /* Inherit text color from body */
-    max-width: 450px; /* Set a maximum width for the cards */
-    margin: 0 auto; /* Center the cards */
+.jumbotron-text {
+  position: relative;
+  padding: 150px 0;
+  font-family: Merriweather;
+  font-weight: 700;
+}
+
+.movie-card-wrapper {
+  position: relative;
+  transition: transform 0.2s ease-in-out;
+  cursor: pointer;
+  max-width: 450px;
+  margin: 0 auto;
+}
+
+.movie-card-wrapper::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  background: linear-gradient(
+    45deg,
+    #800020,
+    #9a0025,
+    #b30030,
+    #cc0033,
+    #ffffff,
+    #cc0033,
+    #b30030, 
+    #9a0025, 
+    #800020  
+  );
+  background-size: 400%;
+  z-index: -1;
+  filter: blur(5px);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.movie-card-wrapper:hover::before {
+  opacity: 1;
+  animation: steam 20s linear infinite;
+}
+
+.movie-card-wrapper:hover {
+  transform: scale(1.05);
+}
+
+.card {
+  color: inherit;
+  height: 100%;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-title {
+  color: inherit;
+}
+
+@keyframes steam {
+  0% {
+    background-position: 0 0;
   }
-  
-  .card-title {
-    color: inherit; /* Ensure the card title inherits the text color */
+  50% {
+    background-position: 400% 0;
   }
-  
-  /* Additional styles for responsiveness if needed */
-  @media (max-width: 576px) {
-    .card {
-      margin-bottom: 20px; /* Add margin at the bottom for small screens */
-    }
+  100% {
+    background-position: 0 0;
   }
-  
+}
+
+@media (max-width: 576px) {
+  .movie-card-wrapper {
+    margin-bottom: 20px;
+  }
+}

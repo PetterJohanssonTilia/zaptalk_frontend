@@ -69,8 +69,7 @@ function HomePage() {
         <img 
           src={spacer} 
           alt="spacer" 
-          className="logo" 
-          style={{ width: '80%', height: 'auto', maxHeight: '50px' }}
+          className="spacer-picture" 
         />
       </div>
 
@@ -81,22 +80,23 @@ function HomePage() {
           {trendingMovies.map((movie) => (
             <div key={movie.id} className="col" style={{ padding: '0 15px' }}>
               <div 
-                className="card h-100" 
+                className="movie-card-wrapper"
                 onClick={() => handleMovieClick(movie.id)}
-                style={{ cursor: 'pointer' }}
               >
-                <img src={movie.thumbnail} className="card-img-top" alt={movie.title} style={{ height: '200px', objectFit: 'cover' }} />
-                <div className="card-body">
-                  <h5 className="card-title text-center">{movie.title}</h5>
-                  <div className="d-flex justify-content-center gap-3">
-                    <span className="d-flex align-items-center">
-                      <ThumbsUp size={16} className="me-1" />
-                      {movie.likes_count}
-                    </span>
-                    <span className="d-flex align-items-center">
-                      <MessageCircle size={16} className="me-1" />
-                      {movie.comments_count}
-                    </span>
+                <div className="card bg-dark h-100">
+                  <img src={movie.thumbnail} className="card-img-top" alt={movie.title}/>
+                  <div className="card-body ">
+                    <h5 className="card-title text-center">{movie.title}</h5>
+                    <div className="d-flex justify-content-center gap-3">
+                      <span className="d-flex align-items-center">
+                        <ThumbsUp size={16} className="me-1" />
+                        {movie.likes_count}
+                      </span>
+                      <span className="d-flex align-items-center">
+                        <MessageCircle size={16} className="me-1" />
+                        {movie.comments_count}
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
