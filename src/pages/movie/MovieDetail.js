@@ -268,7 +268,7 @@ function MovieDetail() {
           <>
             <form onSubmit={handleCommentSubmit} className="mb-4 comment-form">
               {commentError && (
-                <p className="text-danger mb-2" style={{ marginBottom: '0.5rem' }}>{commentError}</p>
+                <p className="text-danger mb-2">{commentError}</p>
               )}
               <textarea
                 value={newComment}

@@ -101,6 +101,11 @@ body {
   transform: scale(1.05);
 }
 
+.movie-thumbnail {
+  height: 200px;
+  object-fit: cover;
+}
+
 .movie-title {
   font-size: 1.2rem;
   font-weight: bold;

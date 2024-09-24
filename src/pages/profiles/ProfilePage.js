@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import api from '../../api/axios';
 import { useAuth } from '../../contexts/AuthContext';
-
+import './ProfilePage.css';
 const DEFAULT_AVATAR = 'https://res.cloudinary.com/dumvsoykz/image/upload/v1724754182/default_profile_yvdjcm.jpg';
 
 function ProfilePage() {
@@ -86,7 +86,7 @@ function ProfilePage() {
           src={profile.avatar || DEFAULT_AVATAR}
           alt={`${profile.username}'s avatar`}
           className="img-fluid mb-3"
-          style={{ width: '250px', height: '250px', objectFit: 'cover' }}
+          className='profile.avatar'          
         />
         <h1 className="display-4 mb-3">{profile.username}</h1>
         <div className="mb-3">

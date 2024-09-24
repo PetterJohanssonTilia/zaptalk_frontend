@@ -189,7 +189,7 @@ function MovieList() {
               onClick={() => handleMovieClick(movie.id)}
               ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
             >
-              <img src={movie.thumbnail} className="card-img-top" alt={movie.title} style={{height: '200px', objectFit: 'cover'}} />
+              <img src={movie.thumbnail} className="movie-thumbnail" alt={movie.title} />
               <div className="card-body">
                 <h5 className="card-title text-center movie-title">{movie.title}</h5>
                 <div className="d-flex justify-content-center gap-3">

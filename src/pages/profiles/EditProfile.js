@@ -149,8 +149,8 @@ function EditProfile() {
               </div>
               <br></br>
               {updateSuccess && (
-                <div style={{ color: 'green', fontSize: '1.2rem', marginBottom: '1rem' }}>
-                  Profile updated, please refresh the page.
+                <div className="profileupdated">
+                  Profile updated!
                 </div>
               )}
               <div className="mb-4">
@@ -174,7 +174,7 @@ function EditProfile() {
           <img
             src={profile?.avatar || DEFAULT_AVATAR}
             alt={`${profile?.username}'s avatar`}
-            style={{ width: '300px', height: '300px' , objectFit: 'cover'}}
+            className='main-avatar'
           />
         </div>
   
@@ -188,7 +188,7 @@ function EditProfile() {
                     <img
                       src={followedUser.avatar || DEFAULT_AVATAR}
                       alt={`${followedUser.username}'s avatar`}
-                      style={{ width: '100px', height: '100px', borderRadius: '50%', marginRight: '5px', objectFit: 'cover' }} 
+                      className='followed-users-avatar'
                     />
                     <span>{followedUser.username}</span>
                   </div>

@@ -40,6 +40,11 @@
     color: rgba(255, 255, 255, 0.55);
     transition: color 0.3s ease;
   }
+
+  .logo {
+    width: 100px;
+    height:auto;
+  }
   
   .nav-link:hover {
     color: rgba(255, 255, 255, 0.75);
@@ -80,3 +85,4 @@
     margin-right: 10px;
     object-fit: cover;
   }
+  

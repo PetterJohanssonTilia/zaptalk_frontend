@@ -78,7 +78,7 @@ function HomePage() {
         <h2 className="text-center trending-now-text">Trending Now</h2>
         <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
           {trendingMovies.map((movie) => (
-            <div key={movie.id} className="col" style={{ padding: '0 15px' }}>
+            <div key={movie.id} className="col px-3">
               <div 
                 className="movie-card-wrapper"
                 onClick={() => handleMovieClick(movie.id)}

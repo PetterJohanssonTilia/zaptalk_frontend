@@ -91,12 +91,11 @@ function NavBar() {
   return (
     <Navbar expand="lg" className="custom-navbar navbar-dark">
       <Container>
-        <Link to="/home" className="nav-link">
+        <Link to="/home" className="nav-link nav-link-logo">
           <img 
             src={zaptalklogo} 
             alt="Zaptalk Logo" 
-            className="logo" 
-            style={{ width: '100px', height: 'auto' }} 
+            className="logo"             
           />
         </Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
