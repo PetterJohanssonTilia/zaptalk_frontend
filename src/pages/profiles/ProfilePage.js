@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import api from '../api/axios';
-import { useAuth } from '../components/AuthContext/AuthContext';
+import api from '../../api/axios';
+import { useAuth } from '../../contexts/AuthContext';
 
 const DEFAULT_AVATAR = 'https://res.cloudinary.com/dumvsoykz/image/upload/v1724754182/default_profile_yvdjcm.jpg';
 

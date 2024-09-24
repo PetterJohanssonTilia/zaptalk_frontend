@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../components/AuthContext/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import './LoginPage.css';
 
 function LoginPage() {

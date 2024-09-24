@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import spacer from '../assets/spacer.png';
-import jumbotron from '../assets/jumbotron.jpg';
+import spacer from '../../assets/spacer.png';
+import jumbotron from '../../assets/jumbotron.jpg';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
-import api from '../api/axios'; 
+import api from '../../api/axios'; 
 import './HomePage.css';
 
 function HomePage() {

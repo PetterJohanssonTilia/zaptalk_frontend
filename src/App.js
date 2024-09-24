@@ -4,19 +4,20 @@ import './App.css';
 
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import HomePage from './components/HomePage';
-import { AuthProvider } from '../src/components/AuthContext/AuthContext';
-import Registration from './components/UserRegistration/UserRegistration';
-import ProfilePage from './components/ProfilePage';
-import ProfileList from './components/ProfileList/ProfileList'
-import EditProfile from './components/EditProfile/EditProfile';
-import FeedPage from './components/FeedPage';
-import LoginPage from './components/LoginPage';
+import HomePage from './pages/home/HomePage';
+import { AuthProvider } from '../src/contexts/AuthContext';
+import Registration from './pages/auth/UserRegistration';
+import ProfilePage from './pages/profiles/ProfilePage';
+import ProfileList from './pages/profiles/ProfileList'
+import EditProfile from './pages/profiles/EditProfile';
+import FeedPage from './pages/feed/FeedPage';
+import LoginPage from './pages/auth/LoginPage';
 import NavBar from './components/Navbar/NavBar';
-import MovieList from './components/MovieList/MovieList';
-import MovieDetail from './components/MovieDetail/MovieDetail';
-import BansPage from './components/BansPage';
-import BanAppealPage from './components/BanAppealPage';
+import MovieList from './pages/movie/MovieList';
+import MovieDetail from './pages/movie/MovieDetail';
+import BansPage from './pages/bans/BansPage';
+import BanAppealPage from './pages/bans/BanAppealPage';
+import NotFound from './pages/404/NotFound';
 
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
         <Router>        
           <NavBar />
             <Routes>
+              <Route path='*' element={<NotFound />}/>
               <Route path="/" element={<HomePage />} />
               <Route path="/home" element={<HomePage />} />
               <Route path="/movies" element={<MovieList />} />

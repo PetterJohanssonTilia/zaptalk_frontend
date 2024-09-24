@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import api from '../api/axios';
+import api from '../../api/axios';
 import { Link } from 'react-router-dom';
 import './BanAppealPage.css';  // Import the CSS file
 

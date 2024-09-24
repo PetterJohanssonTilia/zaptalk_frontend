@@ -4,7 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { useAuth } from '../AuthContext/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import api from '../../api/axios';
 import './NavBar.css';
 import zaptalklogo from '../../assets/zaptalklogo.webp';

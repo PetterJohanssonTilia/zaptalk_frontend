@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../api/axios';
+import api from '../../api/axios';
 import { format, parseISO } from 'date-fns';
 import './FeedPage.css';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
-import defaultAvatar from '../assets/defaultavatar.jpg';
+import defaultAvatar from '../../assets/defaultavatar.jpg';
 
 function FeedPage() {
   const [feedItems, setFeedItems] = useState([]);
