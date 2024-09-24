@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { ArrowLeft } from 'lucide-react';
-import './NotFound.css';
+
 
 const NotFound = () => {
   return (
