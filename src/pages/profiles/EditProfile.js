@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import api from '../../api/axios';
 import { useAuth } from '../../contexts/AuthContext';
 import './EditProfile.css';
@@ -99,12 +99,12 @@ function EditProfile() {
     <div className="container mx-auto p-4">
       <div className="row">
         <div className="col-md-4 shadow-lg rounded-lg p-6">
-          <h1 className="text-2xl font-bold mb-4">{isOwnProfile ? 'Edit Profile' : `${profile.username}'s Profile`}</h1>
+          <h2 className="text-xl font-semibold mb-4 text-center">{isOwnProfile ? 'Edit Profile' : `${profile?.username}'s Profile`}</h2>
           {error && <div className="text-red-500 mb-4">{error}</div>}
           {isOwnProfile && (
             <form onSubmit={handleSubmit} className="mb-6">
               <div className="mb-4">
-                <label htmlFor="username" className="block text-sm font-medium">Username:</label>
+                <label htmlFor="username" className="block text-sm font-medium mb-2">Username:</label>
                 <br></br>
                 <input
                   type="text"
@@ -116,7 +116,7 @@ function EditProfile() {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium">Email:</label>
+                <label htmlFor="email" className="block text-sm font-medium mb-2">Email:</label>
                 <br></br>
                 <input
                   type="email"
@@ -128,7 +128,7 @@ function EditProfile() {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="bio" className="block text-sm font-medium">Bio:</label>
+                <label htmlFor="bio" className="block text-sm font-medium mb-2">Bio:</label>
                 <br></br>
                 <textarea
                   id="bio"
@@ -138,26 +138,24 @@ function EditProfile() {
                 />
               </div>
               <div className="mb-4">
-                <label htmlFor="avatar" className="block text-sm font-medium">Avatar:</label>
-                <br></br>
+                <label htmlFor="avatar" className="block text-sm font-medium mb-2">Avatar:</label>
                 <input
                   type="file"
                   onChange={(e) => setAvatar(e.target.files[0])}
                   accept="image/*"
-                  className="mt-1 block w-full "
+                  className="mt-1 block w-full"
                 />
               </div>
-              <br></br>
               {updateSuccess && (
                 <div className="profileupdated">
                   Profile updated!
                 </div>
               )}
-              <div className="mb-4">
+              <div className="mb-4 flex flex-col">
                 <button type="submit" className="rounded mb-4 custom-button">Update Profile</button>
                 <br></br>
                 {isOwnProfile && (
-                <button
+                  <button
                     onClick={handleDeleteAccount}
                     className="rounded custom-button-delete"
                   >
@@ -170,7 +168,7 @@ function EditProfile() {
         </div>
   
         <div className="col-md-4 shadow-lg rounded-lg p-6 d-flex flex-column align-items-center">
-          <h2 className="text-xl font-semibold mb-4">{profile?.username}</h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">{profile?.username}</h2>
           <img
             src={profile?.avatar || DEFAULT_AVATAR}
             alt={`${profile?.username}'s avatar`}
@@ -179,30 +177,37 @@ function EditProfile() {
         </div>
   
         <div className="col-md-4 shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4">Following</h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">Following</h2>
           {following.length > 0 ? (
-            <ul className="space-y-4">
+            <div className="following-list">
               {following.map((followedUser) => (
-                <li key={followedUser.profile_id} className="d-flex justify-content-between align-items-center mb-4">
-                  <div className="d-flex align-items-center">
-                    <img
-                      src={followedUser.avatar || DEFAULT_AVATAR}
-                      alt={`${followedUser.username}'s avatar`}
-                      className='followed-users-avatar'
-                    />
-                    <span>{followedUser.username}</span>
+                <div key={followedUser.profile_id} className="card bg-dark text-white mb-3">
+                  <div className="card-body d-flex justify-content-between align-items-center">
+                    <div className="following-user">
+                      <Link 
+                        to={`/profile/${followedUser.username}`}
+                        className="profile-username"
+                      >
+                        <img
+                          src={followedUser.avatar || DEFAULT_AVATAR}
+                          alt={`${followedUser.username}'s avatar`}
+                          className='followed-users-avatar'
+                        />
+                        <span>{followedUser.username}</span>
+                      </Link>
+                    </div>
+                    {isOwnProfile && (
+                      <button
+                        onClick={() => handleUnfollow(followedUser.profile_id)}
+                        className="btn btn-danger btn-sm unfollow-button"
+                      >
+                        Unfollow
+                      </button>
+                    )}
                   </div>
-                  {isOwnProfile && (
-                    <button
-                      onClick={() => handleUnfollow(followedUser.profile_id)}
-                      className="rounded custom-button-delete"
-                    >
-                      Unfollow
-                    </button>
-                  )}
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           ) : (
             <p>Not following anyone yet.</p>
           )}
