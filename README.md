@@ -18,8 +18,9 @@ Implement a core set of essential features to create a functional and appealing 
 
 # ZapTalk User Stories
 <p align="center">
-    <img src="../zaptalk_frontend/src/assets/readme/userstorydetailed.JPG" width=900>
-    <img src="../zaptalk_frontend/src/assets/readme/userstorysmall.JPG" width=300>
+    <img src="../zaptalk_frontend/src/assets/readme/userstorydetailed1.jpg" 
+    width=900>
+    <img src="../zaptalk_frontend/src/assets/readme/userstorysmall1.jpg" width=300>
 </p>
 
 ## Board Structure
@@ -86,7 +87,7 @@ These categories ensure that all aspects of the ZapTalk platform are addressed i
 
 ## Agile development methodology
 
-<img src="../zaptalk_frontend/src/assets/readme/userstoryboard.JPG" width=600>
+<img src="../zaptalk_frontend/src/assets/readme/userstoryboard1.jpg" width=600>
 
 Development Methodology
 We employ a flexible development approach using GitHub issues and projects. Our process includes:
@@ -181,20 +182,311 @@ For the h1 heading I used the font Merriweather for it's older and more elegant 
 
 # Features
 
-# Planned features
+### Landing page with jumbotron and trending movies
+The landing page features an image and a problem this website solves for the user along with a trending section to entice the user to dig deeper into the site
+
+<img src="../zaptalk_frontend/src/assets/readme/featurejumbotron1.jpg" width=400>
+<img src="../zaptalk_frontend/src/assets/readme/featuretrendingnow1.jpg" 
+width=400>
+
+### Registration form
+User story AUTH-1
+
+The registration form enables a user to open a new account, by entering username, password and email. with validation on the input fields.
+
+<img src="../zaptalk_frontend/src/assets/readme/featureregister1.jpg" width=400>
+
+### Login form
+User story AUTH-2
+
+The login form enables users to login while also getting access to the registration form and ban appeals form
+
+<img src="../zaptalk_frontend/src/assets/readme/featurelogin1.jpg" width=400>
+
+### Ban appeal form
+Userstory AUTH-9
+
+From the login you can find the ban appeal form which lets the user appeal for an un-ban to the superusers
+
+<img src="../zaptalk_frontend/src/assets/readme/featurebanappeal1.jpg" width=400>
+
+### Ban page
+
+User story ADMIN-1 ADMIN-2 ADMIN-3
+
+Inside the superusers ban link you can find a form to ban users, view a list of banned users and a list of all the ban appeals
+
+<img src="../zaptalk_frontend/src/assets/readme/featurebanusers1.jpg" width=400>
+<img src="../zaptalk_frontend/src/assets/readme/featureactivebans1.jpg" width=400>
+<img src="../zaptalk_frontend/src/assets/readme/featurebanappeals1.jpg" width=400>
+
+### Edit profile page
+
+Userstory AUTH-3 AUTH-4 AUTH-5 INTERACT-2 INTERACT-3
+
+In the edit profile page the user can find a way to edit their profile, delete their profile, and see their following list
+
+<img src="../zaptalk_frontend/src/assets/readme/featureeditprofile1.jpg" width=400>
+<img src="../zaptalk_frontend/src/assets/readme/featurefollowinglist1.jpg" width=400>
+
+### Navbar
+
+The navbar component contains links to Movies, Profiles, Feed. A notification bell and the users profile
+
+<img src="../zaptalk_frontend/src/assets/readme/featurenavbar1.jpg" width=400>
+
+### Notification dropdown
+User story FEED-3
+
+The notification bell turns red and shows the numbers of new notifications that are unread. The dropdown shows which users have followed or liked your comments
+
+<img src="../zaptalk_frontend/src/assets/readme/featurenotifications1.jpg" width=400>
+
+### User dropdown
+User story AUTH-2
+
+The user dropdown contains links to the users profile page, logout and for superusers the access to bans
+
+<img src="../zaptalk_frontend/src/assets/readme/featureprofiledropdown1.jpg" width=400>
+
+### Movie list page
+
+User story MOIVE-1 
+
+The movielist page has a search and filter feature and displays all the movies in a grid with an added hover effect to easier navigate
+
+<img src="../zaptalk_frontend/src/assets/readme/featuremovielist1.jpg" width=400>
+<img src="../zaptalk_frontend/src/assets/readme/featuremoviefilters1.jpg" width=400>
+
+### Movie detail page
+
+User stories MOVIE-2, MOVIE-3, MOVIE-4, MOVIE-5, MOVIE-6
+The movie detail page features the thumbnail of the movie along with a text description. It features the like functionality, along with a comment field and likes for comments
+ 
+<img src="../zaptalk_frontend/src/assets/readme/featuremoviethumbnail.jpg" width=400>
+
+### Like 
+
+User stories MOVIE-3, MOVIE-6
+
+The like feature can be found in the movie detail and when viewing comments
+
+<img src="../zaptalk_frontend/src/assets/readme/featurelike1.jpg" width=400>
+
+### Comments
+
+User stories MOVIE-4, MOVIE-5, MOVIE-6
+
+The comment section is found inside a movie detail view and lets you write a comment, edit and delete your own comment, the superuser can delete everyones comments and you can also find and like other users comments
+
+<img src="../zaptalk_frontend/src/assets/readme/featurecomment1.jpg" width=400>
+<img src="../zaptalk_frontend/src/assets/readme/featureeditcomment1.jpg" width=400>
+
+### Profile list
+
+Userstory INTERACT-1
+
+The profile list can be found from the navbar and shows a list of all profiles and has a search functionality
+
+<img src="../zaptalk_frontend/src/assets/readme/featureprofiles1.jpg" width=400>
+
+### Profile detail
+
+Userstories INTERACT-2 
+
+The profile view lets you see a users avatar,bio, their number of followers and their karma, which is how many likes their comments have recieved, here you can follow/unfollow the profile and superusers can also delete a profile from this view.
+
+<img src="../zaptalk_frontend/src/assets/readme/featureprofiledetail1.jpg" width=400>
+
+### Feed
+
+Userstories FEED-1, FEED-2
+
+In the feed page you'll find a feed from the users you follow, you'll see a list of movies they have either liked or commented on
+
+<img src="../zaptalk_frontend/src/assets/readme/featurefeed1.jpg" width=400>
+
+## Planned features
 
 Besides improving the current feature, a major feature I had planned was a "Get random movie" functionality incase the user would get decision paralisys from the big movie list
 
-## pages 
 
-## components
+# Pages
+
+Here's the pages on a desktop view for you to get a quick overview on where the features are placed
+
+### Homepage containing jumbotron and trending
+<img src="../zaptalk_frontend/src/assets/readme/homepage1.jpg" width=900>
+
+### Movielist page with search filters
+<img src="../zaptalk_frontend/src/assets/readme/movielistpage1.jpg" width=900>
+
+### Moviedetail page like/comments
+<img src="../zaptalk_frontend/src/assets/readme/moviedetailpage1.jpg" width=900>
+
+### Profilelistpage with search
+<img src="../zaptalk_frontend/src/assets/readme/profilelistpage1.jpg" width=900>
+
+### Feedpage
+<img src="../zaptalk_frontend/src/assets/readme/feedpage1.jpg" width=900>
+
+
 
 # Frameworks, libraries and dependencies
 
+
+## React
+* react (v18.3.1) and react-dom (v18.3.1) - These are the core libraries for building the user interface of the application. React allows for the creation of reusable UI components, while react-dom provides DOM-specific methods for rendering these components in the browser.
+
+## React Router DOM
+* react-router-dom (v6.26.1) - This library enables client-side routing in React applications. It's used to implement navigation between different views or pages within the single-page application, enhancing the user experience by allowing for seamless transitions without full page reloads.
+
+## Axios
+* axios (v1.7.7) - Axios is a popular HTTP client for making API requests. It simplifies the process of sending asynchronous HTTP requests to REST endpoints and handling responses. Its features include automatic request and response transformations, request cancellation, and better error handling compared to native fetch.
+
+## Bootstrap and React Bootstrap
+* bootstrap (v5.3.3) and react-bootstrap (v2.10.4) - These libraries provide a comprehensive set of pre-styled components and a responsive grid system. React Bootstrap offers React-specific implementations of Bootstrap components, allowing for easier integration with React applications and providing additional features like accessibility and React-friendly APIs.
+
+## Lucide React
+* lucide-react (v0.445.0) - This is a library of simply beautiful open-source icons. It provides a wide range of customizable SVG icons that can be easily integrated into React components, enhancing the visual appeal and user experience of the application.
+
+## Date-fns
+* date-fns (v4.1.0) - This modern JavaScript date utility library provides comprehensive, yet simple and consistent toolset for manipulating JavaScript dates in a browser & Node.js. It's particularly useful for any date-related operations in your application, such as formatting, parsing, or calculating time differences.
+
+## Testing Libraries
+* @testing-library/react (v13.4.0), @testing-library/jest-dom (v5.17.0), and @testing-library/user-event (v13.5.0) - These libraries are part of the Testing Library family, which provides simple and complete testing utilities that encourage good testing practices. They're used for writing unit and integration tests for React components, ensuring the reliability and correctness of the application's UI.
+
+## Additional Utilities
+* react-bootstrap-icons (v1.11.4) - This library provides a set of free, high-quality SVG icons from the Bootstrap Icons library, specifically packaged for easy use in React applications.
+
+* web-vitals (v2.1.4) - This library is used to measure the real-world performance of your app. It helps in tracking and visualizing the Core Web Vitals, which are important metrics for ensuring a good user experience.
+
+* react-scripts (5.0.1) - This package includes scripts and configuration used by Create React App. It provides a set of scripts for developing, testing, and building React applications, abstracting away the complexity of configuring tools like webpack and Babel.
+
+These libraries and frameworks work together to provide a robust foundation for building a modern, responsive, and user-friendly React application. They cover essential aspects such as UI components, routing, HTTP requests, date handling, icons, and testing, enabling efficient development and maintenance of the application.
+
 # Testing
 
-didn't do automatic testing and instead opted to do manual testing because page was so small
-tables here
+I've opted for manual testing since the project is still fairly small making it feasable. This way I can get more reliable testing.
+
+## Navbar
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Logo | Clicking takes user to homepage | Takes user to homepage |
+| Profiles link | Clicking takes user to profile list | Takes user to profile list |
+| Feed link | Clicking takes user to user feed | Takes user to user feed |
+| Notification icon | Clicking opens notification dropdown | Opens notification dropdown |
+| Notification in dropdown | Clicking marks notification as read | Marks notification as read |
+| Avatar in notification | Clicking takes user to that profile | Takes user to that profile |
+| Profile icon | Clicking opens profile dropdown | Opens profile dropdown |
+| Profile link in dropdown | Clicking takes user to their profile | Takes user to their profile |
+| Bans link in dropdown (superusers only) | Clicking takes superuser to bans page | Takes superuser to bans page |
+| Logout button in dropdown | Clicking logs out the user | Logs out the user |
+
+## Movie list
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Search movies input field | Filters movies based on search term | Filters movies based on search term |
+| Genre dropdown | Displays list of genres; selecting a genre filters movies | Displays genres and filters movies when selected |
+| Most liked filter button | Filters movies by most likes | Filters movies by most likes |
+| Most commented filter button | Filters movies by most comments | Filters movies by most comments |
+| Friends favorites filter | Filters movies by likes from followed users | Filters movies by likes from followed users |
+| Combined filters | All filter combinations work together | All filter combinations work together as expected |
+| Movie card grid | Displays movie cards with thumbnail, title, number of likes and comments | Displays movie cards with all required information |
+| Movie card hover effect | Shows a visual effect when hovering over a movie card | Displays hover effect on movie cards |
+| Movie card click | Clicking a movie card navigates to that movie's detailed page | Navigates to the movie's detailed page when clicked |
+
+## Movie detail
+
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Like button | Updates number of likes and reflects change to user | Updates number of likes and reflects change to user |
+| Comment section | Allows user to write and post comments | Allows user to write and post comments |
+| Posting empty comment | Displays error: "Can't write an empty comment" | Displays error: "Can't write an empty comment" |
+| Successful comment post | Displays message: "Comment posted" | Displays message: "Comment posted" |
+| Edit own comment | User can edit their own comments | User can edit their own comments |
+| Delete own comment | User can delete their own comments | User can delete their own comments |
+| Superuser comment deletion | Superuser can delete any user's comments | Superuser can delete any user's comments |
+| Like comments | User can like comments, number of likes updates | User can like comments, number of likes updates |
+
+## Profile list
+
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| User search | Allows searching for users by name | Allows searching for users by name |
+| User display | Shows list of users with their names, followers, and karma | Shows list of users with their names, followers, and karma |
+| User profile link | Clicking on a user navigates to their profile page | Clicking on a user navigates to their profile page |
+
+## Profile Detail
+
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Profile information display | Shows avatar, followers count, karma, and about me | Shows avatar, followers count, karma, and about me |
+| Follow button | Clicking increases follower count and changes to Unfollow button | Clicking increases follower count and changes to Unfollow button |
+| Unfollow button | Clicking decreases follower count and changes to Follow button | Clicking decreases follower count and changes to Follow button |
+| Delete button (superuser only) | Visible to superusers; clicking deletes the user | Visible to superusers; clicking deletes the user |
+
+## Feed page
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Feed objects display | Shows all feed objects | Shows all feed objects |
+| Movie thumbnail link | Clicking on movie thumbnail navigates to movie detail page | Clicking on movie thumbnail navigates to movie detail page |
+| Movie title link | Clicking on movie title navigates to movie detail page | Clicking on movie title navigates to movie detail page |
+| User avatar link | Clicking on user avatar navigates to user's profile page | Clicking on user avatar navigates to user's profile page |
+| Username link | Clicking on username navigates to user's profile page | Clicking on username navigates to user's profile page |
+
+## Edit profile page
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Change email | Allows user to update email address | Allows user to update email address |
+| Change bio | Allows user to update bio information | Allows user to update bio information |
+| Upload avatar | Allows user to choose and upload a new avatar image | Allows user to choose and upload a new avatar image |
+| Update profile button | Saves changes and displays "Profile updated" message | Saves changes and displays "Profile updated" message |
+| Delete account button | Shows warning: "Are you sure you want to delete your account?" | Shows warning: "Are you sure you want to delete your account?" |
+| Account deletion confirmation | Deletes the user account when confirmed | Deletes the user account when confirmed |
+| Following list display | Shows list of users being followed | Shows list of users being followed |
+| Following user name link | Clicking navigates to the followed user's profile | Clicking navigates to the followed user's profile |
+| Following user avatar link | Clicking navigates to the followed user's profile | Clicking navigates to the followed user's profile |
+| Unfollow button | Allows user to unfollow a profile from the list | Allows user to unfollow a profile from the list |
+
+## Ban page
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Ban user form | Allows entering username and reason for ban | Allows entering username and reason for ban |
+| Ban user button | Submits ban request for specified user | Submits ban request for specified user |
+| Active bans list | Displays list of currently banned users | Displays list of currently banned users |
+| Unban user button (active bans) | Allows unbanning a user from the active bans list | Allows unbanning a user from the active bans list |
+| Ban appeals list | Displays list of users who have appealed their bans | Displays list of users who have appealed their bans |
+| Unban user button (appeals) | Allows unbanning a user from the ban appeals list | Allows unbanning a user from the ban appeals list |
+
+## Ban appeal form
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Username field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Email field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Ban appeal text field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Submit appeal button | Submits form if all fields are filled | Submits form if all fields are filled |
+| "Click here to login" link | Navigates to the login page | Navigates to the login page |
+
+## Registration form
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Username field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Email field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Password field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Confirm password field | Allows entry; cannot be empty | Allows entry; cannot be empty |
+| Register button | Submits form if all fields are filled and valid | Submits form if all fields are filled and valid |
+| "Click here to login" link | Navigates to the login page | Navigates to the login page |
+
+## Login form
+| Feature | Expected Outcome | Actual Outcome |
+| --- | --- | --- |
+| Username field | Allows entry with validation | Allows entry with validation |
+| Email field | Allows entry with validation | Allows entry with validation |
+| Password field | Allows entry with validation | Allows entry with validation |
+| Confirm password field | Allows entry with validation | Allows entry with validation |
+| Registration button | Submits form and creates new account if all fields are valid | Submits form and creates new account if all fields are valid |
+| "Click here to login" link | Navigates to the login page | Navigates to the login page |
 
 # Validator testing
 ### W3C CSS validator
