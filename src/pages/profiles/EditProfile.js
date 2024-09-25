@@ -104,16 +104,6 @@ function EditProfile() {
           {isOwnProfile && (
             <form onSubmit={handleSubmit} className="mb-6">
               <div className="mb-4">
-                <label htmlFor="username" className="block text-sm font-medium mb-2">Username:</label>
-                <br></br>
-                <input
-                  type="text"
-                  id="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark-input"
-                />
               </div>
               <div className="mb-4">
                 <label htmlFor="email" className="block text-sm font-medium mb-2">Email:</label>
