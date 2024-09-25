@@ -131,7 +131,7 @@ function NavBar() {
                         alt="Sender Avatar" 
                         className="notification-avatar" 
                       />
-                      <span>{notification.sender_username} {notification.notification_type === 'follow' ? 'followed' : 'liked'} you</span>
+                      <span className="notification-text">{notification.sender_username} {notification.notification_type === 'follow' ? 'followed' : 'liked'} you</span>
                     </Dropdown.Item>
                   ))}
                 </Dropdown.Menu>
