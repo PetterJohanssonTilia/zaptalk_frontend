@@ -15,7 +15,7 @@ function HomePage() {
   useEffect(() => {
     let isMounted = true;
 
-    const fetchTrendingMovies = async () => {
+    const fetchTrendingMovies = async (retries = 3) => {
       try {
         const response = await api.get('movies/?ids=25,80,150');
         if (isMounted) {
@@ -23,7 +23,10 @@ function HomePage() {
           setLoading(false);
         }
       } catch (err) {
-        if (isMounted) {
+        if (retries > 0) {
+          console.log(`Retrying... (${retries} attempts left)`);
+          setTimeout(() => fetchTrendingMovies(retries - 1), 1000);
+        } else if (isMounted) {
           setError('Failed to load trending movies.');
           setLoading(false);
         }
