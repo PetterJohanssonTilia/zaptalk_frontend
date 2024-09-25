@@ -232,7 +232,8 @@ function MovieDetail() {
         </div>
       </div>
       {/* Mobile view for movie info */}
-      <div className="d-md-none text-white bg-dark p-4">
+      {/* Mobile view for movie info */}
+      <div className="d-md-none text-white bg-dark p-4 mobile-movie-info">
         <h1 className="h2 fw-bold">{movie.title}</h1>
         <p>{movie.year}</p>
         <p>{movie.genres.join(', ')}</p>

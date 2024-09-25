@@ -13,10 +13,12 @@
   background: linear-gradient(90deg, rgba(24,24,24,1) 0%, rgba(24,24,24,0.8) 50%, rgba(24,24,24,0) 100%);
   padding-left: 10% !important;
   width: 90% !important; 
+  z-index: 9;
 }
 
 .movie-info-content {
   max-width: 900px;
+  z-index: 10;
 }
 
 .comments-section {
@@ -57,7 +59,7 @@
 @media (max-width: 767px) {
   .movie-detail .movie-thumbnail {
     height: 50vh; /* Adjust this value as needed */
-    object-fit: contain;
+    object-fit: cover;
     background-color: #181818; /* Add a black background */
   }
 
@@ -65,6 +67,9 @@
     display: none !important;
   }
 
+  .mobile-movie-info {
+    display: block !important;
+  }
   .comments-section .comment {
     padding: 2.0rem !important;
   }
