@@ -129,6 +129,7 @@ function EditProfile() {
               </div>
               <div className="mb-4">
                 <label htmlFor="avatar" className="block text-sm font-medium mb-2">Avatar:</label>
+                <br></br>
                 <input
                   type="file"
                   onChange={(e) => setAvatar(e.target.files[0])}
@@ -189,7 +190,7 @@ function EditProfile() {
                     {isOwnProfile && (
                       <button
                         onClick={() => handleUnfollow(followedUser.profile_id)}
-                        className="btn btn-danger btn-sm unfollow-button"
+                        className="rounded custom-button-delete"
                       >
                         Unfollow
                       </button>
