@@ -86,7 +86,7 @@ function HomePage() {
                   className="movie-card-wrapper"
                   onClick={() => handleMovieClick(movie.id)}
                 >
-                  <div className="card bg-dark h-100">
+                  <div className="card h-100">
                     <img src={movie.thumbnail} className="card-img-top" alt={movie.title}/>
                     <div className="card-body ">
                       <h5 className="card-title text-center">{movie.title}</h5>
