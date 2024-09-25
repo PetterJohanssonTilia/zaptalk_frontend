@@ -59,9 +59,9 @@ const BanPage = () => {
     <div className="container mt-4">
       <div className="row justify-content-center mb-4">
         <div className="col-md-6">
-          <div className="card">
-            <div className="card-body">
-              <h5 className="card-title text-center">Ban User</h5>
+          <div className="card bg-dark">
+            <div className="card-body bg-dark">
+              <h5 className="card-title text-center ">Ban User</h5>
               {message && <div className="alert alert-info">{message}</div>}
               <form onSubmit={handleBanSubmit}>
                 <div className="mb-3">
