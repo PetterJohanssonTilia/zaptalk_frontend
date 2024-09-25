@@ -52,58 +52,60 @@ function HomePage() {
   }
 
   return (
-    <div>
-      {/* Jumbotron Section */}
-      <div className="jumbotron text-center jumbotron-text" 
-        style={{
-          background: `url(${jumbotron}) no-repeat center center / cover`
-        }}>
-        <h1 className="display-4 font-weight-bold text-white">
-          Discover the Golden Age of Cinema!
-        </h1>
-        <p className="lead text-white">
-          We have it all!
-        </p>
-      </div>
+    <div className="home-page-content">
+      <div>
+        {/* Jumbotron Section */}
+        <div className="jumbotron text-center jumbotron-text" 
+          style={{
+            background: `url(${jumbotron}) no-repeat center center / cover`
+          }}>
+          <h1 className="display-4 font-weight-bold text-white">
+            Discover the Golden Age of Cinema!
+          </h1>
+          <p className="lead text-white">
+            We have it all!
+          </p>
+        </div>
 
-      {/* Spacer Section */}
-      <div className="text-center">
-        <img 
-          src={spacer} 
-          alt="spacer" 
-          className="spacer-picture" 
-        />
-      </div>
+        {/* Spacer Section */}
+        <div className="text-center">
+          <img 
+            src={spacer} 
+            alt="spacer" 
+            className="spacer-picture" 
+          />
+        </div>
 
-      {/* Trending Now Section */}
-      <div className="trending-section">
-        <h2 className="text-center trending-now-text">Trending Now</h2>
-        <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
-          {trendingMovies.map((movie) => (
-            <div key={movie.id} className="col px-3">
-              <div 
-                className="movie-card-wrapper"
-                onClick={() => handleMovieClick(movie.id)}
-              >
-                <div className="card bg-dark h-100">
-                  <img src={movie.thumbnail} className="card-img-top" alt={movie.title}/>
-                  <div className="card-body ">
-                    <h5 className="card-title text-center">{movie.title}</h5>
-                    <div className="d-flex justify-content-center gap-3">
-                      <span className="d-flex align-items-center">
-                        <ThumbsUp size={16} className="me-1" />
-                        {movie.likes_count}
-                      </span>
-                      <span className="d-flex align-items-center">
-                        <MessageCircle size={16} className="me-1" />
-                        {movie.comments_count}
-                      </span>
+        {/* Trending Now Section */}
+        <div className="trending-section">
+          <h2 className="text-center trending-now-text">Trending Now</h2>
+          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
+            {trendingMovies.map((movie) => (
+              <div key={movie.id} className="col px-3">
+                <div 
+                  className="movie-card-wrapper"
+                  onClick={() => handleMovieClick(movie.id)}
+                >
+                  <div className="card bg-dark h-100">
+                    <img src={movie.thumbnail} className="card-img-top" alt={movie.title}/>
+                    <div className="card-body ">
+                      <h5 className="card-title text-center">{movie.title}</h5>
+                      <div className="d-flex justify-content-center gap-3">
+                        <span className="d-flex align-items-center">
+                          <ThumbsUp size={16} className="me-1" />
+                          {movie.likes_count}
+                        </span>
+                        <span className="d-flex align-items-center">
+                          <MessageCircle size={16} className="me-1" />
+                          {movie.comments_count}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </div>

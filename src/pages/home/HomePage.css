@@ -18,6 +18,10 @@ body {
   margin-bottom: 3rem;
 }
 
+.home-page-content {
+  padding-top: 3px;
+}
+
 .jumbotron-text {
   position: relative;
   padding: 150px 0;
