@@ -41,12 +41,9 @@ function MovieDetail() {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           setComments(commentsResponse.data);
-          console.log('Comments:', commentsResponse.data);
-
           const currentUserResponse = await api.get('profiles/me/', {
             headers: { 'Authorization': `Bearer ${token}` }
           });
-          console.log('Current user profile:', currentUserResponse.data);
           setCurrentUserProfile(currentUserResponse.data);
           setIsSuperuser(currentUserResponse.data.is_superuser);
         }

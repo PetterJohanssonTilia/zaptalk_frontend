@@ -44,12 +44,9 @@ function MovieList() {
       ...(showFollowedLikes && { followed_likes: true })
     };
     const url = `movies/?${new URLSearchParams(params)}`;
-    console.log('Fetching movies from URL:', url);
     try {
       const response = await api.get(url);
-      console.log('Movies response:', response.data);
       const newMovies = response.data.results;
-      console.log('Number of new movies:', newMovies.length);
       
       if (showFollowedLikes) {
         setFollowedLikesMovies(prevMovies => resetMovies ? newMovies : [...prevMovies, ...newMovies]);

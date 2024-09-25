@@ -20,7 +20,7 @@ const Registration = () => {
         password1: password, 
         password2: confirmPassword 
       });
-      console.log('User registered:', response.data);
+
       
       // After successful registration, obtain JWT tokens
       const tokenResponse = await api.post('/token/', {

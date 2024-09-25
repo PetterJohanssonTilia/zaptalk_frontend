@@ -24,7 +24,6 @@ function HomePage() {
         }
       } catch (err) {
         if (retries > 0) {
-          console.log(`Retrying... (${retries} attempts left)`);
           setTimeout(() => fetchTrendingMovies(retries - 1), 1000);
         } else if (isMounted) {
           setError('Failed to load trending movies.');
