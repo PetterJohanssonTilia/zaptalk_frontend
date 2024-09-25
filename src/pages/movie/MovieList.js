@@ -123,55 +123,57 @@ function MovieList() {
   const currentMovies = showFollowedLikes ? followedLikesMovies : movies;
 
   return (
-    <div className="container-fluid movie-list-container">
-      <div className="row mb-4">
+    <div className="container-fluid movie-list-container p-0">
+      <div className="background-container">
         <div className="row mb-4">
-          <h1 className="text-left mb-2 movielist-title">Movies</h1>
-          <p className="text-left movielist-breadtext">
-            Movies take us to another era, delivering stories that remain unforgettable. So many classics, so much to experience.
-          </p>
+          <div className="row mb-4 title-section">
+            <h1 className="text-left mb-2 movielist-title">Movies</h1>
+            <p className="text-left movielist-breadtext">
+              Movies take us to another era, delivering stories that remain unforgettable. So many classics, so much to experience.
+            </p>
+          </div>
         </div>
-      </div>
-      <div className="row justify-content-center mb-4">
-        <div className="col-6 col-md-6 col-lg-4">
-          <input 
-            type="text" 
-            placeholder="Search movies..." 
-            value={searchTerm} 
-            onChange={handleSearchChange}
-            className="form-control mb-3"
-          />
-          <select 
-            onChange={handleGenreChange}
-            className="form-select bg-dark text-white"
-          >
-            <option value="">Genres</option>
-            {genres.map(genre => (
-              <option key={genre} value={genre}>{genre}</option>
-            ))}
-          </select>
-          <div className="button-group">
-            <button 
-              onClick={() => toggleSort('most_liked')} 
-              className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'active' : ''}`}
-              disabled={loadingRef.current}
+        <div className="row justify-content-center mb-4">
+          <div className="col-10 col-md-6 col-lg-4 search-filter-section">
+            <input 
+              type="text" 
+              placeholder="Search movies..." 
+              value={searchTerm} 
+              onChange={handleSearchChange}
+              className="form-control mb-3"
+            />
+            <select 
+              onChange={handleGenreChange}
+              className="form-select bg-dark text-white"
             >
-              {isSmallScreen ? 'Liked' : 'Most Liked'}
-            </button>
-            <button 
-              onClick={() => toggleSort('most_commented')} 
-              className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'active' : ''}`}
-              disabled={loadingRef.current}
-            >
-              {isSmallScreen ? 'Commented' : 'Most Commented'}
-            </button>
-            <button 
-              onClick={toggleFollowedLikes} 
-              className={`btn btn-outline-light ${showFollowedLikes ? 'active' : ''}`}
-              disabled={loadingRef.current}
-            >
-              Friends favorites
-            </button>
+              <option value="">Genres</option>
+              {genres.map(genre => (
+                <option key={genre} value={genre}>{genre}</option>
+              ))}
+            </select>
+            <div className="button-group">
+              <button 
+                onClick={() => toggleSort('most_liked')} 
+                className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'bg-clicked' : ''}`}
+                disabled={loadingRef.current}
+              >
+                {isSmallScreen ? 'Liked' : 'Most Liked'}
+              </button>
+              <button 
+                onClick={() => toggleSort('most_commented')} 
+                className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'bg-clicked' : ''}`}
+                disabled={loadingRef.current}
+              >
+                {isSmallScreen ? 'Commented' : 'Most Commented'}
+              </button>
+              <button 
+                onClick={toggleFollowedLikes} 
+                className={`btn btn-outline-light ${showFollowedLikes ? 'bg-clicked' : ''}`}
+                disabled={loadingRef.current}
+              >
+                Friends favorites
+              </button>
+            </div>
           </div>
         </div>
       </div>

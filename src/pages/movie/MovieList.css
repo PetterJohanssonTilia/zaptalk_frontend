@@ -3,19 +3,37 @@ body {
   color: #fff;
 }
 
-.movielist-title{
+.movie-list-container {
+  padding: 20px;
+}
+
+.background-container {
+  background-image: url('../../assets/moviebackground.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-position: center 10%; /* This pushes the background image down inside the container */
+  padding: 40px;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+
+.title-section {
+  background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0) 100%);
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 600px;
+}
+
+.movielist-title {
   padding-left: 40px;
   font-weight: 700;
 }
 
-.movielist-breadtext{
+.movielist-breadtext {
   padding-left: 40px;
   max-width: 700px;
-  margin-bottom: 100px;
-}
-
-.movie-list-container {
-  padding: 20px;
+  margin-bottom: 40px;
 }
 
 .button-group {
@@ -32,6 +50,18 @@ body {
   min-width: 100px;
   max-width: 200px;
   padding: 0.5rem 1rem;
+  background-color: transparent;
+  color: #fff;
+  border-color: #fff;
+}
+
+.button-group .btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.button-group .btn.bg-clicked {
+  background-color: #000000 !important;
+  border-color: #790e0ebe;
 }
 
 .movie-card {
@@ -125,14 +155,25 @@ body {
   font-weight: bold;
 }
 
-.form-control, .form-select {
+.search-filter-section {
+  background-color: black;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+
+.form-control,
+.form-select,
+.button-group .btn {
   background-color: #343a40;
   color: #fff;
   border-color: #6c757d;
 }
 
-.form-control:focus, .form-select:focus {
-  background-color: #343a40;
+.form-control:focus,
+.form-select:focus,
+.button-group .btn:focus {
+  background-color: #454d55;
   color: #fff;
   border-color: #fff;
 }
@@ -141,5 +182,20 @@ body {
 @media (min-width: 1025px) {
   .button-group {
     gap: 1rem;
+  }
+}
+
+/* No linear background on phones */
+@media (max-width: 767px) {
+  .title-section {
+    background: black;
+    max-width: 100%;
+    margin-left: 0;
+    padding: 15px;
+  }
+
+  .movielist-title,
+  .movielist-breadtext {
+    padding-left: 10px;
   }
 }
