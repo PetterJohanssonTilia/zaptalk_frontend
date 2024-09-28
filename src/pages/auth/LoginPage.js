@@ -7,37 +7,37 @@ import './LoginPage.css';
 function LoginPage() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const { isLoggedIn, login, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
-    
+    setErrorMessage('');
+
     if (!username || !password) {
-      setError('Please enter both username and password');
+      setErrorMessage('Please enter both username and password');
       return;
     }
 
     try {
       const response = await axios.post('https://zaptalk-api-c46804cb19e0.herokuapp.com/api/token/', {
         username,
-        password
+        password,
       }, {
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'application/json',
+        },
       });
-      
+
       if (response.data && response.data.access) {
         login(response.data.access);
         navigate('/home');
       } else {
-        setError('Invalid response from server');
+        setErrorMessage('Invalid response from server');
       }
-    } catch (error) {
-      setError(`Login failed: ${error.response?.data?.detail || 'Unknown error'}`);
+    } catch (err) {
+      setErrorMessage(`Login failed: ${err.response?.data?.detail || 'Unknown error'}`);
     }
   };
 
@@ -46,13 +46,12 @@ function LoginPage() {
     navigate('/home');
   };
 
-
   if (isLoggedIn) {
     return (
       <div className="login-page-container">
         <div className="login-box">
           <h2>You are logged in</h2>
-          <button onClick={handleLogout}>Logout</button>
+          <button type="button" onClick={handleLogout}>Logout</button>
         </div>
       </div>
     );
@@ -62,26 +61,30 @@ function LoginPage() {
     <div className="login-page-container">
       <div className="login-box">
         <h2>Login</h2>
-        {error && <p className="error">{error}</p>}
+        {errorMessage && <p className="error">{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+          <label htmlFor="username">
+            Username:
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <label htmlFor="password">
+            Password:
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
           <button type="submit">Login</button>
         </form>
         <div className="register-link">
-          <p>Don't have an account? </p>
+          <p>Don&apos;t have an account? </p>
           <Link to="/register">Click here to register</Link>
         </div>
         <div className="ban-appeal">
