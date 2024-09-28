@@ -20,7 +20,7 @@ const Registration = () => {
         password1: password,
         password2: confirmPassword,
       });
-      
+
       const tokenResponse = await api.post('/token/', {
         username,
         password,
@@ -40,46 +40,54 @@ const Registration = () => {
         <h2>Register</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">
-            Username:
-            <input
-              type="text"
-              id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </label>
-          <label htmlFor="email">
-            Email:
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </label>
-          <label htmlFor="password">
-            Password:
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-          <label htmlFor="confirmPassword">
-            Confirm Password:
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </label>
+          <div className="form-field">
+            <label htmlFor="username">
+              <span>Username:</span>
+              <input
+                type="text"
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className="form-field">
+            <label htmlFor="email">
+              <span> Email:</span>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className="form-field">
+            <label htmlFor="password">
+              <span>Password:</span>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </label>
+          </div>
+          <div className="form-field">
+            <label htmlFor="confirmPassword">
+              <span>Confirm Password:</span>
+              <input
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </label>
+          </div>
           <button type="submit">Register</button>
         </form>
         <div className="login-link">
