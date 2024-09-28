@@ -493,7 +493,7 @@ I've opted for manual testing since the project is still fairly small making it 
 
 ### ESLint JavaScript validator
 All JavaScript files were validated using the ESLint JavaScript validator. The following issues were identified and corrected:
-
+Moved functions to the top to be defined before being used
 Unescaped apostrophies in HTML text in some components.
 Added missing commas, linebreaks, button types, tabindexes.
 Added keydown for keyboard event handling

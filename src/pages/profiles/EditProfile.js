@@ -18,6 +18,35 @@ function EditProfile() {
   const navigate = useNavigate();
   const { logout, user } = useAuth();
   const { username: profileUsername } = useParams();
+  const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+
+  const handleDeleteAccount = () => {
+    setShowDeleteConfirmation(true);
+  };
+
+  const confirmDeleteAccount = async () => {
+    try {
+      await api.delete('profiles/me/');
+      logout();
+      navigate('/home');
+    } catch (errorMessage) {
+      setError('Failed to delete account. Please try again.');
+    }
+    setShowDeleteConfirmation(false);
+  };
+
+  const cancelDeleteAccount = () => {
+    setShowDeleteConfirmation(false);
+  };
+  
+  const fetchFollowing = async (usernameToFetch) => {
+    try {
+      const response = await api.get(`profiles/${usernameToFetch}/following_list/`);
+      setFollowing(response.data);
+    } catch (errorMessage) {
+      setError('Failed to fetch following list. Please try again.');
+    }
+  };
 
   useEffect(() => {
     const loadProfileAndFollowing = async () => {
@@ -29,7 +58,7 @@ function EditProfile() {
         setEmail(profileData.email);
         setBio(profileData.bio || '');
         await fetchFollowing(profileData.username);
-      } catch (error) {
+      } catch (errorMessage) {
         setError('Failed to load profile and following list. Please try again.');
       }
     };
@@ -40,15 +69,6 @@ function EditProfile() {
   useEffect(() => {
     setUpdateSuccess(false);
   }, []);
-
-  const fetchFollowing = async (username) => {
-    try {
-      const response = await api.get(`profiles/${username}/following_list/`);
-      setFollowing(response.data);
-    } catch (error) {
-      setError('Failed to fetch following list. Please try again.');
-    }
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -67,28 +87,17 @@ function EditProfile() {
         },
       });
       setUpdateSuccess(true);
-    } catch (error) {
+    } catch (errorMessage) {
       setError('Failed to update profile. Please try again.');
-    }
-  };
-
-  const handleDeleteAccount = async () => {
-    if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
-      try {
-        await api.delete('profiles/me/');
-        logout();
-        navigate('/home');
-      } catch (error) {
-        setError('Failed to delete account. Please try again.');
-      }
     }
   };
 
   const handleUnfollow = async (profileId) => {
     try {
       await api.post(`profiles/${profileId}/follow/`);
-      setFollowing((prevFollowing) => prevFollowing.filter((user) => user.profile_id !== profileId));
-    } catch (error) {
+      setFollowing((prevFollowing) =>
+        prevFollowing.filter((followedUser) => followedUser.profile_id !== profileId));
+    } catch (errorMessage) {
       setError('Failed to unfollow user. Please try again.');
     }
   };
@@ -99,43 +108,47 @@ function EditProfile() {
     <div className="container mx-auto p-4">
       <div className="row">
         <div className="col-md-4 shadow-lg rounded-lg p-6">
-          <h2 className="text-xl font-semibold mb-4 text-center">{isOwnProfile ? 'Edit Profile' : `${profile?.username}'s Profile`}</h2>
+          <h2 className="text-xl font-semibold mb-4 text-center">
+            {isOwnProfile ? 'Edit Profile' : `${profile?.username}'s Profile`}
+          </h2>
           {error && <div className="text-red-500 mb-4">{error}</div>}
           {isOwnProfile && (
             <form onSubmit={handleSubmit} className="mb-6">
               <div className="mb-4">
+                <label htmlFor="email" className="block text-sm font-medium mb-2">
+                  Email:
+                  <input
+                    type="email"
+                    id="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark-input"
+                  />
+                </label>
               </div>
               <div className="mb-4">
-                <label htmlFor="email" className="block text-sm font-medium mb-2">Email:</label>
-                <br></br>
-                <input
-                  type="email"
-                  id="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark-input"
-                />
+                <label htmlFor="bio" className="block text-sm font-medium mb-2">
+                  Bio:
+                  <textarea
+                    id="bio"
+                    value={bio}
+                    onChange={(e) => setBio(e.target.value)}
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark-input"
+                  />
+                </label>
               </div>
               <div className="mb-4">
-                <label htmlFor="bio" className="block text-sm font-medium mb-2">Bio:</label>
-                <br></br>
-                <textarea
-                  id="bio"
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm dark-input"
-                />
-              </div>
-              <div className="mb-4">
-                <label htmlFor="avatar" className="block text-sm font-medium mb-2">Avatar:</label>
-                <br></br>
-                <input
-                  type="file"
-                  onChange={(e) => setAvatar(e.target.files[0])}
-                  accept="image/*"
-                  className="mt-1 block w-full"
-                />
+                <label htmlFor="avatar" className="block text-sm font-medium mb-2">
+                  Avatar:
+                  <input
+                    type="file"
+                    id="avatar"
+                    onChange={(e) => setAvatar(e.target.files[0])}
+                    accept="image/*"
+                    className="mt-1 block w-full"
+                  />
+                </label>
               </div>
               {updateSuccess && (
                 <div className="profileupdated">
@@ -144,9 +157,10 @@ function EditProfile() {
               )}
               <div className="mb-4 flex flex-col">
                 <button type="submit" className="rounded mb-4 custom-button">Update Profile</button>
-                <br></br>
+                <br />
                 {isOwnProfile && (
                   <button
+                    type="button"
                     onClick={handleDeleteAccount}
                     className="rounded custom-button-delete"
                   >
@@ -157,16 +171,16 @@ function EditProfile() {
             </form>
           )}
         </div>
-  
+
         <div className="col-md-4 shadow-lg rounded-lg p-6 d-flex flex-column align-items-center">
           <h2 className="text-xl font-semibold mb-4 text-center">{profile?.username}</h2>
           <img
             src={profile?.avatar || DEFAULT_AVATAR}
             alt={`${profile?.username}'s avatar`}
-            className='main-avatar'
+            className="main-avatar"
           />
         </div>
-  
+
         <div className="col-md-4 shadow-lg rounded-lg p-6">
           <h2 className="text-xl font-semibold mb-4 text-center">Following</h2>
           {following.length > 0 ? (
@@ -175,20 +189,21 @@ function EditProfile() {
                 <div key={followedUser.profile_id} className="card bg-dark text-white mb-3">
                   <div className="card-body d-flex justify-content-between align-items-center">
                     <div className="following-user">
-                      <Link 
+                      <Link
                         to={`/profile/${followedUser.username}`}
                         className="profile-username"
                       >
                         <img
                           src={followedUser.avatar || DEFAULT_AVATAR}
                           alt={`${followedUser.username}'s avatar`}
-                          className='followed-users-avatar'
+                          className="followed-users-avatar"
                         />
                         <span>{followedUser.username}</span>
                       </Link>
                     </div>
                     {isOwnProfile && (
                       <button
+                        type="button"
                         onClick={() => handleUnfollow(followedUser.profile_id)}
                         className="rounded custom-button-delete"
                       >
@@ -204,6 +219,31 @@ function EditProfile() {
           )}
         </div>
       </div>
+
+      {showDeleteConfirmation && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Confirm Account Deletion</h2>
+            <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+            <div className="modal-buttons">
+              <button 
+                type="button" 
+                onClick={confirmDeleteAccount} 
+                className="btn btn-danger"
+              >
+                Yes, Delete My Account
+              </button>
+              <button 
+                type="button" 
+                onClick={cancelDeleteAccount} 
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
