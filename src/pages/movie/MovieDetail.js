@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../api/axios';
-import { ThumbsUp, MessageCircle } from 'lucide-react';
-import './MovieDetail.css'
+import { ThumbsUp } from 'lucide-react';
+import './MovieDetail.css';
 
 const DEFAULT_AVATAR = 'https://res.cloudinary.com/dumvsoykz/image/upload/v1724754182/default_profile_yvdjcm.jpg';
 
@@ -36,18 +36,18 @@ function MovieDetail() {
         setIsLiked(movieResponse.data.is_liked_by_user);
 
         if (token) {
-          const commentsResponse = await api.get('comments/', { 
+          const commentsResponse = await api.get('comments/', {
             params: { movie: id },
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           setComments(commentsResponse.data);
           const currentUserResponse = await api.get('profiles/me/', {
-            headers: { 'Authorization': `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
           });
           setCurrentUserProfile(currentUserResponse.data);
           setIsSuperuser(currentUserResponse.data.is_superuser);
         }
-      } catch (error) {
+      } catch (errorMessage) {
         setError('Failed to fetch movie details');
       } finally {
         setIsLoading(false);
@@ -64,25 +64,25 @@ function MovieDetail() {
     }
     try {
       setIsLikeAnimating(true);
-      const response = await api.post(`likes/toggle_like/`, {
+      const response = await api.post('likes/toggle_like/', {
         content_type: 'movie',
-        object_id: id
+        object_id: id,
       }, {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
-      setMovie(prevMovie => ({
+      setMovie((prevMovie) => ({
         ...prevMovie,
-        likes_count: response.data.likes_count
+        likes_count: response.data.likes_count,
       }));
       setIsLiked(response.data.is_liked);
       setThumbsUpColor(response.data.is_liked ? 'green' : 'red');
       setTimeout(() => {
         setIsLikeAnimating(false);
       }, 300);
-      
+
       // Reset color after 5 seconds
       setTimeout(() => setThumbsUpColor('currentColor'), 5000);
-    } catch (error) {
+    } catch (errorMessage) {
       setError('Failed to like the movie. Please try again.');
     }
   };
@@ -103,16 +103,16 @@ function MovieDetail() {
     try {
       const response = await api.post('comments/', {
         movie: id,
-        content: newComment
+        content: newComment,
       }, {
         headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
-      
+
       if (response.status === 201) {
-        setComments(prevComments => [...prevComments, response.data]);
+        setComments((prevComments) => [...prevComments, response.data]);
         setNewComment('');
         setError(null);
         setShowCommentPosted(true);
@@ -120,17 +120,17 @@ function MovieDetail() {
       } else {
         throw new Error('Unexpected response status');
       }
-    } catch (error) {
-      if (error.response) {
-        setError(`Failed to post comment: ${error.response.data.message || 'Unknown error'}`);
-      } else if (error.request) {
+    } catch (errorMessage) {
+      if (errorMessage.response) {
+        setError(`Failed to post comment: ${errorMessage.response.data.message || 'Unknown error'}`);
+      } else if (errorMessage.request) {
         setError('No response received from server. Please try again.');
       } else {
         setError('Error setting up the request. Please try again.');
       }
     }
   };
-  
+
   const handleEditComment = (comment) => {
     setEditingComment(comment);
     setEditedContent(comment.content);
@@ -139,27 +139,25 @@ function MovieDetail() {
   const handleUpdateComment = async () => {
     try {
       const response = await api.put(`comments/${editingComment.id}/`, {
-        content: editedContent
+        content: editedContent,
       }, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`,
-          'Content-Type': 'application/json'
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (response.status === 200) {
-        setComments(prevComments =>
-          prevComments.map(c =>
-            c.id === editingComment.id ? { ...c, content: editedContent } : c
-          )
-        );
+        setComments((prevComments) => prevComments.map((c) => (
+          c.id === editingComment.id ? { ...c, content: editedContent } : c
+        )));
         setEditingComment(null);
         setEditedContent('');
         setError(null);
       } else {
         throw new Error('Unexpected response status');
       }
-    } catch (error) {
+    } catch (errorMessage) {
       setError('Failed to update comment. Please try again.');
     }
   };
@@ -168,17 +166,17 @@ function MovieDetail() {
     try {
       const response = await api.delete(`comments/${commentId}/`, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
 
       if (response.status === 204) {
-        setComments(prevComments => prevComments.filter(c => c.id !== commentId));
+        setComments((prevComments) => prevComments.filter((c) => c.id !== commentId));
         setError(null);
       } else {
         throw new Error('Unexpected response status');
       }
-    } catch (error) {
+    } catch (errorMessage) {
       setError('Failed to delete comment. Please try again.');
     }
   };
@@ -187,27 +185,25 @@ function MovieDetail() {
     try {
       const response = await api.post('likes/toggle_like/', {
         content_type: 'comment',
-        object_id: commentId
+        object_id: commentId,
       }, {
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        }
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
       });
 
       if (response.status === 200) {
-        setComments(prevComments =>
-          prevComments.map(comment =>
-            comment.id === commentId
-              ? {
-                  ...comment,
-                  likes_count: response.data.likes_count,
-                  is_liked_by_user: response.data.is_liked
-                }
-              : comment
-          )
-        );
+        setComments((prevComments) => prevComments.map((comment) => (
+          comment.id === commentId
+            ? {
+              ...comment,
+              likes_count: response.data.likes_count,
+              is_liked_by_user: response.data.is_liked,
+            }
+            : comment
+        )));
       }
-    } catch (error) {
+    } catch (errorMessage) {
       setError('Failed to like/unlike comment. Please try again.');
     }
   };
@@ -216,11 +212,13 @@ function MovieDetail() {
   if (!movie) return <div className="text-center mt-5">Movie not found</div>;
 
   // Function to sort comments by date, newest first
-  const sortedComments = [...comments].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const sortedComments = [...comments].sort((a, b) =>
+    new Date(b.created_at) - new Date(a.created_at)
+  );
 
   return (
     <div className="container-fluid p-0 movie-detail">
-      <div className="position-relative">
+      <div className="mt-1 position-relative">
         <img src={movie.thumbnail} alt={movie.title} className="img-fluid w-100 movie-thumbnail" />
         <div className="movie-info-overlay position-absolute top-0 start-0 h-100 w-100 d-flex flex-column justify-content-center text-white p-4">
           <div className="movie-info-content">
@@ -232,7 +230,6 @@ function MovieDetail() {
         </div>
       </div>
       {/* Mobile view for movie info */}
-      {/* Mobile view for movie info */}
       <div className="d-md-none text-white bg-dark p-4 mobile-movie-info">
         <h1 className="h2 fw-bold">{movie.title}</h1>
         <p>{movie.year}</p>
@@ -242,15 +239,16 @@ function MovieDetail() {
 
       <div className="d-flex justify-content-center align-items-center my-4">
         <p className="me-4 mb-0">
-          <ThumbsUp 
-            size={24} 
-            className={`me-2 ${isLikeAnimating ? 'like-animation' : ''}`} 
+          <ThumbsUp
+            size={24}
+            className={`me-2 ${isLikeAnimating ? 'like-animation' : ''}`}
             color={thumbsUpColor}
           />
           {movie.likes_count}
         </p>
-        <button 
-          onClick={handleLike} 
+        <button
+          type="button"
+          onClick={handleLike}
           className="btn btn-dark text-white"
         >
           {isLiked ? 'Unlike' : 'Like'}
@@ -280,11 +278,13 @@ function MovieDetail() {
                 required
                 className="form-control mb-2"
               />
-              <button type="submit" className="btn btn-dark text-white d-block ms-auto">Post Comment</button>
+              <button type="submit" className="btn btn-dark text-white d-block ms-auto">
+                Post Comment
+              </button>
             </form>
 
             {sortedComments.length > 0 ? (
-              sortedComments.map(comment => (
+              sortedComments.map((comment) => (
                 <div key={comment.id} className="comment mb-4">
                   {editingComment && editingComment.id === comment.id ? (
                     <div>
@@ -293,16 +293,28 @@ function MovieDetail() {
                         onChange={(e) => setEditedContent(e.target.value)}
                         className="form-control mb-2"
                       />
-                      <button onClick={handleUpdateComment} className="btn btn-dark text-white btn-sm me-2">Save</button>
-                      <button onClick={() => setEditingComment(null)} className="btn btn-secondary btn-sm">Cancel</button>
+                      <button 
+                        type="button" 
+                        onClick={handleUpdateComment} 
+                        className="btn btn-dark text-white btn-sm me-2"
+                      >
+                        Save
+                      </button>
+                      <button 
+                        type="button" 
+                        onClick={() => setEditingComment(null)} 
+                        className="btn btn-secondary btn-sm"
+                      >
+                        Cancel
+                      </button>
                     </div>
                   ) : (
                     <div className="d-flex flex-column flex-md-row">
                       <div className="me-md-4 mb-3 mb-md-0 text-center">
                         <Link to={`/profile/${comment.user.username}`}>
-                          <img 
+                          <img
                             src={comment.user.avatar || DEFAULT_AVATAR}
-                            alt={`${comment.user.username}'s avatar`} 
+                            alt={`${comment.user.username}'s avatar`}
                             className="rounded-circle mb-2 comment-avatar"
                             onError={(e) => {
                               e.target.src = DEFAULT_AVATAR;
@@ -316,8 +328,13 @@ function MovieDetail() {
                         <p>{comment.content}</p>
                         <div className="d-flex justify-content-between align-items-center">
                           <div>
-                            {currentUserProfile && currentUserProfile.username !== comment.user.username && (
-                              <button onClick={() => handleLikeComment(comment.id)} className="btn btn-dark text-white btn-sm me-2">
+                            {currentUserProfile && 
+                              currentUserProfile.username !== comment.user.username && (
+                              <button 
+                                type="button"
+                                onClick={() => handleLikeComment(comment.id)} 
+                                className="btn btn-dark text-white btn-sm me-2"
+                              >
                                 <ThumbsUp size={16} className="me-1" />
                                 {comment.is_liked_by_user ? 'Unlike' : 'Like'}
                               </button>
@@ -327,12 +344,25 @@ function MovieDetail() {
                               {comment.likes_count}
                             </span>
                           </div>
-                          {(currentUserProfile && currentUserProfile.username === comment.user.username) || isSuperuser ? (
+                          {(currentUserProfile && 
+                            currentUserProfile.username === comment.user.username) || isSuperuser ? (
                             <div>
                               {currentUserProfile.username === comment.user.username && (
-                                <button onClick={() => handleEditComment(comment)} className="btn btn-link btn-sm p-0 me-2">Edit</button>
+                                <button 
+                                  type="button"
+                                  onClick={() => handleEditComment(comment)} 
+                                  className="btn btn-link btn-sm p-0 me-2"
+                                >
+                                  Edit
+                                </button>
                               )}
-                              <button onClick={() => handleDeleteComment(comment.id)} className="btn btn-link btn-sm p-0 text-danger">Delete</button>
+                              <button 
+                                type="button"
+                                onClick={() => handleDeleteComment(comment.id)} 
+                                className="btn btn-link btn-sm p-0 text-danger"
+                              >
+                                Delete
+                              </button>
                             </div>
                           ) : null}
                         </div>
