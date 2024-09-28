@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import spacer from '../../assets/spacer.png';
 import jumbotron from '../../assets/jumbotron.jpg';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
-import api from '../../api/axios'; 
+import api from '../../api/axios';
 import './HomePage.css';
 
 function HomePage() {
@@ -43,6 +43,13 @@ function HomePage() {
     navigate(`/movie/${movieId}`);
   };
 
+  const handleKeyDown = (event, movieId) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault(); // Prevent scrolling on space key press
+      handleMovieClick(movieId);
+    }
+  };
+
   if (loading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -55,10 +62,12 @@ function HomePage() {
     <div className="home-page-content">
       <div>
         {/* Jumbotron Section */}
-        <div className="jumbotron text-center jumbotron-text" 
+        <div
+          className="jumbotron text-center jumbotron-text"
           style={{
-            background: `url(${jumbotron}) no-repeat center center / cover`
-          }}>
+            background: `url(${jumbotron}) no-repeat center center / cover`,
+          }}
+        >
           <h1 className="display-4 font-weight-bold text-white">
             Discover the Golden Age of Cinema!
           </h1>
@@ -69,10 +78,10 @@ function HomePage() {
 
         {/* Spacer Section */}
         <div className="text-center">
-          <img 
-            src={spacer} 
-            alt="spacer" 
-            className="spacer-picture" 
+          <img
+            src={spacer}
+            alt="spacer"
+            className="spacer-picture"
           />
         </div>
 
@@ -82,12 +91,15 @@ function HomePage() {
           <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
             {trendingMovies.map((movie) => (
               <div key={movie.id} className="col px-3">
-                <div 
+                <div
                   className="movie-card-wrapper"
+                  role="button"
                   onClick={() => handleMovieClick(movie.id)}
+                  onKeyDown={(e) => handleKeyDown(e, movie.id)}
+                  tabIndex={0}
                 >
                   <div className="card h-100">
-                    <img src={movie.thumbnail} className="card-img-top" alt={movie.title}/>
+                    <img src={movie.thumbnail} className="card-img-top" alt={movie.title} />
                     <div className="card-body ">
                       <h5 className="card-title text-center">{movie.title}</h5>
                       <div className="d-flex justify-content-center gap-3">
