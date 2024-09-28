@@ -45,7 +45,9 @@ function ProfileList() {
         <div className="col-md-8 col-lg-6">
           <h1 className="text-center mb-4">User Profiles</h1>
           <div className="input-group mb-3">
+          <label htmlFor="profile-search" className="form-label visually-hidden">Search profiles</label>
             <input
+              id="profile-search"
               type="text"
               className="form-control"
               placeholder="Search profiles..."
