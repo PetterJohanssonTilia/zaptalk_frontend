@@ -490,9 +490,13 @@ I've opted for manual testing since the project is still fairly small making it 
 
 # Validator testing
 ### W3C CSS validator
+All pages have been looked at with wc3 css validator
+
+<img src="../zaptalk_frontend/src/assets/readme/w3ccssvalidator.jpg" width=900>
 
 ### ESLint JavaScript validator
 All JavaScript files were validated using the ESLint JavaScript validator. The following issues were identified and corrected:
+
 Moved functions to the top to be defined before being used
 Unescaped apostrophies in HTML text in some components.
 Added missing commas, linebreaks, button types, tabindexes.
@@ -500,10 +504,16 @@ Added keydown for keyboard event handling
 Changed error to be errorMessage to avoid shadowing
 Nested my inputs inside of labels to fix the formcontrol
 Removed unused functions and imports
-
+Added a cust confirmation box isntead of using alert window
 
 
 ### WAVE web accessability testing
+All the pages have been looked through with WAVE.
+The following issues were identified and corrected:
+
+Alerts still needing fixing:
+
+Skipped heading level - Since I'm using headers for styling I have skipped a lot of heading levels
 ### Lighthouse testing
 
 

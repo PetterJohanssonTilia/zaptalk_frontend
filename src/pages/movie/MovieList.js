@@ -22,6 +22,7 @@ function MovieList() {
   const observer = useRef();
   const loadingRef = useRef(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1024);
+  const [isSearchValid, setIsSearchValid] = useState(true);
 
   const lastMovieElementRef = useCallback((node) => {
     if (loadingRef.current) return;
@@ -35,7 +36,7 @@ function MovieList() {
   }, [hasMore]);
 
   const fetchMovies = useCallback(async (resetMovies = false) => {
-    if (loadingRef.current) return;
+    if (loadingRef.current || (searchTerm.length > 0 && searchTerm.length < 3)) return;
     loadingRef.current = true;
     setLoading(true);
     const params = {
@@ -106,7 +107,9 @@ function MovieList() {
   }, []);
 
   const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
+    const value = event.target.value;
+    setSearchTerm(value);
+    setIsSearchValid(value.length === 0 || value.length >= 3);
   };
 
   const handleGenreChange = (event) => {
@@ -141,12 +144,14 @@ function MovieList() {
         </div>
         <div className="row justify-content-center mb-4">
           <div className="col-10 col-md-6 col-lg-4 search-filter-section">
+            <label htmlFor="movie-search" className="form-label visually-hidden">Search movies</label>
             <input
+              id="movie-search"
               type="text"
               placeholder="Search movies..."
               value={searchTerm}
               onChange={handleSearchChange}
-              className="form-control mb-3"
+              className={`form-control mb-3 ${!isSearchValid ? 'invalid-search' : ''}`}
             />
             <select
               onChange={handleGenreChange}
@@ -224,7 +229,7 @@ function MovieList() {
       </div>
 
       {loading && <div className="text-center mt-4">Loading...</div>}
-      {!loading && currentMovies.length === 0 && !error && (
+        {!loading && currentMovies.length === 0 && !error && isSearchValid && searchTerm.length >= 3 && (
         <div className="alert alert-info mt-4">
           {showFollowedLikes
             ? 'No movies liked by users you follow.'

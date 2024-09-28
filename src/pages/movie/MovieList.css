@@ -199,3 +199,7 @@ body {
     padding-left: 10px;
   }
 }
+
+.invalid-search {
+  border-color: red !important;
+}
