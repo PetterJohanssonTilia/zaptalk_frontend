@@ -490,13 +490,20 @@ I've opted for manual testing since the project is still fairly small making it 
 
 # Validator testing
 ### W3C CSS validator
+https://jigsaw.w3.org/css-validator/
+
 All pages have been looked at with wc3 css validator
 
 <img src="../zaptalk_frontend/src/assets/readme/w3ccssvalidator.jpg" width=900>
 
 ### ESLint JavaScript validator
+https://validatejavascript.com/
 
-All JavaScript files were validated using the ESLint JavaScript validator. The following issues were identified and corrected:
+All JavaScript files were validated using the ESLint JavaScript validator. 
+
+<img src="../zaptalk_frontend/src/assets/readme/eslintnoerror1.jpg" width=900>
+
+The following issues were identified and corrected:
 
 Moved functions to the top to be defined before being used
 Unescaped apostrophies in HTML text in some components.
@@ -507,25 +514,53 @@ Nested my inputs inside of labels to fix the formcontrol
 Removed unused functions and imports
 Added a cust confirmation box isntead of using alert window
 
+<img src="../zaptalk_frontend/src/assets/readme/eslinterror.jpg" width=900>
+
+ESLint errors still showing is because the checker can't see that I've added linebreaks on the longer lines
+
 
 ### WAVE web accessability testing
 
 All the pages have been looked through with WAVE.
+<img src="../zaptalk_frontend/src/assets/readme/wavemovies.jpg" width=900>
 
 The following issues were identified and corrected:
 Inputfields missing labels
 
-Alerts still needing fixing:
+<img src="../zaptalk_frontend/src/assets/readme/wavealerts.jpg" width=900> 
+Most of the alerts are from Wave thinking I'm inputing the same lines mutiple times when I'm rendering moviecard.title for example.
+
+I've also got a noscript element alert, but decided to keep that to import the users they need to use Javascript to run the app
+
+Alerts that still needing fixing:
 Skipped heading level - Since I'm wrongly using headers for styling I have skipped a lot of heading levels
 
-### Lighthouse testing
+### Page-speed-insights 
 
+https://pagespeed.web.dev/
+The pages have been looked through with Pagespeedinsight and the largest contentful pain element is
+the use of PNG for my movies and homepage big images.
+
+<img src="../zaptalk_frontend/src/assets/readme/pagespeedinsights.jpg" width=900> 
+
+In my movielist, since my api is using wikipedia links to display the images they're also displayed as .PNG
 
 # Bugs
 
+
 ### Resolved bugs
+No movies found - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/36
+Can't click filter buttons when pagination is loading - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/35
+Failed to fetch trending movies - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/34
+Movielist cant be seen when logged out - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/33 
+Genre filter - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/2
+Pagination - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/3
 
 ### Unresolved bugs
+
+When the user is loged out from losing its token the page doesn't refresh so it still appears as you're logged in.
+
+The search field in the movielist doesn't search if you type to fast so the user has to add or remove a character to update the search
 
 # Deployment
 To deploy to Heroku, follow these steps:
@@ -545,15 +580,17 @@ Find the 'Manual Deploy' section, choose 'main' as the branch to deploy and sele
 When deployment is complete, you will be given a link to the deployed site.
 
 # Credits
-Swirling hover effect youtube video
+The swirling hover effect on the movies came from:
+https://www.youtube.com/watch?v=ezP4kbOvs_E
 
 The following documentation was referenced extensively throughout the project:
 
 React documentation
 React Router Documentation
+Code-institutes Moments walkthrough project
 
 ### Media
-All the profile pictures and the jumbotron image were taken from pexels
+All the images were taken from pexels.com
 
 ### Fonts
 The fonts being used were taken from google fonts
