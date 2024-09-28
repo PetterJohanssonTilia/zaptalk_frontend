@@ -77,7 +77,7 @@ function MovieList() {
     setHasMore(true);
     setError(null);
     fetchMovies(true);
-  }, [selectedGenres, searchTerm, sortBy, showFollowedLikes]);
+  }, [selectedGenres, searchTerm, sortBy, showFollowedLikes, fetchMovies]);
 
   useEffect(() => {
     if (page > 1) {

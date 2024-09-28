@@ -3,7 +3,7 @@ import './App.css';
 
 
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import HomePage from './pages/home/HomePage';
 import { AuthProvider } from '../src/contexts/AuthContext';
 import Registration from './pages/auth/UserRegistration';
