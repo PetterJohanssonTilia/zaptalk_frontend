@@ -64,7 +64,7 @@ function LoginPage() {
         {errorMessage && <p className="error">{errorMessage}</p>}
         <form onSubmit={handleSubmit}>
           <div className="form-field">
-            <label>
+            <label htmlFor="username">
               <span>Username:</span>
               <input
                 type="text"
