@@ -490,7 +490,10 @@ I've opted for manual testing since the project is still fairly small making it 
 
 # Validator testing
 ### W3C CSS validator
+
 ### ESLint JavaScript validator
+Unescaped apostrophies in HTML text in some components.
+
 ### WAVE web accessability testing
 ### Lighthouse testing
 

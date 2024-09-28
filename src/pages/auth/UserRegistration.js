@@ -14,28 +14,23 @@ const Registration = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('auth/registration/', { 
-        username, 
-        email, 
-        password1: password, 
-        password2: confirmPassword 
+      await api.post('auth/registration/', {
+        username,
+        email,
+        password1: password,
+        password2: confirmPassword,
       });
-
       
-      // After successful registration, obtain JWT tokens
       const tokenResponse = await api.post('/token/', {
         username,
-        password: password
+        password,
       });
-      
-      // Store the tokens in localStorage or your preferred storage method
       localStorage.setItem('access_token', tokenResponse.data.access);
       localStorage.setItem('refresh_token', tokenResponse.data.refresh);
-      
-      // Redirect to home page or user dashboard
+
       navigate('/home');
     } catch (err) {
-      setError('Registration failed: ' + (err.response?.data?.detail || err.message));
+      setError(`Registration failed: ${err.response?.data?.detail || err.message}`);
     }
   };
 
@@ -45,42 +40,53 @@ const Registration = () => {
         <h2>Register</h2>
         {error && <p className="error">{error}</p>}
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            id="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <label htmlFor="confirmPassword">Confirm Password:</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+          <label htmlFor="username">
+            Username:
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </label>
+          <label htmlFor="email">
+            Email:
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </label>
+          <label htmlFor="password">
+            Password:
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </label>
+          <label htmlFor="confirmPassword">
+            Confirm Password:
+            <input
+              type="password"
+              id="confirmPassword"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+          </label>
           <button type="submit">Register</button>
         </form>
         <div className="login-link">
-          <p>Already have an account? <Link to="/login">Click here to login</Link></p>
+          <p>
+            Already have an account?
+            <Link to="/login">Click here to login</Link>
+          </p>
         </div>
       </div>
     </div>
