@@ -92,3 +92,26 @@
   .login-link a:hover {
     text-decoration: underline;
   }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px; /* Adjust as needed */
+  }
+  
+  .form-field label {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-field label > span {
+    margin-bottom: 5px; /* Space between label text and input */
+  }
+  
+  .form-field input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
