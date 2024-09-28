@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Alert from 'react-bootstrap/Alert';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import api from '../../api/axios';
@@ -18,19 +19,63 @@ function NavBar() {
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
   const [dropdownOpened, setDropdownOpened] = useState(false);
+  const [error, setError] = useState(null);
+
+  const handleLogout = useCallback(() => {
+    logout();
+    setUserProfile(null);
+    navigate('/home');
+  }, [logout, navigate]);
+
+  const fetchUserProfile = useCallback(async () => {
+    try {
+      const response = await api.get('profiles/me/', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      setUserProfile({
+        ...response.data,
+        is_superuser: response.data.is_superuser,
+        is_banned: response.data.is_banned
+      });
+    } catch (err) {
+      setError('Error fetching user profile');
+      if (err.response && err.response.status === 401) {
+        handleLogout();
+      }
+    }
+  }, [handleLogout]);
+
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const response = await api.get('notifications/', {
+        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+      });
+      const allNotifications = response.data;
+      setNotifications(allNotifications.slice(0, 10)); // Limit to 10 notifications
+      setUnreadCount(allNotifications.filter(notif => !notif.is_read).length);
+    } catch (err) {
+      setError('Error fetching notifications');
+    }
+  }, []);
 
   useEffect(() => {
+    let interval;
     if (isLoggedIn) {
       fetchUserProfile();
       fetchNotifications();
-      const interval = setInterval(fetchNotifications, 30000);
-      return () => clearInterval(interval);
+      interval = setInterval(fetchNotifications, 30000);
     } else {
       setUserProfile(null);
       setNotifications([]);
       setUnreadCount(0);
     }
-  }, [isLoggedIn]);
+    
+    return () => {
+      if (interval) {
+        clearInterval(interval);
+      }
+    };
+  }, [isLoggedIn, fetchUserProfile, fetchNotifications]);
 
   useEffect(() => {
     if (dropdownOpened) {
@@ -41,56 +86,24 @@ function NavBar() {
           });
           setUnreadCount(0);
           setDropdownOpened(false);
-        } catch (error) {
-          console.error('Error marking notifications as read:', error);
+        } catch (err) {
+          setError('Error marking notifications as read');
         }
       };
       markAsRead();
     }
   }, [dropdownOpened]);
 
-  const fetchUserProfile = async () => {
-    try {
-      const response = await api.get('profiles/me/', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      setUserProfile({
-        ...response.data,
-        is_superuser: response.data.is_superuser,
-        is_banned: response.data.is_banned
-      });
-    } catch (error) {
-      console.error('Error fetching user profile:', error);
-      if (error.response && error.response.status === 401) {
-        handleLogout();
-      }
-    }
-  };
-
-  const fetchNotifications = async () => {
-    try {
-      const response = await api.get('notifications/', {
-        headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
-      });
-      const allNotifications = response.data;
-      setNotifications(allNotifications.slice(0, 10)); // Limit to 10 notifications
-      setUnreadCount(allNotifications.filter(notif => !notif.is_read).length);
-    } catch (error) {
-      console.error('Error fetching notifications:', error);
-    }
-  };
-
-  const handleLogout = () => {
-    logout();
-    setUserProfile(null);
-    navigate('/home');
-  };
-
   const isActive = (path) => location.pathname === path;
 
   return (
     <Navbar expand="lg" className="custom-navbar navbar-dark">
       <Container>
+        {error && (
+          <Alert variant="danger" onClose={() => setError(null)} dismissible>
+            {error}
+          </Alert>
+        )}
         <Link to="/home" className="nav-link nav-link-logo">
           <img 
             src={zaptalklogo} 
