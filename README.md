@@ -308,8 +308,12 @@ In the feed page you'll find a feed from the users you follow, you'll see a list
 
 ## Planned features
 
-Besides improving the current feature, a major feature I had planned was a "Get random movie" functionality incase the user would get decision paralisys from the big movie list
-
+- "Get random movie" functionality incase the user would get decision paralisys from the big movie list
+- A way for the user to change username, password and reset password with email functionality
+- Validation on ban appeals - currently anyone can make a ban appeal for anyone
+- Superuser should be able to comminucate better with people when adressing ban appeals
+- Liked movies and users followed should be clickable to be displayed on a users profile
+- A list of "Users top 10 movies" to be added on their profile page
 
 # Pages
 
@@ -557,10 +561,12 @@ Genre filter - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/2
 Pagination - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/3
 
 ### Unresolved bugs
-
 When the user is loged out from losing its token the page doesn't refresh so it still appears as you're logged in.
 
 The search field in the movielist doesn't search if you type to fast so the user has to add or remove a character to update the search
+
+# Future improvements
+Making a more robust fetching of movies and other api calls. Currently the homepages trending section is fetching all 7500 movies to display 3 movies. the Movie page is also trying to fetch all the movies at once but is saved by the pagination.
 
 # Deployment
 To deploy to Heroku, follow these steps:
