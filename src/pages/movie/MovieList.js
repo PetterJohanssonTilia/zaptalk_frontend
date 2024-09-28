@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, {
+  useState, useEffect, useCallback, useRef,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import api from '../../api/axios';
@@ -21,12 +23,12 @@ function MovieList() {
   const loadingRef = useRef(false);
   const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1024);
 
-  const lastMovieElementRef = useCallback(node => {
+  const lastMovieElementRef = useCallback((node) => {
     if (loadingRef.current) return;
     if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver(entries => {
+    observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasMore) {
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
       }
     });
     if (node) observer.current.observe(node);
@@ -38,25 +40,27 @@ function MovieList() {
     setLoading(true);
     const params = {
       page: resetMovies ? 1 : page,
-      genres: selectedGenres.map(genre => genre.toLowerCase()).join(','),
+      genres: selectedGenres.map((genre) => genre.toLowerCase()).join(','),
       search: searchTerm,
       sort: sortBy,
-      ...(showFollowedLikes && { followed_likes: true })
+      ...(showFollowedLikes && { followed_likes: true }),
     };
     const url = `movies/?${new URLSearchParams(params)}`;
     try {
       const response = await api.get(url);
       const newMovies = response.data.results;
-      
+
       if (showFollowedLikes) {
-        setFollowedLikesMovies(prevMovies => resetMovies ? newMovies : [...prevMovies, ...newMovies]);
+        setFollowedLikesMovies((prevMovies) => (
+          resetMovies ? newMovies : [...prevMovies, ...newMovies]
+        ));
       } else {
-        setMovies(prevMovies => resetMovies ? newMovies : [...prevMovies, ...newMovies]);
+        setMovies((prevMovies) => (resetMovies ? newMovies : [...prevMovies, ...newMovies]));
       }
-      
+
       setHasMore(response.data.next !== null);
       setError(null);
-    } catch (error) {
+    } catch (errorMessage) {
       setError('An error occurred while fetching movies.');
       setHasMore(false);
     } finally {
@@ -73,7 +77,7 @@ function MovieList() {
     setError(null);
     fetchMovies(true);
   }, [selectedGenres, searchTerm, sortBy, showFollowedLikes]);
-  
+
   useEffect(() => {
     if (page > 1) {
       fetchMovies(false);
@@ -85,7 +89,8 @@ function MovieList() {
       try {
         const response = await api.get('genres/');
         setGenres(response.data);
-      } catch (error) {
+      } catch (errorMessage) {
+        setError('Failed to fetch genres. Please try again later.');
       }
     };
     fetchGenres();
@@ -109,11 +114,11 @@ function MovieList() {
   };
 
   const toggleSort = (sort) => {
-    setSortBy(prevSort => prevSort === sort ? '' : sort);
+    setSortBy((prevSort) => (prevSort === sort ? '' : sort));
   };
 
   const toggleFollowedLikes = () => {
-    setShowFollowedLikes(prev => !prev);
+    setShowFollowedLikes((prev) => !prev);
   };
 
   const handleMovieClick = (movieId) => {
@@ -129,45 +134,49 @@ function MovieList() {
           <div className="row mb-4 title-section">
             <h1 className="text-left mb-2 movielist-title">Movies</h1>
             <p className="text-left movielist-breadtext">
-              Movies take us to another era, delivering stories that remain unforgettable. So many classics, so much to experience.
+              Movies take us to another era, delivering stories that remain unforgettable. 
+              So many classics, so much to experience.
             </p>
           </div>
         </div>
         <div className="row justify-content-center mb-4">
           <div className="col-10 col-md-6 col-lg-4 search-filter-section">
-            <input 
-              type="text" 
-              placeholder="Search movies..." 
-              value={searchTerm} 
+            <input
+              type="text"
+              placeholder="Search movies..."
+              value={searchTerm}
               onChange={handleSearchChange}
               className="form-control mb-3"
             />
-            <select 
+            <select
               onChange={handleGenreChange}
               className="form-select bg-dark text-white"
             >
               <option value="">Genres</option>
-              {genres.map(genre => (
+              {genres.map((genre) => (
                 <option key={genre} value={genre}>{genre}</option>
               ))}
             </select>
             <div className="button-group">
-              <button 
-                onClick={() => toggleSort('most_liked')} 
+              <button
+                type="button"
+                onClick={() => toggleSort('most_liked')}
                 className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'bg-clicked' : ''}`}
                 disabled={loadingRef.current}
               >
                 {isSmallScreen ? 'Liked' : 'Most Liked'}
               </button>
-              <button 
-                onClick={() => toggleSort('most_commented')} 
+              <button
+                type="button"
+                onClick={() => toggleSort('most_commented')}
                 className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'bg-clicked' : ''}`}
                 disabled={loadingRef.current}
               >
                 {isSmallScreen ? 'Commented' : 'Most Commented'}
               </button>
-              <button 
-                onClick={toggleFollowedLikes} 
+              <button
+                type="button"
+                onClick={toggleFollowedLikes}
                 className={`btn btn-outline-light ${showFollowedLikes ? 'bg-clicked' : ''}`}
                 disabled={loadingRef.current}
               >
@@ -183,9 +192,16 @@ function MovieList() {
       <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
         {currentMovies.map((movie, index) => (
           <div key={movie.id} className="col">
-            <div 
-              className="card h-100 text-white movie-card" 
+            <div
+              className="card h-100 text-white movie-card"
               onClick={() => handleMovieClick(movie.id)}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  handleMovieClick(movie.id);
+                }
+              }}
+              role="button"
+              tabIndex={0}
               ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
             >
               <img src={movie.thumbnail} className="movie-thumbnail" alt={movie.title} />
@@ -210,9 +226,9 @@ function MovieList() {
       {loading && <div className="text-center mt-4">Loading...</div>}
       {!loading && currentMovies.length === 0 && !error && (
         <div className="alert alert-info mt-4">
-          {showFollowedLikes 
-            ? "No movies liked by users you follow."
-            : "No movies found matching your criteria."}
+          {showFollowedLikes
+            ? 'No movies liked by users you follow.'
+            : 'No movies found matching your criteria.'}
         </div>
       )}
     </div>

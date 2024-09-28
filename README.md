@@ -492,7 +492,16 @@ I've opted for manual testing since the project is still fairly small making it 
 ### W3C CSS validator
 
 ### ESLint JavaScript validator
+All JavaScript files were validated using the ESLint JavaScript validator. The following issues were identified and corrected:
+
 Unescaped apostrophies in HTML text in some components.
+Added missing commas, linebreaks, button types, tabindexes.
+Added keydown for keyboard event handling
+Changed error to be errorMessage to avoid shadowing
+Nested my inputs inside of labels to fix the formcontrol
+Removed unused functions and imports
+
+
 
 ### WAVE web accessability testing
 ### Lighthouse testing
