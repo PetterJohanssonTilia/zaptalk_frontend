@@ -6,6 +6,34 @@
 <p align="center">
     Image generated using <a href="https://ui.dev/amiresponsive" target="_blank">https://ui.dev/amiresponsive</a>
 </p>
+# ZapTalk README - Table of Contents
+
+1. [Project Goals](#project-goals)
+2. [User Stories](#user-stories)
+   - [Board Structure](#board-structure)
+   - [Story Sizing](#story-sizing)
+   - [Categories](#categories)
+3. [Agile Development Methodology](#agile-development-methodology)
+4. [Planning](#planning)
+   - [Wireframes](#wireframes)
+   - [Data Models](#data-models)
+5. [Design](#design)
+   - [Colors](#colors)
+   - [Fonts](#fonts)
+6. [Features](#features)
+7. [Pages](#pages)
+8. [Frameworks, Libraries, and Dependencies](#frameworks-libraries-and-dependencies)
+9. [Testing](#testing)
+   - [Manual Testing](#manual-testing)
+   - [Validator Testing](#validator-testing)
+10. [Bugs](#bugs)
+    - [Resolved Bugs](#resolved-bugs)
+    - [Unresolved Bugs](#unresolved-bugs)
+11. [Future Improvements](#future-improvements)
+12. [Deployment](#deployment)
+13. [Credits](#credits)
+    - [Media](#media)
+    - [Fonts](#fonts)
 
 ## Project goals
 ZapTalk is designed to be a social platform for classic movie enthusiasts, providing a virtual space for users to discover, watch, and discuss old films. The primary goals of the web app are to:
@@ -123,7 +151,7 @@ This flexible approach allows for ongoing assessment and adaptation of the proje
 This methodology provides a structured yet flexible approach to developing ZapTalk. It allows for continuous progress and adjustment of priorities, while maintaining a clear overview of the project status using GitHub's built-in tools.
 
 # Planning
-The initial planning phase for ZapTalk involved creating wireframes to visualize the layout and data models to help plan the functionality of the application. This process was crucial in establishing a clear direction for the project's design and user interface.
+The initial planning phase for ZapTalk involved creating wireframes to visualize the layout looking at the data models to help plan the functionality of the application. This process was crucial in establishing a clear direction for the project's design and user interface.
 
 ## Wireframes
 ### Home
@@ -308,6 +336,7 @@ In the feed page you'll find a feed from the users you follow, you'll see a list
 
 ## Planned features
 
+- Allow users fill out a form to upload new movies to the site
 - "Get random movie" functionality incase the user would get decision paralisys from the big movie list
 - A way for the user to change username, password and reset password with email functionality
 - Validation on ban appeals - currently anyone can make a ban appeal for anyone
