@@ -495,6 +495,7 @@ All pages have been looked at with wc3 css validator
 <img src="../zaptalk_frontend/src/assets/readme/w3ccssvalidator.jpg" width=900>
 
 ### ESLint JavaScript validator
+
 All JavaScript files were validated using the ESLint JavaScript validator. The following issues were identified and corrected:
 
 Moved functions to the top to be defined before being used
@@ -508,12 +509,15 @@ Added a cust confirmation box isntead of using alert window
 
 
 ### WAVE web accessability testing
+
 All the pages have been looked through with WAVE.
+
 The following issues were identified and corrected:
+Inputfields missing labels
 
 Alerts still needing fixing:
+Skipped heading level - Since I'm wrongly using headers for styling I have skipped a lot of heading levels
 
-Skipped heading level - Since I'm using headers for styling I have skipped a lot of heading levels
 ### Lighthouse testing
 
 
