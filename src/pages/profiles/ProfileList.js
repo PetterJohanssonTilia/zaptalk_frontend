@@ -15,7 +15,8 @@ function ProfileList() {
     const fetchProfiles = async () => {
       try {
         const response = await api.get('profiles/');
-        const sortedProfiles = response.data.sort((a, b) => (b.followers_count || 0) - (a.followers_count || 0));
+        const sortedProfiles = response.data.sort((a, b) =>
+          (b.followers_count || 0) - (a.followers_count || 0));
         setProfiles(sortedProfiles);
         setFilteredProfiles(sortedProfiles);
         setLoading(false);
