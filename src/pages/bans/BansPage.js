@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../api/axios';
+import './BanAppealPage.css';
 
 const BanPage = () => {
   const [username, setUsername] = useState('');
@@ -7,11 +8,6 @@ const BanPage = () => {
   const [message, setMessage] = useState('');
   const [bans, setBans] = useState([]);
   const [appeals, setAppeals] = useState([]);
-
-  useEffect(() => {
-    fetchActiveBans();
-    fetchBanAppeals();
-  }, []);
 
   const fetchActiveBans = async () => {
     try {
@@ -31,10 +27,15 @@ const BanPage = () => {
     }
   };
 
+  useEffect(() => {
+    fetchActiveBans();
+    fetchBanAppeals();
+  }, []);
+
   const handleBanSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await api.post('bans/ban_user/', { username, reason });
+      await api.post('bans/ban_user/', { username, reason });
       setMessage(`User ${username} has been banned successfully.`);
       setUsername('');
       setReason('');
@@ -44,9 +45,9 @@ const BanPage = () => {
     }
   };
 
-  const handleUnban = async (username) => {
+  const handleUnban = async (bannedUsername) => {
     try {
-      const response = await api.post('bans/unban_user/', { username });
+      const response = await api.post('bans/unban_user/', { username: bannedUsername });
       setMessage(response.data.message);
       fetchActiveBans();
       fetchBanAppeals();
@@ -64,26 +65,30 @@ const BanPage = () => {
               <h5 className="card-title text-center ">Ban User</h5>
               {message && <div className="alert alert-info">{message}</div>}
               <form onSubmit={handleBanSubmit}>
-                <div className="mb-3">
-                  <label htmlFor="username" className="form-label">Username:</label>
-                  <input
-                    id="username"
-                    type="text"
-                    className="form-control"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                  />
+                <div className="mb-3 form-field">
+                  <label htmlFor="username" className="form-label">
+                    Username:
+                    <input
+                      id="username"
+                      type="text"
+                      className="form-control"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      required
+                    />
+                  </label>
                 </div>
-                <div className="mb-3">
-                  <label htmlFor="reason" className="form-label">Reason for Ban:</label>
-                  <textarea
-                    id="reason"
-                    className="form-control"
-                    value={reason}
-                    onChange={(e) => setReason(e.target.value)}
-                    required
-                  />
+                <div className="mb-3 form-field">
+                  <label htmlFor="reason" className="form-label">
+                    Reason for Ban:
+                    <textarea
+                      id="reason"
+                      className="form-control"
+                      value={reason}
+                      onChange={(e) => setReason(e.target.value)}
+                      required
+                    />
+                  </label>
                 </div>
                 <button type="submit" className="btn btn-danger w-100">Ban User</button>
               </form>
@@ -104,8 +109,9 @@ const BanPage = () => {
                     <p>Reason: {ban.reason}</p>
                     <p>Banned by: {ban.banned_by_username}</p>
                     <p>Banned at: {new Date(ban.banned_at).toLocaleString()}</p>
-                    <button 
-                      className="btn btn-success btn-sm" 
+                    <button
+                      type="button"
+                      className="btn btn-success btn-sm"
                       onClick={() => handleUnban(ban.user_username)}
                     >
                       Unban User
@@ -126,8 +132,9 @@ const BanPage = () => {
                     <h5>{appeal.user_username}</h5>
                     <p>Email: {appeal.email}</p>
                     <p>Message: {appeal.content}</p>
-                    <button 
-                      className="btn btn-success btn-sm" 
+                    <button
+                      type="button"
+                      className="btn btn-success btn-sm"
                       onClick={() => handleUnban(appeal.user_username)}
                     >
                       Unban User
