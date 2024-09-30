@@ -1,6 +1,4 @@
-import React, {
-  useState, useEffect, useCallback, useRef,
-} from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ThumbsUp, MessageCircle } from 'lucide-react';
 import api from '../../api/axios';
@@ -17,15 +15,14 @@ function MovieList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [sortBy, setSortBy] = useState('');
   const [showFollowedLikes, setShowFollowedLikes] = useState(false);
-  const [followedLikesMovies, setFollowedLikesMovies] = useState([]);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1024);
+  const [isSearchValid, setIsSearchValid] = useState(true);
   const navigate = useNavigate();
   const observer = useRef();
   const loadingRef = useRef(false);
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 1024);
-  const [isSearchValid, setIsSearchValid] = useState(true);
 
   const lastMovieElementRef = useCallback((node) => {
-    if (loadingRef.current) return;
+    if (loading) return;
     if (observer.current) observer.current.disconnect();
     observer.current = new IntersectionObserver((entries) => {
       if (entries[0].isIntersecting && hasMore) {
@@ -33,14 +30,14 @@ function MovieList() {
       }
     });
     if (node) observer.current.observe(node);
-  }, [hasMore]);
+  }, [loading, hasMore]);
 
-  const fetchMovies = useCallback(async (resetMovies = false) => {
+  const fetchMovies = useCallback(async (pageToFetch, shouldAppend = false) => {
     if (loadingRef.current || (searchTerm.length > 0 && searchTerm.length < 3)) return;
     loadingRef.current = true;
     setLoading(true);
     const params = {
-      page: resetMovies ? 1 : page,
+      page: pageToFetch,
       genres: selectedGenres.map((genre) => genre.toLowerCase()).join(','),
       search: searchTerm,
       sort: sortBy,
@@ -49,17 +46,13 @@ function MovieList() {
     const url = `movies/?${new URLSearchParams(params)}`;
     try {
       const response = await api.get(url);
-      const newMovies = response.data.results;
+      const newMovies = response.data.results.filter(movie => 'thumbnail' in movie && movie.thumbnail);
 
-      if (showFollowedLikes) {
-        setFollowedLikesMovies((prevMovies) => (
-          resetMovies ? newMovies : [...prevMovies, ...newMovies]
-        ));
-      } else {
-        setMovies((prevMovies) => (resetMovies ? newMovies : [...prevMovies, ...newMovies]));
-      }
-
-      setHasMore(response.data.next !== null);
+      setMovies((prevMovies) => {
+        const updatedMovies = shouldAppend ? [...prevMovies, ...newMovies] : newMovies;
+        return updatedMovies;
+      });
+      setHasMore(newMovies.length > 0 && response.data.next !== null);
       setError(null);
     } catch (errorMessage) {
       setError('An error occurred while fetching movies.');
@@ -68,20 +61,19 @@ function MovieList() {
       setLoading(false);
       loadingRef.current = false;
     }
-  }, [page, selectedGenres, searchTerm, sortBy, showFollowedLikes]);
+  }, [selectedGenres, searchTerm, sortBy, showFollowedLikes]);
 
   useEffect(() => {
     setPage(1);
     setMovies([]);
-    setFollowedLikesMovies([]);
     setHasMore(true);
     setError(null);
-    fetchMovies(true);
+    fetchMovies(1, false);
   }, [selectedGenres, searchTerm, sortBy, showFollowedLikes, fetchMovies]);
 
   useEffect(() => {
     if (page > 1) {
-      fetchMovies(false);
+      fetchMovies(page, true);
     }
   }, [page, fetchMovies]);
 
@@ -128,65 +120,67 @@ function MovieList() {
     navigate(`/movie/${movieId}`);
   };
 
-  const currentMovies = showFollowedLikes ? followedLikesMovies : movies;
-
   return (
     <div className="container-fluid movie-list-container p-0">
       <div className="background-container">
         <div className="row mb-4">
-          <div className="row mb-4 title-section">
-            <h1 className="text-left mb-2 movielist-title">Movies</h1>
-            <p className="text-left movielist-breadtext">
-              Movies take us to another era, delivering stories that remain unforgettable. 
-              So many classics, so much to experience.
-            </p>
+          <div className="col-12">
+            <div className="title-section">
+              <h1 className="mb-2 movielist-title">Movies</h1>
+              <p className="movielist-breadtext">
+                Movies take us to another era, delivering stories that remain unforgettable. 
+                So many classics, so much to experience.
+              </p>
+            </div>
           </div>
         </div>
         <div className="row justify-content-center mb-4">
-          <div className="col-10 col-md-6 col-lg-4 search-filter-section">
-            <label htmlFor="movie-search" className="form-label visually-hidden">Search movies</label>
-            <input
-              id="movie-search"
-              type="text"
-              placeholder="Search movies..."
-              value={searchTerm}
-              onChange={handleSearchChange}
-              className={`form-control mb-3 ${!isSearchValid ? 'invalid-search' : ''}`}
-            />
-            <select
-              onChange={handleGenreChange}
-              className="form-select bg-dark text-white"
-            >
-              <option value="">Genres</option>
-              {genres.map((genre) => (
-                <option key={genre} value={genre}>{genre}</option>
-              ))}
-            </select>
-            <div className="button-group">
-              <button
-                type="button"
-                onClick={() => toggleSort('most_liked')}
-                className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'bg-clicked' : ''}`}
-                disabled={loadingRef.current}
+          <div className="col-12 col-md-8 col-lg-6">
+            <div className="search-filter-section">
+              <label htmlFor="movie-search" className="form-label visually-hidden">Search movies</label>
+              <input
+                id="movie-search"
+                type="text"
+                placeholder="Search movies..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                className={`form-control mb-3 ${!isSearchValid ? 'invalid-search' : ''}`}
+              />
+              <select
+                onChange={handleGenreChange}
+                className="form-select bg-dark text-white mb-3"
               >
-                {isSmallScreen ? 'Liked' : 'Most Liked'}
-              </button>
-              <button
-                type="button"
-                onClick={() => toggleSort('most_commented')}
-                className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'bg-clicked' : ''}`}
-                disabled={loadingRef.current}
-              >
-                {isSmallScreen ? 'Commented' : 'Most Commented'}
-              </button>
-              <button
-                type="button"
-                onClick={toggleFollowedLikes}
-                className={`btn btn-outline-light ${showFollowedLikes ? 'bg-clicked' : ''}`}
-                disabled={loadingRef.current}
-              >
-                Friends favorites
-              </button>
+                <option value="">Genres</option>
+                {genres.map((genre) => (
+                  <option key={genre} value={genre}>{genre}</option>
+                ))}
+              </select>
+              <div className="button-group">
+                <button
+                  type="button"
+                  onClick={() => toggleSort('most_liked')}
+                  className={`btn btn-outline-light ${sortBy === 'most_liked' ? 'bg-clicked' : ''}`}
+                  disabled={loading}
+                >
+                  {isSmallScreen ? 'Liked' : 'Most Liked'}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => toggleSort('most_commented')}
+                  className={`btn btn-outline-light ${sortBy === 'most_commented' ? 'bg-clicked' : ''}`}
+                  disabled={loading}
+                >
+                  {isSmallScreen ? 'Commented' : 'Most Commented'}
+                </button>
+                <button
+                  type="button"
+                  onClick={toggleFollowedLikes}
+                  className={`btn btn-outline-light ${showFollowedLikes ? 'bg-clicked' : ''}`}
+                  disabled={loading}
+                >
+                  Friends favorites
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -194,23 +188,22 @@ function MovieList() {
 
       {error && <div className="alert alert-danger">{error}</div>}
 
-      <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
-        {currentMovies.map((movie, index) => (
+      <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4 mx-1">
+        {movies.map((movie, index) => (
           <div key={movie.id} className="col">
             <div className="movie-card-wrapper">
               <div
                 className="card h-100 text-white movie-card"
                 onClick={() => handleMovieClick(movie.id)}
-                onKeyPress={(e) => {
+                onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     handleMovieClick(movie.id);
                   }
                 }}
                 role="button"
                 tabIndex={0}
-                ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
               >
-                <img src={movie.thumbnail} className="movie-thumbnail" alt={movie.title} />
+                <img src={movie.thumbnail} className="card-img-top movie-thumbnail" alt={movie.title} />
                 <div className="card-body">
                   <h5 className="card-title text-center movie-title">{movie.title}</h5>
                   <div className="d-flex justify-content-center gap-3">
@@ -230,8 +223,15 @@ function MovieList() {
         ))}
       </div>
 
-      {loading && <div className="text-center mt-4">Loading...</div>}
-        {!loading && currentMovies.length === 0 && !error && isSearchValid && searchTerm.length >= 3 && (
+      {hasMore && (
+        <div ref={lastMovieElementRef} className="text-center my-4">
+          <div className="spinner-border text-light" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
+
+      {!loading && movies.length === 0 && !error && isSearchValid && (
         <div className="alert alert-info mt-4">
           {showFollowedLikes
             ? 'No movies liked by users you follow.'

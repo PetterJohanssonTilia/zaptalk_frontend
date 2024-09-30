@@ -580,6 +580,9 @@ In my movielist, since my api is using wikipedia links to display the images the
 
 # Bugs
 
+- This isn't a bug but a design flaw that should be addressed. I'm filtering for movies with thumbnails on the frontend instead of the backend, that should be changed
+- I'm using wikipedia urls to display the thumbnails and when wikipedia changes their thumbnail urls the filtering still think the object has a thumbnail, but since the url is changed it's a broken image.
+
 
 ### Resolved bugs
 No movies found - https://github.com/PetterJohanssonTilia/zaptalk_frontend/issues/36
