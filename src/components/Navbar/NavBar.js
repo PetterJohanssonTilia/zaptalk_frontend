@@ -46,6 +46,11 @@ function NavBar() {
   }, [handleLogout]);
 
   const fetchNotifications = useCallback(async () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      // Don't attempt to fetch notifications if there's no token
+      return;
+    }
     try {
       const response = await api.get('notifications/', {
         headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
@@ -54,7 +59,14 @@ function NavBar() {
       setNotifications(allNotifications.slice(0, 10)); // Limit to 10 notifications
       setUnreadCount(allNotifications.filter(notif => !notif.is_read).length);
     } catch (err) {
-      setError('Error fetching notifications');
+      if (err.response && err.response.status === 401) {
+        // Token might be invalid or expired
+        setError(null);
+        setNotifications([]);
+        setUnreadCount(0);
+      } else {
+        setError('Error fetching notifications');
+      }
     }
   }, []);
 
@@ -68,8 +80,9 @@ function NavBar() {
       setUserProfile(null);
       setNotifications([]);
       setUnreadCount(0);
+      setError(null);
     }
-    
+
     return () => {
       if (interval) {
         clearInterval(interval);
