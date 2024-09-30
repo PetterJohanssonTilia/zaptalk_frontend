@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import spacer from '../../assets/spacer.png';
+import { Link, useNavigate } from 'react-router-dom';
 import jumbotron from '../../assets/jumbotron.jpg';
-import { ThumbsUp, MessageCircle } from 'lucide-react';
+import { ThumbsUp, MessageCircle, Star, Film } from 'lucide-react';
 import api from '../../api/axios';
 import './HomePage.css';
 
@@ -43,13 +42,6 @@ function HomePage() {
     navigate(`/movie/${movieId}`);
   };
 
-  const handleKeyDown = (event, movieId) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault(); // Prevent scrolling on space key press
-      handleMovieClick(movieId);
-    }
-  };
-
   if (loading) {
     return <div className="text-center">Loading...</div>;
   }
@@ -60,64 +52,60 @@ function HomePage() {
 
   return (
     <div className="home-page-content">
-      <div>
-        {/* Jumbotron Section */}
-        <div
-          className="jumbotron text-center jumbotron-text"
-          style={{
-            background: `url(${jumbotron}) no-repeat center center / cover`,
-          }}
-        >
-          <h1 className="display-4 font-weight-bold text-white">
-            Discover the Golden Age of Cinema!
-          </h1>
-          <p className="lead text-white">
-            We have it all!
-          </p>
+      {/* Jumbotron Section */}
+      <div
+        className="jumbotron-text"
+        style={{
+          backgroundImage: `url(${jumbotron})`,
+        }}
+      >
+        <div className="jumbotron-overlay"></div>
+        <div className="jumbotron-content">
+          <h1>Discover the Golden Age of Cinema</h1>
+          <p>Explore, rate, and discuss classic films from yesteryear</p>
+          <Link to="/register" className="btn btn-primary">Join the Community</Link>
+          
+          {/* Feature Section */}
+          <div className="feature-section">
+            <div className="feature-cards">
+              {[
+                { icon: Star, title: 'Rate', description: 'Share your thoughts on timeless classics.' },
+                { icon: MessageCircle, title: 'Discuss', description: 'Engage in lively discussions about your favorite old movies.' },
+                { icon: Film, title: 'Discover', description: 'Uncover new classic films based on community recommendations.' }
+              ].map((item, index) => (
+                <div key={index} className="feature-card">
+                  <div className={`feature-icon ${item.title.toLowerCase()}-icon`}>
+                    <item.icon size={48} />
+                  </div>
+                  <h3 className="text-center">{item.title}</h3>
+                  <p className="text-center">{item.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
 
-        {/* Spacer Section */}
-        <div className="text-center">
-          <img
-            src={spacer}
-            alt="spacer"
-            className="spacer-picture"
-          />
-        </div>
-
-        {/* Trending Now Section */}
-        <div className="trending-section">
-          <h2 className="text-center trending-now-text">Trending Now</h2>
-          <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4 justify-content-center">
-            {trendingMovies.map((movie) => (
-              <div key={movie.id} className="col px-3">
-                <div
-                  className="movie-card-wrapper"
-                  role="button"
-                  onClick={() => handleMovieClick(movie.id)}
-                  onKeyDown={(e) => handleKeyDown(e, movie.id)}
-                  tabIndex={0}
-                >
-                  <div className="card h-100">
-                    <img src={movie.thumbnail} className="card-img-top" alt={movie.title} />
-                    <div className="card-body ">
-                      <h5 className="card-title text-center">{movie.title}</h5>
-                      <div className="d-flex justify-content-center gap-3">
-                        <span className="d-flex align-items-center">
-                          <ThumbsUp size={16} className="me-1" />
-                          {movie.likes_count}
-                        </span>
-                        <span className="d-flex align-items-center">
-                          <MessageCircle size={16} className="me-1" />
-                          {movie.comments_count}
-                        </span>
-                      </div>
+      {/* Trending Now Section */}
+      <div className="trending-section">
+        <h2>Trending Classics</h2>
+        <div className="row">
+          {trendingMovies.map((movie) => (
+            <div key={movie.id} className="col-md-4">
+              <div className="movie-card-wrapper" onClick={() => handleMovieClick(movie.id)} tabIndex={0}>
+                <div className="card">
+                  <img src={movie.thumbnail} className="card-img-top" alt={movie.title} />
+                  <div className="card-body">
+                    <h5 className="card-title">{movie.title}</h5>
+                    <div className="d-flex justify-content-between">
+                      <span><ThumbsUp size={16} /> {movie.likes_count}</span>
+                      <span><MessageCircle size={16} /> {movie.comments_count}</span>
                     </div>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
