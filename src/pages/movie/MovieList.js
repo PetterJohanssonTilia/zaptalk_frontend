@@ -197,30 +197,32 @@ function MovieList() {
       <div className="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-lg-5 row-cols-xl-6 g-3">
         {currentMovies.map((movie, index) => (
           <div key={movie.id} className="col">
-            <div
-              className="card h-100 text-white movie-card"
-              onClick={() => handleMovieClick(movie.id)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  handleMovieClick(movie.id);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
-            >
-              <img src={movie.thumbnail} className="movie-thumbnail" alt={movie.title} />
-              <div className="card-body">
-                <h5 className="card-title text-center movie-title">{movie.title}</h5>
-                <div className="d-flex justify-content-center gap-3">
-                  <span className="d-flex align-items-center">
-                    <ThumbsUp size={16} className="me-1" />
-                    {movie.likes_count}
-                  </span>
-                  <span className="d-flex align-items-center">
-                    <MessageCircle size={16} className="me-1" />
-                    {movie.comments_count}
-                  </span>
+            <div className="movie-card-wrapper">
+              <div
+                className="card h-100 text-white movie-card"
+                onClick={() => handleMovieClick(movie.id)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    handleMovieClick(movie.id);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+                ref={index === currentMovies.length - 1 ? lastMovieElementRef : null}
+              >
+                <img src={movie.thumbnail} className="movie-thumbnail" alt={movie.title} />
+                <div className="card-body">
+                  <h5 className="card-title text-center movie-title">{movie.title}</h5>
+                  <div className="d-flex justify-content-center gap-3">
+                    <span className="d-flex align-items-center">
+                      <ThumbsUp size={16} className="me-1" />
+                      {movie.likes_count}
+                    </span>
+                    <span className="d-flex align-items-center">
+                      <MessageCircle size={16} className="me-1" />
+                      {movie.comments_count}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
