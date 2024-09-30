@@ -349,7 +349,7 @@ In the feed page you'll find a feed from the users you follow, you'll see a list
 Here's the pages on a desktop view for you to get a quick overview on where the features are placed
 
 ### Homepage containing jumbotron and trending
-<img src="../zaptalk_frontend/src/assets/readme/homepage1.jpg" width=900>
+<img src="../zaptalk_frontend/src/assets/readme/homepage2.jpg" width=900>
 
 ### Movielist page with search filters
 <img src="../zaptalk_frontend/src/assets/readme/movielistpage1.jpg" width=900>
