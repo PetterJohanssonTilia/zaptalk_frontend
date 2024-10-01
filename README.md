@@ -1,7 +1,7 @@
 # ZapTalk
 
 <p align="center">
-    <img src="./src/assets/readme/responsive.jpeg" width=600>
+    <img src="./src/assets/readme/responsivehome.jpg" width=600>
 </p>
 <p align="center">
     Image generated using <a href="https://ui.dev/amiresponsive" target="_blank">https://ui.dev/amiresponsive</a>
