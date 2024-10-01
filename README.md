@@ -1,7 +1,7 @@
 # ZapTalk
 
 <p align="center">
-    <img src="../zaptalk_frontend/src/assets/readme/responsive.jpeg" width=600>
+    <img src="./src/assets/readme/responsive.jpeg" width=600>
 </p>
 <p align="center">
     Image generated using <a href="https://ui.dev/amiresponsive" target="_blank">https://ui.dev/amiresponsive</a>
@@ -46,9 +46,9 @@ Implement a core set of essential features to create a functional and appealing 
 
 # ZapTalk User Stories
 <p align="center">
-    <img src="../zaptalk_frontend/src/assets/readme/userstorydetailed1.jpg" 
+    <img src="./src/assets/readme/userstorydetailed1.jpg" 
     width=900>
-    <img src="../zaptalk_frontend/src/assets/readme/userstorysmall1.jpg" width=300>
+    <img src="./src/assets/readme/userstorysmall1.jpg" width=300>
 </p>
 
 ## Board Structure
@@ -115,7 +115,7 @@ These categories ensure that all aspects of the ZapTalk platform are addressed i
 
 ## Agile development methodology
 
-<img src="../zaptalk_frontend/src/assets/readme/userstoryboard1.jpg" width=600>
+<img src="./src/assets/readme/userstoryboard1.jpg" width=600>
 
 Development Methodology
 We employ a flexible development approach using GitHub issues and projects. Our process includes:
@@ -155,25 +155,25 @@ The initial planning phase for ZapTalk involved creating wireframes to visualize
 
 ## Wireframes
 ### Home
-<img src="../zaptalk_frontend/src/assets/readme/wireframehome.jpg" width=400>
+<img src="./src/assets/readme/wireframehome.jpg" width=400>
 
 ### Movies list
-<img src="../zaptalk_frontend/src/assets/readme/wireframemovies.jpg" width=400>
+<img src="./src/assets/readme/wireframemovies.jpg" width=400>
 
 ### Movie detail
-<img src="../zaptalk_frontend/src/assets/readme/wireframemoviedetail.jpg" width=400>
+<img src="./src/assets/readme/wireframemoviedetail.jpg" width=400>
 
 ### Feed
-<img src="../zaptalk_frontend/src/assets/readme/wireframefeed.jpg" width=400>
+<img src="./src/assets/readme/wireframefeed.jpg" width=400>
 
 ### Profiles
-<img src="../zaptalk_frontend/src/assets/readme/wireframeprofiles.jpg" width=400>
+<img src="./src/assets/readme/wireframeprofiles.jpg" width=400>
 
 ### Profile detail
-<img src="../zaptalk_frontend/src/assets/readme/wireframeprofiledetail.jpg" width=400>
+<img src="./src/assets/readme/wireframeprofiledetail.jpg" width=400>
 
 ### Profile edit
-<img src="../zaptalk_frontend/src/assets/readme/wireframeeditprofile.jpg" width=400>
+<img src="./src/assets/readme/wireframeeditprofile.jpg" width=400>
 
 ### Data models
 
@@ -213,8 +213,8 @@ For the h1 heading I used the font Merriweather for it's older and more elegant 
 ### Landing page with jumbotron and trending movies
 The landing page features an image and a problem this website solves for the user along with a trending section to entice the user to dig deeper into the site
 
-<img src="../zaptalk_frontend/src/assets/readme/featurejumbotron1.jpg" width=400>
-<img src="../zaptalk_frontend/src/assets/readme/featuretrendingnow1.jpg" 
+<img src="./src/assets/readme/featurejumbotron1.jpg" width=400>
+<img src="./src/assets/readme/featuretrendingnow1.jpg" 
 width=400>
 
 ### Registration form
@@ -222,21 +222,21 @@ User story AUTH-1
 
 The registration form enables a user to open a new account, by entering username, password and email. with validation on the input fields.
 
-<img src="../zaptalk_frontend/src/assets/readme/featureregister1.jpg" width=400>
+<img src="./src/assets/readme/featureregister1.jpg" width=400>
 
 ### Login form
 User story AUTH-2
 
 The login form enables users to login while also getting access to the registration form and ban appeals form
 
-<img src="../zaptalk_frontend/src/assets/readme/featurelogin1.jpg" width=400>
+<img src="./src/assets/readme/featurelogin1.jpg" width=400>
 
 ### Ban appeal form
 Userstory AUTH-9
 
 From the login you can find the ban appeal form which lets the user appeal for an un-ban to the superusers
 
-<img src="../zaptalk_frontend/src/assets/readme/featurebanappeal1.jpg" width=400>
+<img src="./src/assets/readme/featurebanappeal1.jpg" width=400>
 
 ### Ban page
 
@@ -244,9 +244,9 @@ User story ADMIN-1 ADMIN-2 ADMIN-3
 
 Inside the superusers ban link you can find a form to ban users, view a list of banned users and a list of all the ban appeals
 
-<img src="../zaptalk_frontend/src/assets/readme/featurebanusers1.jpg" width=400>
-<img src="../zaptalk_frontend/src/assets/readme/featureactivebans1.jpg" width=400>
-<img src="../zaptalk_frontend/src/assets/readme/featurebanappeals1.jpg" width=400>
+<img src="./src/assets/readme/featurebanusers1.jpg" width=400>
+<img src="./src/assets/readme/featureactivebans1.jpg" width=400>
+<img src="./src/assets/readme/featurebanappeals1.jpg" width=400>
 
 ### Edit profile page
 
@@ -254,28 +254,28 @@ Userstory AUTH-3 AUTH-4 AUTH-5 INTERACT-2 INTERACT-3
 
 In the edit profile page the user can find a way to edit their profile, delete their profile, and see their following list
 
-<img src="../zaptalk_frontend/src/assets/readme/featureeditprofile1.jpg" width=400>
-<img src="../zaptalk_frontend/src/assets/readme/featurefollowinglist1.jpg" width=400>
+<img src="./src/assets/readme/featureeditprofile1.jpg" width=400>
+<img src="./src/assets/readme/featurefollowinglist1.jpg" width=400>
 
 ### Navbar
 
 The navbar component contains links to Movies, Profiles, Feed. A notification bell and the users profile
 
-<img src="../zaptalk_frontend/src/assets/readme/featurenavbar1.jpg" width=400>
+<img src="./src/assets/readme/featurenavbar1.jpg" width=400>
 
 ### Notification dropdown
 User story FEED-3
 
 The notification bell turns red and shows the numbers of new notifications that are unread. The dropdown shows which users have followed or liked your comments
 
-<img src="../zaptalk_frontend/src/assets/readme/featurenotifications1.jpg" width=400>
+<img src="./src/assets/readme/featurenotifications1.jpg" width=400>
 
 ### User dropdown
 User story AUTH-2
 
 The user dropdown contains links to the users profile page, logout and for superusers the access to bans
 
-<img src="../zaptalk_frontend/src/assets/readme/featureprofiledropdown1.jpg" width=400>
+<img src="./src/assets/readme/featureprofiledropdown1.jpg" width=400>
 
 ### Movie list page
 
@@ -283,15 +283,15 @@ User story MOIVE-1
 
 The movielist page has a search and filter feature and displays all the movies in a grid with an added hover effect to easier navigate
 
-<img src="../zaptalk_frontend/src/assets/readme/featuremovielist1.jpg" width=400>
-<img src="../zaptalk_frontend/src/assets/readme/featuremoviefilters1.jpg" width=400>
+<img src="./src/assets/readme/featuremovielist1.jpg" width=400>
+<img src="./src/assets/readme/featuremoviefilters1.jpg" width=400>
 
 ### Movie detail page
 
 User stories MOVIE-2, MOVIE-3, MOVIE-4, MOVIE-5, MOVIE-6
 The movie detail page features the thumbnail of the movie along with a text description. It features the like functionality, along with a comment field and likes for comments
  
-<img src="../zaptalk_frontend/src/assets/readme/featuremoviethumbnail.jpg" width=400>
+<img src="./src/assets/readme/featuremoviethumbnail.jpg" width=400>
 
 ### Like 
 
@@ -299,7 +299,7 @@ User stories MOVIE-3, MOVIE-6
 
 The like feature can be found in the movie detail and when viewing comments
 
-<img src="../zaptalk_frontend/src/assets/readme/featurelike1.jpg" width=400>
+<img src="./src/assets/readme/featurelike1.jpg" width=400>
 
 ### Comments
 
@@ -307,8 +307,8 @@ User stories MOVIE-4, MOVIE-5, MOVIE-6
 
 The comment section is found inside a movie detail view and lets you write a comment, edit and delete your own comment, the superuser can delete everyones comments and you can also find and like other users comments
 
-<img src="../zaptalk_frontend/src/assets/readme/featurecomment1.jpg" width=400>
-<img src="../zaptalk_frontend/src/assets/readme/featureeditcomment1.jpg" width=400>
+<img src="./src/assets/readme/featurecomment1.jpg" width=400>
+<img src="./src/assets/readme/featureeditcomment1.jpg" width=400>
 
 ### Profile list
 
@@ -316,7 +316,7 @@ Userstory INTERACT-1
 
 The profile list can be found from the navbar and shows a list of all profiles and has a search functionality
 
-<img src="../zaptalk_frontend/src/assets/readme/featureprofiles1.jpg" width=400>
+<img src="./src/assets/readme/featureprofiles1.jpg" width=400>
 
 ### Profile detail
 
@@ -324,7 +324,7 @@ Userstories INTERACT-2
 
 The profile view lets you see a users avatar,bio, their number of followers and their karma, which is how many likes their comments have recieved, here you can follow/unfollow the profile and superusers can also delete a profile from this view.
 
-<img src="../zaptalk_frontend/src/assets/readme/featureprofiledetail1.jpg" width=400>
+<img src="./src/assets/readme/featureprofiledetail1.jpg" width=400>
 
 ### Feed
 
@@ -332,7 +332,7 @@ Userstories FEED-1, FEED-2
 
 In the feed page you'll find a feed from the users you follow, you'll see a list of movies they have either liked or commented on
 
-<img src="../zaptalk_frontend/src/assets/readme/featurefeed1.jpg" width=400>
+<img src="./src/assets/readme/featurefeed1.jpg" width=400>
 
 ## Planned features
 
@@ -349,19 +349,19 @@ In the feed page you'll find a feed from the users you follow, you'll see a list
 Here's the pages on a desktop view for you to get a quick overview on where the features are placed
 
 ### Homepage containing jumbotron and trending
-<img src="../zaptalk_frontend/src/assets/readme/homepage2.jpg" width=900>
+<img src="./src/assets/readme/homepage2.jpg" width=900>
 
 ### Movielist page with search filters
-<img src="../zaptalk_frontend/src/assets/readme/movielistpage1.jpg" width=900>
+<img src="./src/assets/readme/movielistpage1.jpg" width=900>
 
 ### Moviedetail page like/comments
-<img src="../zaptalk_frontend/src/assets/readme/moviedetailpage1.jpg" width=900>
+<img src="./src/assets/readme/moviedetailpage1.jpg" width=900>
 
 ### Profilelistpage with search
-<img src="../zaptalk_frontend/src/assets/readme/profilelistpage1.jpg" width=900>
+<img src="./src/assets/readme/profilelistpage1.jpg" width=900>
 
 ### Feedpage
-<img src="../zaptalk_frontend/src/assets/readme/feedpage1.jpg" width=900>
+<img src="./src/assets/readme/feedpage1.jpg" width=900>
 
 
 
@@ -527,14 +527,14 @@ https://jigsaw.w3.org/css-validator/
 
 All pages have been looked at with wc3 css validator
 
-<img src="../zaptalk_frontend/src/assets/readme/w3ccssvalidator.jpg" width=900>
+<img src="./src/assets/readme/w3ccssvalidator.jpg" width=900>
 
 ### ESLint JavaScript validator
 https://validatejavascript.com/
 
 All JavaScript files were validated using the ESLint JavaScript validator. 
 
-<img src="../zaptalk_frontend/src/assets/readme/eslintnoerror1.jpg" width=900>
+<img src="./src/assets/readme/eslintnoerror1.jpg" width=900>
 
 The following issues were identified and corrected:
 
@@ -547,7 +547,7 @@ Nested my inputs inside of labels to fix the formcontrol
 Removed unused functions and imports
 Added a cust confirmation box isntead of using alert window
 
-<img src="../zaptalk_frontend/src/assets/readme/eslinterror.jpg" width=900>
+<img src="./src/assets/readme/eslinterror.jpg" width=900>
 
 ESLint errors still showing is because the checker can't see that I've added linebreaks on the longer lines
 
@@ -555,12 +555,12 @@ ESLint errors still showing is because the checker can't see that I've added lin
 ### WAVE web accessability testing
 
 All the pages have been looked through with WAVE.
-<img src="../zaptalk_frontend/src/assets/readme/wavemovies.jpg" width=900>
+<img src="./src/assets/readme/wavemovies.jpg" width=900>
 
 The following issues were identified and corrected:
 Inputfields missing labels
 
-<img src="../zaptalk_frontend/src/assets/readme/wavealerts.jpg" width=900> 
+<img src="./src/assets/readme/wavealerts.jpg" width=600> 
 Most of the alerts are from Wave thinking I'm inputing the same lines mutiple times when I'm rendering moviecard.title for example.
 
 I've also got a noscript element alert, but decided to keep that to import the users they need to use Javascript to run the app
@@ -574,7 +574,7 @@ https://pagespeed.web.dev/
 The pages have been looked through with Pagespeedinsight and the largest contentful pain element is
 the use of PNG for my movies and homepage big images.
 
-<img src="../zaptalk_frontend/src/assets/readme/pagespeedinsights.jpg" width=900> 
+<img src="./src/assets/readme/pagespeedinsights.jpg" width=900> 
 
 In my movielist, since my api is using wikipedia links to display the images they're also displayed as .PNG
 
